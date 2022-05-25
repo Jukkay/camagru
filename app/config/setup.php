@@ -14,7 +14,7 @@ try {
 		`password` VARCHAR(255) NOT NULL,
 		`name` VARCHAR(255) DEFAULT username,
 		email VARCHAR(320) NOT NULL,
-		img VARCHAR(255) DEFAULT "../img/default.png",
+		img VARCHAR(255) DEFAULT "default.png",
 		validated BOOLEAN,
 		`admin` BOOLEAN,
 		joindate DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -37,7 +37,7 @@ try {
 		eid BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 		img VARCHAR(1024),
 		`uid` INT(10) UNSIGNED NOT NULL,
-		sticker INT(10) UNSIGNED,
+		sticker VARCHAR(1024),
 		PRIMARY KEY (eid)
 	);',
 		'DROP TABLE IF EXISTS comments;',

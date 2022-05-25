@@ -52,6 +52,9 @@ switch ($request) {
 	case '/getimage':
 		require '../getimage.php';
 		break;
+	case '/deleteimage':
+		require '../deleteimage.php';
+		break;
 	case '/upload':
 		require '../header.php';
 		require '../upload.php';
