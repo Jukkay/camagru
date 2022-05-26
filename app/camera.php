@@ -2,6 +2,8 @@
 
 	document.addEventListener('DOMContentLoaded', function () {
 		let start = document.getElementById('start');
+		let upload = document.getElementById('upload');
+		let imageInput = document.getElementById('image-input');
 		let video = document.getElementById('videoframe');
 		let canvas = document.getElementById('canvas');
 		let preview = document.getElementById('preview');
@@ -83,6 +85,27 @@
 			preview.classList.remove('is-hidden');
 		}
 
+		function previewUpload(baseImg) {
+			let context = canvas.getContext('2d');
+			console.log(baseImg);
+			canvas.width = baseImg.width;
+			canvas.height = baseImg.height;
+			context.drawImage(baseImg, 0, 0);
+
+			if (typeof sticker != "undefined" && sticker != null) {
+				let stickerImg = new Image();
+				stickerImg.onload = onload;
+				stickerImg.src = 'assets/stickers/' + sticker;
+				context.globalAlpha = 1; // can be used to change opacity
+				context.drawImage(stickerImg, 0, 0);
+			}
+			imageData = canvas.toDataURL();
+			console.log(imageData);
+			preview.classList.remove('is-hidden');
+			video.classList.add('is-hidden');
+			preview.setAttribute('src', imageData);
+			// canvasbuttons.classList.add('is-hidden');
+		}
 		function editImage(base) {
 			let context = canvas.getContext('2d');
 
@@ -103,7 +126,7 @@
 			preview.setAttribute('src', imageData);
 			video.classList.add('is-hidden');
 			preview.classList.remove('is-hidden');
-			canvasbuttons.classList.add('is-hidden');
+			// canvasbuttons.classList.add('is-hidden');
 		}
 		// Sends images to backend to be merged and saved
 		function saveImage() {
@@ -152,7 +175,6 @@
 				if(isNaN(height)) {
 					height = width / (4 / 3);
 				}
-				canvasbuttons.classList.add('is-hidden');
 				video.setAttribute('width', width);
 				video.setAttribute('height', height);
 				canvas.setAttribute('width', width);
@@ -189,7 +211,6 @@
 			let parent = e.target;
 			let action = parent.innerHTML;
 			parent = parent.parentNode.parentNode.parentNode;
-			// remove element here?
 			let img = parent.getElementsByTagName('img');
 			img = img[0].getAttribute('src');
 			img = img.substring(img.indexOf('=') + 1);
@@ -208,11 +229,30 @@
 			.then((stream) => {
 				video.srcObject = stream;
 				video.play();
-				canvasbuttons.classList.add('is-hidden');
+				// canvasbuttons.classList.add('is-hidden');
 			})
 			.catch(function (error) {
 				console.log(err);
 			});
+		});
+
+		upload.addEventListener('click', function () {
+			imageInput.click();
+		});
+
+		imageInput.addEventListener('change', function (event) {
+			if (event.target.files) {
+				let inputImg = event.target.files[0];
+				let fileReader = new FileReader();
+				fileReader.readAsDataURL(inputImg);
+				fileReader.addEventListener('load', function (event) {
+					let uploadImg = new Image();
+					uploadImg.src = event.target.result;
+					uploadImg.addEventListener('load', function (event) {
+						previewUpload(uploadImg);
+					})
+				});
+			}
 		});
 
 		close.addEventListener('click', function () {
@@ -223,7 +263,7 @@
 				tracks[i].stop();
 			}
 			video.srcObject = null;
-			canvasbuttons.classList.remove('is-hidden');
+			// canvasbuttons.classList.remove('is-hidden');
 			canvas.removeAttribute('height');
 			canvas.removeAttribute('width');
 			video.removeAttribute('height');
@@ -247,9 +287,9 @@
 		<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
 		<img id="preview" alt="Image preview" class="is-hidden">
 		<canvas id="canvas" class="is-hidden"></canvas>
-		<div class="pb-6 mb-6" id="canvasbuttons">
-			<p class="has-text-centered block">
-			<button class="button is-large" id="start">
+		<div class="pb-6 mb-6 has-text-centered" id="canvasbuttons">
+
+			<button class="button" id="start">
 				<span class="icon is-small">
 					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
     					<path fill="currentColor" d="M12,2A7,7 0 0,1 19,9A7,7 0 0,1 12,16A7,7 0 0,1 5,9A7,7 0 0,1 12,2M12,4A5,5 0 0,0 7,9A5,5 0 0,0 12,14A5,5 0 0,0 17,9A5,5 0 0,0 12,4M12,6A3,3 0 0,1 15,9A3,3 0 0,1 12,12A3,3 0 0,1 9,9A3,3 0 0,1 12,6M6,22A2,2 0 0,1 4,20C4,19.62 4.1,19.27 4.29,18.97L6.11,15.81C7.69,17.17 9.75,18 12,18C14.25,18 16.31,17.17 17.89,15.81L19.71,18.97C19.9,19.27 20,19.62 20,20A2,2 0 0,1 18,22H6Z" />
@@ -257,9 +297,9 @@
 				</span>
 				<span>Start webcam</span>
 			</button>
-			</p>
-			<p class="has-text-centered block">
-  			<button class="button is-large">
+
+			<input type="file" id="image-input" accept="image/png" hidden>
+  			<button class="button" id="upload">
 				<span class="icon is-small">
 					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
    						<path fill="currentColor" d="M22 8V13.81C21.39 13.46 20.72 13.22 20 13.09V8H4V18H13.09C13.04 18.33 13 18.66 13 19C13 19.34 13.04 19.67 13.09 20H4C2.9 20 2 19.11 2 18V6C2 4.89 2.89 4 4 4H10L12 6H20C21.1 6 22 6.89 22 8M16 18H18V22H20V18H22L19 15L16 18Z" />
@@ -267,7 +307,7 @@
 				</span>
 				<span>Upload picture</span>
 			</button>
-			</p>
+
 		</div>
 		<div class="columns" style="width: 100%;
         overflow-x: auto;
