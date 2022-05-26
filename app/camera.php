@@ -5,13 +5,14 @@
 		let upload = document.getElementById('upload');
 		let imageInput = document.getElementById('image-input');
 		let video = document.getElementById('videoframe');
+		let overlay = document.getElementById('overlay');
+		let overlaywrapper = document.getElementById('overlaywrapper');
 		let canvas = document.getElementById('canvas');
 		let preview = document.getElementById('preview');
 		let help1 = document.getElementById('help1');
 		let help2 = document.getElementById('help2');
 		let close = document.getElementById('close');
 		let snapshot = document.getElementById('snapshot');
-		let addstickers = document.getElementById('addstickers');
 		let save = document.getElementById('save');
 		let canvasbuttons = document.getElementById('canvasbuttons');
 		let photo = document.getElementById('photo');
@@ -24,6 +25,8 @@
 		let width = 1920;
         let height = 0;
 		let stickers = [];
+		let stickerData = [];
+		let sticker;
 		let imageData;
         var streaming = false;
 		let uid = <?php if(isset($_SESSION['uid']))
@@ -66,18 +69,50 @@
 				gallery.innerHTML = text;
 			});
 		}
-		// Add stickers to preview
-		function addStickers(context) {
-			if (stickers.length == 0)
-				return;
-			stickers.forEach(function(sticker) {
-				let stickerImg = new Image();
-				stickerImg.onload = onload;
-				stickerImg.src = 'assets/stickers/' + sticker;
-				context.globalAlpha = 1; // can be used to change opacity
-				context.drawImage(stickerImg, 0, 0);
-			})
+		// Add sticker to overlay
+		function addSticker(sticker) {
+			stickers.push(sticker);
+			let stickerImg = new Image();
+			stickerImg.onload = onload;
+			stickerImg.src = 'assets/stickers/' + sticker;
+			stickerImg.classList.add('overlayitem');
+			overlaywrapper.appendChild(stickerImg);
+			getStickerData(sticker);
+			snapshot.removeAttribute('disabled');
+			save.removeAttribute('disabled');
+			canvasbuttons.classList.remove('is-hidden');
+			help1.classList.add('is-hidden');
+			if (stickers.length == 1)
+				help2.classList.remove('is-hidden');
+			else
+				help2.classList.add('is-hidden');
 		}
+		// Adds sticker's image data to array for backend
+		function getStickerData(sticker) {
+			let context = canvas.getContext('2d');
+			let img = document.getElementById(sticker);
+			canvas.width = img.naturalWidth;
+			canvas.height = img.naturalHeight;
+			context.drawImage(img, 0, 0);
+			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
+			stickerData.push(imageData);
+		}
+		// Draw stickers to canvas
+		// function mergeStickers(context) {
+		// 	if (stickers.length == 0)
+		// 		return;
+		// 	stickers.forEach(function(sticker) {
+		// 		let stickerImg = new Image();
+		// 		stickerImg.onload = onload;
+		// 		stickerImg.src = 'assets/stickers/' + sticker;
+		// 		context.globalAlpha = 1; // can be used to change opacity
+		// 		context.drawImage(stickerImg, 0, 0);
+		// 	})
+		// 	// empty array and overlay
+		// 	stickers.length = 0;
+		// 	overlaywrapper.innerHTML = '';
+
+		// }
 
 		// Renders image to preview
 		function previewImage() {
@@ -89,42 +124,33 @@
 			canvas.width = width;
 			canvas.height = height;
 			context.drawImage(video, 0, 0, width, height);
-			addStickers(context);
 			imageData = canvas.toDataURL();
-
 			preview.setAttribute('src', imageData);
 			video.classList.add('is-hidden');
 			preview.classList.remove('is-hidden');
 		}
-
+		// Renders uploaded image to preview
 		function previewUpload(baseImg) {
 			let context = canvas.getContext('2d');
-			console.log(baseImg);
 			canvas.width = baseImg.width;
 			canvas.height = baseImg.height;
 			context.drawImage(baseImg, 0, 0);
-			addStickers(context);
 			imageData = canvas.toDataURL();
-			console.log(imageData);
 			preview.classList.remove('is-hidden');
 			video.classList.add('is-hidden');
 			preview.setAttribute('src', imageData);
-			// canvasbuttons.classList.add('is-hidden');
 		}
+		// Renders selected image from drafts to preview
 		function editImage(base) {
 			let context = canvas.getContext('2d');
-
 			let baseImg = document.getElementById(base);
 			canvas.width = baseImg.naturalWidth;
 			canvas.height = baseImg.naturalHeight;
 			context.drawImage(baseImg, 0, 0);
-			addStickers(context);
 			imageData = canvas.toDataURL();
-
 			preview.setAttribute('src', imageData);
 			video.classList.add('is-hidden');
 			preview.classList.remove('is-hidden');
-			// canvasbuttons.classList.add('is-hidden');
 		}
 		// Sends images to backend to be merged and saved
 		function saveImage() {
@@ -132,9 +158,10 @@
 				return;
 			}
 			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
+			console.log(stickerData);
 			var formData = new FormData();
 			formData.append('img', imageData);
-			formData.append('stickers', stickers);
+			formData.append('stickers[]', stickerData);
 			formData.append('uid', uid);
 			$request = new Request(
 				'/saveimage', {
@@ -144,6 +171,9 @@
 			fetch($request)
 				.then(function(response) {
 					getUserImages(uid);
+				})
+				.catch(function(error) {
+					console.log(error);
 				});
 		}
 
@@ -177,50 +207,27 @@
 				video.setAttribute('height', height);
 				canvas.setAttribute('width', width);
 				canvas.setAttribute('height', height);
+				overlay.setAttribute('width', width);
+				overlay.setAttribute('height', height);
 				streaming = true;
 			}
 		}, false);
 
 		// Event listeners for stickers
 		star.addEventListener('click', function () {
-			stickers.push('216.png');
-			snapshot.removeAttribute('disabled');
-			save.removeAttribute('disabled');
-			help1.classList.add('is-hidden');
-			help2.classList.remove('is-hidden');
-			canvasbuttons.classList.remove('is-hidden');
+			addSticker('216.png');
 		});
 		cat.addEventListener('click', function () {
-			stickers.push('cat-g9264252fd_640.png');
-			snapshot.removeAttribute('disabled');
-			save.removeAttribute('disabled');
-			help1.classList.add('is-hidden');
-			help2.classList.remove('is-hidden');
-			canvasbuttons.classList.remove('is-hidden');
+			addSticker('cat-g9264252fd_640.png');
 		});
 		bus.addEventListener('click', function () {
-			stickers.push('clipart-g4b3e1b4ae_640.png');
-			snapshot.removeAttribute('disabled');
-			save.removeAttribute('disabled');
-			help1.classList.add('is-hidden');
-			help2.classList.remove('is-hidden');
-			canvasbuttons.classList.remove('is-hidden');
+			addSticker('clipart-g4b3e1b4ae_640.png');
 		});
 		frenchie.addEventListener('click', function () {
-			stickers.push('french-bulldog-gc086eb3d9_640.png');
-			snapshot.removeAttribute('disabled');
-			save.removeAttribute('disabled');
-			help1.classList.add('is-hidden');
-			help2.classList.remove('is-hidden');
-			canvasbuttons.classList.remove('is-hidden');
+			addSticker('french-bulldog-gc086eb3d9_640.png');
 		});
 		mexican.addEventListener('click', function () {
-			stickers.push('man-gdf72c5265_640.png');
-			snapshot.removeAttribute('disabled');
-			save.removeAttribute('disabled');
-			help1.classList.add('is-hidden');
-			help2.classList.remove('is-hidden');
-			canvasbuttons.classList.remove('is-hidden');
+			addSticker('man-gdf72c5265_640.png');
 		});
 
 		// Gallery event listener
@@ -248,15 +255,19 @@
 				video.srcObject = stream;
 				video.play();
 				help2.classList.add('is-hidden');
+				preview.classList.add('is-hidden');
 				snapshot.removeAttribute('disabled');
+				overlaywrapper.classList.remove('is-hidden');
+				video.classList.remove('is-hidden');
 			})
 			.catch(function (error) {
-				console.log(err);
+				console.log(error);
 			});
 		});
 
 		upload.addEventListener('click', function () {
 			help2.classList.add('is-hidden');
+			overlaywrapper.classList.remove('is-hidden');
 			imageInput.click();
 		});
 
@@ -302,9 +313,27 @@
 
 	});
 </script>
+<style type="text/css">
+	.overlay {
+		position: absolute;
+	}
+	.overlaywrapper {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.overlayitem {
+		position: absolute;
+		width: 200px;
+	}
+
+</style>
 <div class="columns">
 	<div class="column is-three-quarters">
-		<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
+		<div id="overlay">
+			<div id="overlaywrapper" class="is-hidden"></div>
+			<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
+		</div>
 		<img id="preview" alt="Image preview" class="is-hidden">
 		<canvas id="canvas" class="is-hidden"></canvas>
 		<p id="help1" class="title has-text-centered mb-6">1.  Select one or more stickers below</p>
@@ -336,6 +365,14 @@
 				</span>
 				<span>Upload picture</span>
 			</button>
+			<button class="button" id="snapshot">
+				<span class="icon is-small">
+					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    					<path fill="currentColor" d="M13.73,15L9.83,21.76C10.53,21.91 11.25,22 12,22C14.4,22 16.6,21.15 18.32,19.75L14.66,13.4M2.46,15C3.38,17.92 5.61,20.26 8.45,21.34L12.12,15M8.54,12L4.64,5.25C3,7 2,9.39 2,12C2,12.68 2.07,13.35 2.2,14H9.69M21.8,10H14.31L14.6,10.5L19.36,18.75C21,16.97 22,14.6 22,12C22,11.31 21.93,10.64 21.8,10M21.54,9C20.62,6.07 18.39,3.74 15.55,2.66L11.88,9M9.4,10.5L14.17,2.24C13.47,2.09 12.75,2 12,2C9.6,2 7.4,2.84 5.68,4.25L9.34,10.6L9.4,10.5Z" />
+					</svg>
+				</span>
+				<span>Capture picture</span>
+			</button>
 		</div>
 		<h2 class="subtitle">Select stickers:</h2>
 		<div class="columns" style="width: 100%;
@@ -344,7 +381,7 @@
         white-space: nowrap;">
 			<div class="column">
 				<figure class="image is-128x128">
-					<img src="assets/stickers/216.png">
+					<img src="assets/stickers/216.png" id="216.png">
 				</figure>
 				<div class="buttons is-centered">
 					<button id="star" class="button is-primary is-small mt-3">Select</button>
@@ -352,7 +389,7 @@
 			</div>
 			<div class="column">
 				<figure class="image is-128x128">
-					<img src="assets/stickers/cat-g9264252fd_640.png">
+					<img src="assets/stickers/cat-g9264252fd_640.png" id="cat-g9264252fd_640.png">
 				</figure>
 				<div class="buttons is-centered">
 					<button id="cat" class="button is-primary is-small mt-3">Select</button>
@@ -360,7 +397,7 @@
 			</div>
 			<div class="column">
 				<figure class="image is-128x128">
-					<img src="assets/stickers/clipart-g4b3e1b4ae_640.png">
+					<img src="assets/stickers/clipart-g4b3e1b4ae_640.png" id="clipart-g4b3e1b4ae_640.png">
 				</figure>
 				<div class="buttons is-centered">
 					<button id="bus" class="button is-primary is-small mt-3">Select</button>
@@ -368,7 +405,7 @@
 			</div>
 			<div class="column">
 				<figure class="image is-128x128">
-					<img src="assets/stickers/french-bulldog-gc086eb3d9_640.png">
+					<img src="assets/stickers/french-bulldog-gc086eb3d9_640.png" id="french-bulldog-gc086eb3d9_640.png">
 				</figure>
 				<div class="buttons is-centered">
 					<button id="frenchie" class="button is-primary is-small mt-3">Select</button>
@@ -376,7 +413,7 @@
 			</div>
 			<div class="column">
 				<figure class="image is-128x128">
-					<img src="assets/stickers/man-gdf72c5265_640.png">
+					<img src="assets/stickers/man-gdf72c5265_640.png" id="man-gdf72c5265_640.png">
 				</figure>
 				<div class="buttons is-centered">
 					<button id="mexican" class="button is-primary is-small mt-3">Select</button>
@@ -384,12 +421,6 @@
 			</div>
 		</div>
 		<div class="field is-grouped">
-			<p class="control">
-				<button class="button" id="addstickers" disabled>Add selected stickers</button>
-			</p>
-			<p class="control">
-				<button class="button" id="snapshot" disabled>Take picture</button>
-			</p>
 			<p class="control">
 				<button class="button" id="save" disabled>Save picture</button>
 			</p>

@@ -10,9 +10,13 @@ try {
 	$filename = uniqid(rand(), true) . '.png';
 	$path = "../img/";
 	$base = imagecreatefromstring($base);
-	foreach($_POST['stickers'] as $sticker) {
-		$sticker = imagecreatefrompng($sticker);
-		imagecopy($base, $sticker, 0, 0, 0, 0, $s_size[0], $s_size[1]);
+	$stickers = $_POST['stickers'];
+	foreach($stickers as $sticker) {
+		$sticker = base64_decode($sticker);
+		$sticker = imagecreatefromstring($sticker);
+		$s_width = imagesx($sticker);
+		$s_height = imagesx($sticker);
+		imagecopy($base, $sticker, 0, 0, 0, 0, $s_width, $s_height);
 		imagedestroy($sticker);
 	}
 
