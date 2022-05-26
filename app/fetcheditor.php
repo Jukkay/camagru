@@ -3,7 +3,7 @@ require_once "classes/dbh.class.php";
 
 if (!isset($_GET['uid']))
 	return "UID NOT SET!!";
-
+echo '<h2 class="subtitle">Drafts</h2>';
 $dbh = new Dbh;
 $pdo = $dbh->connect();
 

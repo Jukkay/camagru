@@ -3,27 +3,26 @@ session_start();
 require_once "classes/dbh.class.php";
 
 try {
-	if (empty($_POST['sticker']) || empty($_POST['img']) || $_POST['uid'] == '0' || $_POST['uid'] != $_SESSION['uid'])
+	if (empty($_POST['stickers']) || empty($_POST['img']) || $_POST['uid'] == '0' || $_POST['uid'] != $_SESSION['uid'])
 		return;
 	$base = base64_decode($_POST['img']);
-	$sticker = '../public/assets/stickers/' . $_POST['sticker'];
-	$s_size = getimagesize($sticker);
 	// $b_size = getimagesizefromstring($base);
 	$filename = uniqid(rand(), true) . '.png';
 	$path = "../img/";
 	$base = imagecreatefromstring($base);
-	$sticker = imagecreatefrompng($sticker);
+	foreach($_POST['stickers'] as $sticker) {
+		$sticker = imagecreatefrompng($sticker);
+		imagecopy($base, $sticker, 0, 0, 0, 0, $s_size[0], $s_size[1]);
+		imagedestroy($sticker);
+	}
 
-	imagecopy($base, $sticker, 0, 0, 0, 0, $s_size[0], $s_size[1]);
 	imagepng($base, $path . $filename);
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
-	$statement = $pdo->prepare("INSERT INTO editor (img, `uid`, sticker) VALUES ( ?, ?, ?);");
-	$statement->execute([$filename, $_POST['uid'], $_POST['sticker']]);
-
+	$statement = $pdo->prepare("INSERT INTO editor (img, `uid`) VALUES ( ?, ?);");
+	$statement->execute([$filename, $_POST['uid']]);
 	imagedestroy($base);
-	imagedestroy($sticker);
 }
 catch(Exception $e) {
 	echo 'Error: ' .$e->getMessage();
