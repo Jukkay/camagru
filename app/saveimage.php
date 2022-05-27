@@ -11,7 +11,8 @@ try {
 	$base = imagecreatefromstring($base);
 	$stickers = $_POST['stickers'];
 	foreach($stickers as $sticker) {
-		$sticker = base64_decode($sticker);
+		$sticker = explode(',', $sticker);
+		$sticker = base64_decode($sticker[0]);
 		$sticker = imagecreatefromstring($sticker);
 		$s_width = imagesx($sticker);
 		$s_height = imagesy($sticker);

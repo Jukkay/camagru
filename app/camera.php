@@ -34,6 +34,8 @@
 		let stickerWidth;
 		let imageData;
         var streaming = false;
+		let mouseDown = false;
+		let mouse;
 		let uid = <?php if(isset($_SESSION['uid']))
 							echo $_SESSION['uid'];
 						else
@@ -81,16 +83,16 @@
 			stickerImg.onload = onload;
 			stickerImg.src = 'assets/stickers/' + sticker;
 			stickerImg.setAttribute('id', 'overlay' + sticker);
+			stickerImg.setAttribute('draggable', 'true');
 			stickerImg.classList.add('overlayitem');
 			stickerImg.style.position = 'absolute';
-			console.log(stickerData.length);
-			console.log('video width ' + video.width);
 			if (stickerData.length * 50 + 200 > canvas.width)
 				stickerImg.style.left = '20px';
 			else
 				stickerImg.style.left =  stickerData.length * 50 + 'px';
 			stickerImg.style.top = '20px';
 			overlaywrapper.appendChild(stickerImg);
+
 			snapshot.removeAttribute('disabled');
 			save.removeAttribute('disabled');
 			canvasbuttons.classList.remove('is-hidden');
@@ -233,8 +235,8 @@
 				video.setAttribute('height', height);
 				canvas.setAttribute('width', width);
 				canvas.setAttribute('height', height);
-				overlay.setAttribute('width', width);
-				overlay.setAttribute('height', height);
+				overlaywrapper.setAttribute('width', width);
+				overlaywrapper.setAttribute('height', height);
 				streaming = true;
 			}
 		}, false);
@@ -372,14 +374,31 @@
 			saveImage();
 		});
 
+		// Drag and drop stickers
+		function moveMouse(event) {
+			mouse.style.left = event.offsetX + 'px';
+			mouse.style.top = event.offsetY + 'px';
+		}
+		
+		overlaywrapper.addEventListener('mousedown', event => {
+			mouse = document.getElementById(event.target.id);
+			mouseDown = true;
+			document.addEventListener('mousemove', moveMouse, true);
+		});
+
+		document.addEventListener('mouseup', event => {
+			if (mouseDown === true) {
+				document.removeEventListener('mousemove', moveMouse, true);
+				mouseDown = false;
+			}
+		});
+
 		getUserImages(uid);
 
 	});
 </script>
 <style type="text/css">
-	/* .overlay {
-		position: absolute;
-	} */
+
 	.overlaywrapper {
 		position: relative;
 		width: 100%;
@@ -414,11 +433,12 @@
 </style>
 <div class="columns">
 	<div class="column is-three-quarters">
-		<div id="overlay" class="overlay">
-			<div id="overlaywrapper" class="overlaywrapper is-hidden"></div>
-			<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
+		<div id="overlay">
+			<div id="overlaywrapper" class="overlaywrapper is-hidden">
+				<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
+			</div>
+			<img id="preview" alt="Image preview" class="is-hidden">
 		</div>
-		<img id="preview" alt="Image preview" class="is-hidden">
 		<canvas id="canvas" class="is-hidden"></canvas>
 		<p id="help1" class="title has-text-centered mb-6">1.  Select one or more stickers below</p>
 		<p id="help2" class="title has-text-centered mb-6 is-hidden">2.  Start webcam, upload a file, or select one of your drafts</p>
