@@ -18,15 +18,20 @@
 		let photo = document.getElementById('photo');
 		let gallery = document.getElementById('gallery');
 		let star = document.getElementById('star');
+		let removestar = document.getElementById('removestar');
 		let cat = document.getElementById('cat');
+		let removecat = document.getElementById('removecat');
 		let bus = document.getElementById('bus');
+		let removebus = document.getElementById('removebus');
 		let frenchie = document.getElementById('frenchie');
+		let removefrenchie = document.getElementById('removefrenchie');
 		let mexican = document.getElementById('mexican');
+		let removemexican = document.getElementById('removemexican');
 		let width = 1920;
         let height = 0;
-		let stickers = [];
 		let stickerData = [];
 		let sticker;
+		let stickerWidth;
 		let imageData;
         var streaming = false;
 		let uid = <?php if(isset($_SESSION['uid']))
@@ -70,23 +75,40 @@
 			});
 		}
 		// Add sticker to overlay
-		function addSticker(sticker, location) {
-			stickers.push(sticker);
+		function addSticker(sticker) {
+			getStickerData(sticker);
 			let stickerImg = new Image();
 			stickerImg.onload = onload;
 			stickerImg.src = 'assets/stickers/' + sticker;
+			stickerImg.setAttribute('id', 'overlay' + sticker);
 			stickerImg.classList.add('overlayitem');
-			stickerImg.classList.add(location);
+			stickerImg.style.position = 'absolute';
+			console.log(stickerData.length);
+			console.log('video width ' + video.width);
+			if (stickerData.length * 50 + 200 > canvas.width)
+				stickerImg.style.left = '20px';
+			else
+				stickerImg.style.left =  stickerData.length * 50 + 'px';
+			stickerImg.style.top = '20px';
 			overlaywrapper.appendChild(stickerImg);
-			getStickerData(sticker);
 			snapshot.removeAttribute('disabled');
 			save.removeAttribute('disabled');
 			canvasbuttons.classList.remove('is-hidden');
 			help1.classList.add('is-hidden');
-			if (stickers.length == 1)
+			if (stickerData.length == 1)
 				help2.classList.remove('is-hidden');
 			else
 				help2.classList.add('is-hidden');
+		}
+		// Remove sticker from overlay
+		function removeSticker(sticker) {
+
+			let deleteItem = document.getElementById('overlay' + sticker);
+			deleteItem.remove();
+			stickerData = stickerData.filter((item) => item[1] !== sticker);
+			console.log(stickerData);
+
+
 		}
 		// Adds sticker's image data to array for backend
 		function getStickerData(sticker) {
@@ -96,7 +118,7 @@
 			canvas.height = img.naturalHeight;
 			context.drawImage(img, 0, 0);
 			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
-			stickerData.push(imageData);
+			stickerData.push([imageData, sticker]);
 		}
 		// Draw stickers to canvas
 		// function mergeStickers(context) {
@@ -135,7 +157,7 @@
 			let context = canvas.getContext('2d');
 			canvas.width = baseImg.width;
 			canvas.height = baseImg.height;
-			context.drawImage(baseImg, 0, 0);
+			context.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height);
 			imageData = canvas.toDataURL();
 			preview.classList.remove('is-hidden');
 			video.classList.add('is-hidden');
@@ -162,10 +184,11 @@
 			var formData = new FormData();
 			formData.append('img', imageData);
 			stickerData.forEach(element => {
+				console.log(element[0]);
+				console.log(element[1]);
 				formData.append('stickers[]', element);
 			});
 			formData.append('uid', uid);
-			console.log(formData.getAll('stickers[]'));
 			$request = new Request(
 				'/saveimage', {
 				method: 'POST',
@@ -218,20 +241,57 @@
 
 		// Event listeners for stickers
 		star.addEventListener('click', function () {
-			addSticker('216.png', 'topleft');
+			star.classList.add('is-hidden');
+			removestar.classList.remove('is-hidden');
+			addSticker('216.png');
 		});
 		cat.addEventListener('click', function () {
-			addSticker('cat-g9264252fd_640.png', 'topright');
+			cat.classList.add('is-hidden');
+			removecat.classList.remove('is-hidden');
+			addSticker('cat-g9264252fd_640.png');
 		});
 		bus.addEventListener('click', function () {
-			addSticker('clipart-g4b3e1b4ae_640.png', 'bottomleft');
+			bus.classList.add('is-hidden');
+			removebus.classList.remove('is-hidden');
+			addSticker('clipart-g4b3e1b4ae_640.png');
 		});
 		frenchie.addEventListener('click', function () {
-			addSticker('french-bulldog-gc086eb3d9_640.png', 'bottomright');
+			frenchie.classList.add('is-hidden');
+			removefrenchie.classList.remove('is-hidden');
+			addSticker('french-bulldog-gc086eb3d9_640.png');
 		});
 		mexican.addEventListener('click', function () {
-			addSticker('man-gdf72c5265_640.png', 'middleleft');
+			mexican.classList.add('is-hidden');
+			removemexican.classList.remove('is-hidden');
+			addSticker('man-gdf72c5265_640.png');
 		});
+		removestar.addEventListener('click', function () {
+			removestar.classList.add('is-hidden');
+			star.classList.remove('is-hidden');
+			removeSticker('216.png');
+		});
+		removecat.addEventListener('click', function () {
+			removecat.classList.add('is-hidden');
+			cat.classList.remove('is-hidden');
+			removeSticker('cat-g9264252fd_640.png');
+		});
+		removebus.addEventListener('click', function () {
+			removebus.classList.add('is-hidden');
+			bus.classList.remove('is-hidden');
+			removeSticker('clipart-g4b3e1b4ae_640.png');
+		});
+		removefrenchie.addEventListener('click', function () {
+			removefrenchie.classList.add('is-hidden');
+			frenchie.classList.remove('is-hidden');
+			removeSticker('french-bulldog-gc086eb3d9_640.png');
+		});
+		removemexican.addEventListener('click', function () {
+			removemexican.classList.add('is-hidden');
+			mexican.classList.remove('is-hidden');
+			removeSticker('man-gdf72c5265_640.png');
+		});
+
+
 
 		// Gallery event listener
 
@@ -317,9 +377,9 @@
 	});
 </script>
 <style type="text/css">
-	.overlay {
+	/* .overlay {
 		position: absolute;
-	}
+	} */
 	.overlaywrapper {
 		position: relative;
 		width: 100%;
@@ -329,7 +389,7 @@
 		position: absolute;
 		width: 200px;
 	}
-	.overlay .topleft {
+	/* .overlay .topleft {
 		position: absolute;
 		top: 20px;
 		left: 20px;
@@ -349,13 +409,13 @@
 	.overlay .bottonleft {
 		bottom: 200px;
 		left: 20px;
-	}
+	} */
 
 </style>
 <div class="columns">
 	<div class="column is-three-quarters">
-		<div id="overlay">
-			<div id="overlaywrapper" class="is-hidden"></div>
+		<div id="overlay" class="overlay">
+			<div id="overlaywrapper" class="overlaywrapper is-hidden"></div>
 			<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
 		</div>
 		<img id="preview" alt="Image preview" class="is-hidden">
@@ -409,6 +469,7 @@
 				</figure>
 				<div class="buttons is-centered">
 					<button id="star" class="button is-primary is-small mt-3">Select</button>
+					<button id="removestar" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
 			<div class="column">
@@ -417,6 +478,7 @@
 				</figure>
 				<div class="buttons is-centered">
 					<button id="cat" class="button is-primary is-small mt-3">Select</button>
+					<button id="removecat" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
 			<div class="column">
@@ -425,6 +487,7 @@
 				</figure>
 				<div class="buttons is-centered">
 					<button id="bus" class="button is-primary is-small mt-3">Select</button>
+					<button id="removebus" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
 			<div class="column">
@@ -433,6 +496,7 @@
 				</figure>
 				<div class="buttons is-centered">
 					<button id="frenchie" class="button is-primary is-small mt-3">Select</button>
+					<button id="removefrenchie" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
 			<div class="column">
@@ -441,6 +505,7 @@
 				</figure>
 				<div class="buttons is-centered">
 					<button id="mexican" class="button is-primary is-small mt-3">Select</button>
+					<button id="removemexican" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
 		</div>
