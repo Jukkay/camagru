@@ -70,12 +70,13 @@
 			});
 		}
 		// Add sticker to overlay
-		function addSticker(sticker) {
+		function addSticker(sticker, location) {
 			stickers.push(sticker);
 			let stickerImg = new Image();
 			stickerImg.onload = onload;
 			stickerImg.src = 'assets/stickers/' + sticker;
 			stickerImg.classList.add('overlayitem');
+			stickerImg.classList.add(location);
 			overlaywrapper.appendChild(stickerImg);
 			getStickerData(sticker);
 			snapshot.removeAttribute('disabled');
@@ -158,11 +159,13 @@
 				return;
 			}
 			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
-			console.log(stickerData);
 			var formData = new FormData();
 			formData.append('img', imageData);
-			formData.append('stickers[]', stickerData);
+			stickerData.forEach(element => {
+				formData.append('stickers[]', element);
+			});
 			formData.append('uid', uid);
+			console.log(formData.getAll('stickers[]'));
 			$request = new Request(
 				'/saveimage', {
 				method: 'POST',
@@ -215,19 +218,19 @@
 
 		// Event listeners for stickers
 		star.addEventListener('click', function () {
-			addSticker('216.png');
+			addSticker('216.png', 'topleft');
 		});
 		cat.addEventListener('click', function () {
-			addSticker('cat-g9264252fd_640.png');
+			addSticker('cat-g9264252fd_640.png', 'topright');
 		});
 		bus.addEventListener('click', function () {
-			addSticker('clipart-g4b3e1b4ae_640.png');
+			addSticker('clipart-g4b3e1b4ae_640.png', 'bottomleft');
 		});
 		frenchie.addEventListener('click', function () {
-			addSticker('french-bulldog-gc086eb3d9_640.png');
+			addSticker('french-bulldog-gc086eb3d9_640.png', 'bottomright');
 		});
 		mexican.addEventListener('click', function () {
-			addSticker('man-gdf72c5265_640.png');
+			addSticker('man-gdf72c5265_640.png', 'middleleft');
 		});
 
 		// Gallery event listener
@@ -325,6 +328,27 @@
 	.overlayitem {
 		position: absolute;
 		width: 200px;
+	}
+	.overlay .topleft {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+	}
+	.overlay .topright {
+		top: 20px;
+		right: 20px;
+	}
+	.overlay .bottomright {
+		bottom: 20px;
+		right: 20px;
+	}
+	.overlay .bottonleft {
+		bottom: 20px;
+		left: 20px;
+	}
+	.overlay .bottonleft {
+		bottom: 200px;
+		left: 20px;
 	}
 
 </style>

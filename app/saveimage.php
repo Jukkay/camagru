@@ -6,7 +6,6 @@ try {
 	if (empty($_POST['stickers']) || empty($_POST['img']) || $_POST['uid'] == '0' || $_POST['uid'] != $_SESSION['uid'])
 		return;
 	$base = base64_decode($_POST['img']);
-	// $b_size = getimagesizefromstring($base);
 	$filename = uniqid(rand(), true) . '.png';
 	$path = "../img/";
 	$base = imagecreatefromstring($base);
@@ -15,11 +14,10 @@ try {
 		$sticker = base64_decode($sticker);
 		$sticker = imagecreatefromstring($sticker);
 		$s_width = imagesx($sticker);
-		$s_height = imagesx($sticker);
+		$s_height = imagesy($sticker);
 		imagecopy($base, $sticker, 0, 0, 0, 0, $s_width, $s_height);
 		imagedestroy($sticker);
 	}
-
 	imagepng($base, $path . $filename);
 
 	$dbh = new Dbh;
