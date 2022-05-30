@@ -34,8 +34,6 @@
 		let stickerWidth;
 		let imageData;
         var streaming = false;
-		let mouseDown = false;
-		let mouse;
 		let uid = <?php if(isset($_SESSION['uid']))
 							echo $_SESSION['uid'];
 						else
@@ -375,23 +373,42 @@
 		});
 
 		// Drag and drop stickers
-		function moveMouse(event) {
-			mouse.style.left = event.offsetX + 'px';
-			mouse.style.top = event.offsetY + 'px';
-		}
-		
-		overlaywrapper.addEventListener('mousedown', event => {
-			mouse = document.getElementById(event.target.id);
+
+		let mouseDown = false;
+		let pointer;
+		let boundX;
+		let boundY;
+		let pointerPositionLeft;
+		let pointerPositionTop;
+
+		overlaywrapper.addEventListener('pointerdown', event => {
 			mouseDown = true;
-			document.addEventListener('mousemove', moveMouse, true);
+			if (!event.target.classList.contains('overlayitem'))
+				return;
+			pointer = document.getElementById(event.target.id);
+			pointer.ondragstart = () => false ;
+			boundX = event.clientX - pointer.getBoundingClientRect().left;
+			boundY = event.clientY - pointer.getBoundingClientRect().top;
 		});
 
-		document.addEventListener('mouseup', event => {
-			if (mouseDown === true) {
-				document.removeEventListener('mousemove', moveMouse, true);
-				mouseDown = false;
-			}
+		overlaywrapper.addEventListener('pointermove', event => {
+			console.log(event.offsetX)
+			if (!mouseDown || event.offsetX < 1 || event.offsetY < 1)
+				return;
+			rightEdge = event.clientX - overlaywrapper.offsetParent.offsetLeft - boundX + pointer.offsetWidth;
+			bottomEdge = event.clientY - overlaywrapper.offsetTop - boundY + pointer.offsetHeight;
+			if (rightEdge > overlaywrapper.offsetWidth || bottomEdge > overlaywrapper.offsetHeight)
+				return;
+			pointerPositionLeft = event.clientX - overlaywrapper.offsetParent.offsetLeft - boundX;
+			pointerPositionTop = event.clientY - overlaywrapper.offsetTop - boundY;
+			pointer.style.left = pointerPositionLeft < 0 ? `0px` : `${pointerPositionLeft}px`;
+			pointer.style.top = pointerPositionTop < 0 ? `0px` : `${pointerPositionTop}px`;
 		});
+
+		document.addEventListener('pointerup', event => {
+				mouseDown = false;
+		});
+
 
 		getUserImages(uid);
 
@@ -401,6 +418,8 @@
 
 	.overlaywrapper {
 		position: relative;
+		overflow: hidden;
+		touch-action: none;
 		width: 100%;
 		height: 100%;
 	}
