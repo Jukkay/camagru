@@ -46,6 +46,9 @@ switch ($request) {
 	case '/fetcheditor':
 		require '../fetcheditor.php';
 		break;
+	case '/fetchfeed':
+		require '../fetchfeed.php';
+		break;
 	case '/saveimage':
 		require '../saveimage.php';
 		break;
