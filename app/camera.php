@@ -46,15 +46,6 @@
                             		height: { ideal: 1080 }
 									}};
 		let mediaDevices = navigator.mediaDevices;
-		// Clears canvas
-		// function clearphoto() {
-		// 	let context = canvas.getContext('2d');
-		// 	context.fillStyle = "#AAA";
-		// 	context.fillRect(0, 0, canvas.width, canvas.height);
-		// 	let imageData = canvas.toDataURL();
-		// 	photo.setAttribute('src', imageData);
-		// }
-		// Downloads users saved images
 
 		if (uid == 0) {
 			alert('Please, login first.');
@@ -83,7 +74,6 @@
 			stickerImg.setAttribute('id', 'overlay' + sticker);
 			stickerImg.setAttribute('draggable', 'true');
 			stickerImg.classList.add('overlayitem');
-			stickerImg.style.position = 'absolute';
 			if (stickerData.length * 50 + 200 > canvas.width)
 				stickerImg.style.left = '20px';
 			else
@@ -100,16 +90,15 @@
 			else
 				help2.classList.add('is-hidden');
 		}
+
 		// Remove sticker from overlay
 		function removeSticker(sticker) {
 
 			let deleteItem = document.getElementById('overlay' + sticker);
 			deleteItem.remove();
 			stickerData = stickerData.filter((item) => item[1] !== sticker);
-			console.log(stickerData);
-
-
 		}
+
 		// Adds sticker's image data to array for backend
 		function getStickerData(sticker) {
 			let context = canvas.getContext('2d');
@@ -118,24 +107,8 @@
 			canvas.height = img.naturalHeight;
 			context.drawImage(img, 0, 0);
 			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
-			stickerData.push([imageData, sticker]);
+			stickerData.push([imageData, sticker, '', '', img.naturalWidth, img.naturalHeight]);
 		}
-		// Draw stickers to canvas
-		// function mergeStickers(context) {
-		// 	if (stickers.length == 0)
-		// 		return;
-		// 	stickers.forEach(function(sticker) {
-		// 		let stickerImg = new Image();
-		// 		stickerImg.onload = onload;
-		// 		stickerImg.src = 'assets/stickers/' + sticker;
-		// 		context.globalAlpha = 1; // can be used to change opacity
-		// 		context.drawImage(stickerImg, 0, 0);
-		// 	})
-		// 	// empty array and overlay
-		// 	stickers.length = 0;
-		// 	overlaywrapper.innerHTML = '';
-
-		// }
 
 		// Renders image to preview
 		function previewImage() {
@@ -152,6 +125,7 @@
 			video.classList.add('is-hidden');
 			preview.classList.remove('is-hidden');
 		}
+
 		// Renders uploaded image to preview
 		function previewUpload(baseImg) {
 			let context = canvas.getContext('2d');
@@ -163,6 +137,7 @@
 			video.classList.add('is-hidden');
 			preview.setAttribute('src', imageData);
 		}
+
 		// Renders selected image from drafts to preview
 		function editImage(base) {
 			let context = canvas.getContext('2d');
@@ -175,6 +150,18 @@
 			video.classList.add('is-hidden');
 			preview.classList.remove('is-hidden');
 		}
+
+		// Stores sticker location information to stickerdata array
+		function getStickerLocation() {
+			let stickersInOverlay = overlaywrapper.getElementsByClassName('overlayitem');
+			let i = 0;
+			for (sticker of stickersInOverlay) {
+				stickerData[i][2] = sticker.style.left.replace('px', '') / overlaywrapper.clientWidth * width;
+				stickerData[i][3] = sticker.style.top.replace('px', '') / overlaywrapper.clientHeight * height;
+				i++;
+			}
+		}
+
 		// Sends images to backend to be merged and saved
 		function saveImage() {
 			if(uid == 0) {
@@ -183,9 +170,8 @@
 			imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
 			var formData = new FormData();
 			formData.append('img', imageData);
+			getStickerLocation();
 			stickerData.forEach(element => {
-				console.log(element[0]);
-				console.log(element[1]);
 				formData.append('stickers[]', element);
 			});
 			formData.append('uid', uid);
@@ -392,7 +378,6 @@
 		});
 
 		overlaywrapper.addEventListener('pointermove', event => {
-			console.log(event.offsetX)
 			if (!mouseDown || event.offsetX < 1 || event.offsetY < 1)
 				return;
 			rightEdge = event.clientX - overlaywrapper.offsetParent.offsetLeft - boundX + pointer.offsetWidth;
@@ -427,27 +412,6 @@
 		position: absolute;
 		width: 200px;
 	}
-	/* .overlay .topleft {
-		position: absolute;
-		top: 20px;
-		left: 20px;
-	}
-	.overlay .topright {
-		top: 20px;
-		right: 20px;
-	}
-	.overlay .bottomright {
-		bottom: 20px;
-		right: 20px;
-	}
-	.overlay .bottonleft {
-		bottom: 20px;
-		left: 20px;
-	}
-	.overlay .bottonleft {
-		bottom: 200px;
-		left: 20px;
-	} */
 
 </style>
 <div class="columns">
@@ -455,8 +419,8 @@
 		<div id="overlay">
 			<div id="overlaywrapper" class="overlaywrapper is-hidden">
 				<video id="videoframe" autoplay>Video stream not available. Please, click "Start Webcam" below.</video>
+				<img id="preview" alt="Image preview" class="is-hidden">
 			</div>
-			<img id="preview" alt="Image preview" class="is-hidden">
 		</div>
 		<canvas id="canvas" class="is-hidden"></canvas>
 		<p id="help1" class="title has-text-centered mb-6">1.  Select one or more stickers below</p>
@@ -495,6 +459,14 @@
 					</svg>
 				</span>
 				<span>Capture picture</span>
+			</button>
+			<button class="button" id="save">
+				<span class="icon is-small">
+				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    				<path fill="currentColor" d="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z" />
+				</svg>
+				</span>
+				<span>Save</span>
 			</button>
 		</div>
 		<h2 class="subtitle">Select stickers:</h2>
@@ -547,17 +519,6 @@
 					<button id="removemexican" class="button is-danger is-small mt-3 is-hidden">Remove</button>
 				</div>
 			</div>
-		</div>
-		<div class="field is-grouped">
-			<p class="control">
-				<button class="button" id="save" disabled>Save picture</button>
-			</p>
-			<p class="control">
-				<button class="button" id="record">Record video</button>
-			</p>
-			<p class="control">
-				<button class="button" id="stop">Stop recording</button>
-			</p>
 		</div>
 	</div>
 	<div class="column" id="gallery">
