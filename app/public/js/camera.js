@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let snapshot = document.getElementById('snapshot');
 	let save = document.getElementById('save');
 	let canvasbuttons = document.getElementById('canvasbuttons');
+	let post = document.getElementById('post');
 	let photo = document.getElementById('photo');
 	let gallery = document.getElementById('gallery');
 	let star = document.getElementById('star');
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	let stickerData = [];
 	let sticker;
 	let stickerWidth;
+	let stickerCount = 0;
 	let imageData;
 	let streaming = false;
 
@@ -68,21 +70,17 @@ document.addEventListener('DOMContentLoaded', function () {
 		stickerImg.setAttribute('id', 'overlay' + sticker);
 		stickerImg.setAttribute('draggable', 'true');
 		stickerImg.classList.add('overlayitem');
-		if (stickerData.length * 50 + 200 > canvas.width)
-			stickerImg.style.left = '20px';
-		else
-			stickerImg.style.left =  stickerData.length * 50 + 'px';
+		stickerImg.style.left = '20px';
 		stickerImg.style.top = '20px';
 		overlaywrapper.appendChild(stickerImg);
 
-		snapshot.removeAttribute('disabled');
-		save.removeAttribute('disabled');
 		canvasbuttons.classList.remove('is-hidden');
 		help1.classList.add('is-hidden');
-		if (stickerData.length == 1)
+		if (stickerCount == 0)
 			help2.classList.remove('is-hidden');
 		else
 			help2.classList.add('is-hidden');
+		stickerCount++;
 	}
 
 	// Remove sticker from overlay
@@ -118,6 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		preview.setAttribute('src', imageData);
 		video.classList.add('is-hidden');
 		preview.classList.remove('is-hidden');
+		save.removeAttribute('disabled');
+		post.classList.remove('is-hidden');
 	}
 
 	// Renders uploaded image to preview
@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		preview.classList.remove('is-hidden');
 		video.classList.add('is-hidden');
 		preview.setAttribute('src', imageData);
+		post.classList.remove('is-hidden');
 	}
 
 	// Renders selected image from drafts to preview
@@ -142,7 +143,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		imageData = canvas.toDataURL();
 		preview.setAttribute('src', imageData);
 		video.classList.add('is-hidden');
+		overlaywrapper.classList.remove('is-hidden');
+		snapshot.classList.remove('is-hidden');
+		save.classList.remove('is-hidden');
 		preview.classList.remove('is-hidden');
+		post.classList.remove('is-hidden');
+		save.removeAttribute('disabled');
+		close.classList.remove('is-hidden');
+		help2.classList.add('is-hidden');
+
 	}
 
 	// Stores sticker location information to stickerdata array
@@ -164,10 +173,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
 		var formData = new FormData();
 		formData.append('img', imageData);
-		getStickerLocation();
-		stickerData.forEach(element => {
-			formData.append('stickers[]', element);
-		});
+		if (stickerData.length > 0) {
+			getStickerLocation();
+			stickerData.forEach(element => {
+				formData.append('stickers[]', element);
+			});
+		}
 		formData.append('uid', uid);
 		$request = new Request(
 			'/saveimage', {
@@ -294,11 +305,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		.then((stream) => {
 			video.srcObject = stream;
 			video.play();
-			help2.classList.add('is-hidden');
 			preview.classList.add('is-hidden');
-			snapshot.removeAttribute('disabled');
 			overlaywrapper.classList.remove('is-hidden');
 			video.classList.remove('is-hidden');
+			help2.classList.add('is-hidden');
+			snapshot.removeAttribute('disabled');
+			close.removeAttribute('disabled');
+			close.classList.remove('is-hidden');
+			snapshot.classList.remove('is-hidden');
+			save.classList.remove('is-hidden');
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -308,6 +323,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	upload.addEventListener('click', function () {
 		help2.classList.add('is-hidden');
 		overlaywrapper.classList.remove('is-hidden');
+		save.removeAttribute('disabled');
+		save.classList.remove('is-hidden');
 		imageInput.click();
 	});
 
@@ -348,6 +365,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	save.addEventListener('click', function () {
 		saveImage();
 	});
+
+	post.addEventListener('click', () => {
+
+	})
 
 	// Drag and drop stickers
 

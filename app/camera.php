@@ -35,7 +35,7 @@
 				</span>
 				<span>Start webcam</span>
 			</button>
-			<button class="button" id="close">
+			<button class="button is-hidden" id="close" disabled>
 				<span class="icon is-small">
 					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
     					<path fill="currentColor" d="M12 6C13.66 6 15 7.34 15 9C15 9.78 14.7 10.5 14.21 11L10 6.79C10.5 6.3 11.22 6 12 6M12 4C14.76 4 17 6.24 17 9C17 10.33 16.47 11.53 15.62 12.42L17.04 13.84C18.25 12.59 19 10.88 19 9C19 5.13 15.87 2 12 2C10.12 2 8.41 2.75 7.16 3.96L8.58 5.38C9.47 4.53 10.67 4 12 4M22.11 21.46L20.84 22.73L19.46 21.35C19.1 21.75 18.58 22 18 22H6C4.89 22 4 21.11 4 20C4 19.62 4.1 19.27 4.29 18.97L6.11 15.81C7.69 17.17 9.75 18 12 18C13.21 18 14.37 17.75 15.43 17.32L13.85 15.74C13.26 15.91 12.64 16 12 16C8.13 16 5 12.87 5 9C5 8.36 5.09 7.74 5.26 7.15L1.11 3L2.39 1.73L22.11 21.46M12.1 14L7 8.9C7 8.93 7 8.97 7 9C7 11.76 9.24 14 12 14C12.03 14 12.07 14 12.1 14Z" />
@@ -52,7 +52,7 @@
 				</span>
 				<span>Upload picture</span>
 			</button>
-			<button class="button" id="snapshot">
+			<button class="button is-hidden" id="snapshot" disabled>
 				<span class="icon is-small">
 					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
     					<path fill="currentColor" d="M13.73,15L9.83,21.76C10.53,21.91 11.25,22 12,22C14.4,22 16.6,21.15 18.32,19.75L14.66,13.4M2.46,15C3.38,17.92 5.61,20.26 8.45,21.34L12.12,15M8.54,12L4.64,5.25C3,7 2,9.39 2,12C2,12.68 2.07,13.35 2.2,14H9.69M21.8,10H14.31L14.6,10.5L19.36,18.75C21,16.97 22,14.6 22,12C22,11.31 21.93,10.64 21.8,10M21.54,9C20.62,6.07 18.39,3.74 15.55,2.66L11.88,9M9.4,10.5L14.17,2.24C13.47,2.09 12.75,2 12,2C9.6,2 7.4,2.84 5.68,4.25L9.34,10.6L9.4,10.5Z" />
@@ -60,7 +60,7 @@
 				</span>
 				<span>Capture picture</span>
 			</button>
-			<button class="button" id="save">
+			<button class="button is-hidden" id="save" disabled>
 				<span class="icon is-small">
 				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
     				<path fill="currentColor" d="M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z" />
@@ -68,7 +68,16 @@
 				</span>
 				<span>Save</span>
 			</button>
+			<button class="button is-primary is-hidden" id="post">
+				<span class="icon is-small">
+				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    				<path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+				</svg>
+				</span>
+				<span>New post</span>
+			</button>
 		</div>
+
 		<h2 class="subtitle">Select stickers:</h2>
 		<div class="columns" style="width: 100%;
         overflow-x: auto;
