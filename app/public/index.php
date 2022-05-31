@@ -5,7 +5,7 @@ switch ($request) {
 	case '':
 	case '/':
 		require '../header.php';
-		require '../stream.php';
+		require '../feed.php';
 		require '../footer.php';
 		break;
 	case '/signup':

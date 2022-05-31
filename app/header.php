@@ -10,6 +10,12 @@ session_start();
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="icon" type="image/x-icon" href="/assets/favicon.svg">
 	<title>Camagru</title>
+	<script>
+		let uid = <?php if(isset($_SESSION['uid']))
+						echo $_SESSION['uid'];
+					else
+						echo '0'?>;
+	</script>
 </head>
 <body>
 	<div class="container is-max-desktop">
