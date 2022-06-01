@@ -15,7 +15,7 @@ if (!$images) {
 }
 foreach($images as $image) {
 	echo '
-	<div class="tile is-parent box">
+	<div class="tile is-parent box" id="parent'. $image['img'] . '">
 		<article class="tile is-child">
 			<div class="buttons is-centered">
 				<figure class="image">
@@ -23,10 +23,10 @@ foreach($images as $image) {
 				</figure>
 				<div class="field is-grouped">
 					<p class="control">
-						<button class="button is-primary is-small mt-3">Edit</button>
+						<button class="button is-primary is-small mt-3" id="edit'. $image['img'] . '">Edit</button>
 					</p>
 					<p class="control">
-						<button class="button is-danger is-small mt-3">Delete</button>
+						<button class="button is-danger is-small mt-3" id="delete'. $image['img'] . '">Delete</button>
 					</p>
 				</div>
 			</div>
