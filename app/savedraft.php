@@ -3,7 +3,7 @@ session_start();
 require_once "classes/dbh.class.php";
 
 try {
-	if (empty($_POST['img']) || $_POST['uid'] == '0' || $_POST['uid'] != $_SESSION['uid'])
+	if (empty($_POST['img']) || $_POST['uid'] == '0' || $_POST['uid'] != $_SESSION['user_id'])
 		return;
 	$base = base64_decode($_POST['img']);
 	$filename = uniqid(rand(), true) . '.png';
@@ -28,7 +28,7 @@ try {
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
-	$statement = $pdo->prepare("INSERT INTO editor (img, `uid`) VALUES ( ?, ?);");
+	$statement = $pdo->prepare("INSERT INTO drafts (image_file, `user_id`) VALUES ( ?, ?);");
 	$statement->execute([$filename, $_POST['uid']]);
 	imagedestroy($base);
 	echo $filename;

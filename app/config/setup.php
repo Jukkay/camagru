@@ -9,51 +9,52 @@ try {
 	$tables = [
 		'DROP TABLE IF EXISTS users;',
 		'CREATE TABLE users(
-		`uid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`user_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 		username VARCHAR(32) NOT NULL,
 		`password` VARCHAR(255) NOT NULL,
 		`name` VARCHAR(255) DEFAULT username,
 		email VARCHAR(320) NOT NULL,
-		img VARCHAR(255) DEFAULT "default.png",
-		validated BOOLEAN,
+		profile_image VARCHAR(255) DEFAULT "default.png",
+		validation_date BOOLEAN,
 		`admin` BOOLEAN,
-		joindate DATETIME DEFAULT CURRENT_TIMESTAMP,
-		lastlogin DATETIME DEFAULT 0,
-		lastlogout DATETIME DEFAULT 0,
-		PRIMARY KEY (uid)
+		email_notification BOOLEAN,
+		join_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (`user_id`)
 	);',
 		'DROP TABLE IF EXISTS posts;',
 		'CREATE TABLE posts(
-		pid BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-		img VARCHAR(1024),
-		ptext VARCHAR(4096),
+		post_id BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		`user_id` INT(10) UNSIGNED NOT NULL,
+		image_file VARCHAR(1024),
+		`description` VARCHAR(4096),
 		likes INT UNSIGNED,
 		comments INT UNSIGNED,
-		created DATETIME DEFAULT CURRENT_TIMESTAMP,
-		PRIMARY KEY (pid)
+		creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (post_id)
 	);',
-		'DROP TABLE IF EXISTS editor;',
-		'CREATE TABLE editor(
-		eid BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-		img VARCHAR(1024),
-		`uid` INT(10) UNSIGNED NOT NULL,
-		sticker VARCHAR(1024),
-		PRIMARY KEY (eid)
+		'DROP TABLE IF EXISTS drafts;',
+		'CREATE TABLE drafts(
+		draft_id BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		image_file VARCHAR(1024),
+		`user_id` INT(10) UNSIGNED NOT NULL,
+		PRIMARY KEY (draft_id)
 	);',
 		'DROP TABLE IF EXISTS comments;',
 		'CREATE TABLE comments(
-		cid BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-		pid BIGINT(10) UNSIGNED NOT NULL,
-		`uid` INT(10) UNSIGNED NOT NULL,
-		ctext VARCHAR(4096),
-		created DATETIME DEFAULT CURRENT_TIMESTAMP,
-		PRIMARY KEY (cid)
+		comment_id BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		post_id BIGINT(10) UNSIGNED NOT NULL,
+		`user_id` INT(10) UNSIGNED NOT NULL,
+		comment VARCHAR(4096),
+		comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (comment_id)
 	);',
 		'DROP TABLE IF EXISTS likes;',
 		'CREATE TABLE likes(
-			pid BIGINT(10) UNSIGNED NOT NULL,
-			`uid` INT(10) UNSIGNED NOT NULL,
-			created DATETIME DEFAULT CURRENT_TIMESTAMP
+		like_id BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+		post_id BIGINT(10) UNSIGNED NOT NULL,
+		`user_id` INT(10) UNSIGNED NOT NULL,
+		like_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (like_id)
 	);'];
 	foreach ($tables as $table) {
 		$dbh->exec($table);

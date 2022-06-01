@@ -43,20 +43,20 @@ switch ($request) {
 		require '../camera.php';
 		require '../footer.php';
 		break;
-	case '/fetcheditor':
-		require '../fetcheditor.php';
+	case '/fetchdrafts':
+		require '../fetchdrafts.php';
 		break;
 	case '/fetchfeed':
 		require '../fetchfeed.php';
 		break;
-	case '/saveimage':
-		require '../saveimage.php';
+	case '/savedraft':
+		require '../savedraft.php';
 		break;
 	case '/getimage':
 		require '../getimage.php';
 		break;
-	case '/deleteimage':
-		require '../deleteimage.php';
+	case '/deletedraft':
+		require '../deletedraft.php';
 		break;
 	case '/newpost':
 		require '../header.php';
@@ -68,7 +68,6 @@ switch ($request) {
 		break;
 	default:
 		http_response_code(404);
-		require '../header.php';
 		require '404.php';
-		require '../footer.php';
+
 }

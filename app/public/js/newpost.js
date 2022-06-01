@@ -7,56 +7,76 @@ if (uid == 0) {
 let gallery = document.getElementById('gallery');
 let preview = document.getElementById('preview');
 let description = document.getElementById('description');
+let submit = document.getElementById('submit');
 const urlParameters = window.location.search;
 const parameters = new URLSearchParams(urlParameters);
-const image = parameters.get('image');
+let image = parameters.get('image');
 
 // Fetches user's images to drafts
-function getUserImages(uid) {
+const getUserImages = (uid) => {
     if (uid == 0) {
         gallery.innerHTML = '';
         return;
     }
-    fetch('/fetcheditor?uid=' + uid)
+    fetch('/fetchdrafts?uid=' + uid)
         .then(function (response) {
             return response.text();
         })
         .then(function (text) {
             gallery.innerHTML = text;
         });
-}
+};
 
 // Renders selected image from drafts to preview
-function editImage(base) {
+const editImage = (base) => {
+    image = base;
     let baseImg = document.getElementById(base).src;
-    console.log(baseImg);
     preview.setAttribute('src', baseImg);
     preview.classList.remove('is-hidden');
-}
+};
 
 // Delete image
-function deleteImage(filename) {
+const deleteImage = (filename) => {
     if (uid == 0 || filename == '') {
         return;
     }
     var formData = new FormData();
     formData.append('img', filename);
     formData.append('uid', uid);
-    $request = new Request('/deleteimage', {
+    $request = new Request('/deletedraft', {
         method: 'POST',
         body: formData,
     });
     fetch($request).then(function (response) {
         getUserImages(uid);
     });
-}
+};
 
 // Submits image and description to backend
-
-const submitPost = () => {};
+const submitPost = () => {
+    if (uid == 0 || image == '' || description.value == '') {
+        console.log('empty input!');
+        return;
+    }
+    var formData = new FormData();
+    formData.append('user_id', uid);
+    formData.append('image', image);
+    formData.append('description', description.value);
+    $request = new Request('/savepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch($request)
+        .then(function (response) {
+            location.href = '/';
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 
 // Gallery event listener
-gallery.addEventListener('click', function (e) {
+gallery.addEventListener('click', (e) => {
     let id = e.target.id;
     let parent = e.target;
     let action = parent.innerHTML;
@@ -73,6 +93,9 @@ gallery.addEventListener('click', function (e) {
     }
 });
 
+submit.addEventListener('click', () => {
+    submitPost();
+});
 if (preview.hasAttribute('src')) preview.classList.remove('is-hidden');
 
 // Load user images on startup

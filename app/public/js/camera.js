@@ -55,7 +55,7 @@ function getUserImages(uid) {
         gallery.innerHTML = '';
         return;
     }
-    fetch('/fetcheditor?uid=' + uid)
+    fetch('/fetchdrafts?uid=' + uid)
         .then(function (response) {
             return response.text();
         })
@@ -192,7 +192,7 @@ async function saveImage() {
         });
     }
     formData.append('uid', uid);
-    $request = new Request('/saveimage', {
+    $request = new Request('/savedraft', {
         method: 'POST',
         body: formData,
     });
@@ -216,7 +216,7 @@ function deleteImage(filename) {
     var formData = new FormData();
     formData.append('img', filename);
     formData.append('uid', uid);
-    $request = new Request('/deleteimage', {
+    $request = new Request('/deletedraft', {
         method: 'POST',
         body: formData,
     });

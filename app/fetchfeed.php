@@ -8,10 +8,9 @@ $limit = intval($_GET['limit']);
 
 $dbh = new Dbh;
 $pdo = $dbh->connect();
-$statement = $pdo->prepare("SELECT * FROM editor WHERE uid = ? LIMIT ? OFFSET ?;");
-$statement->bindParam(1, $_GET['uid'], PDO::PARAM_STR);
-$statement->bindParam(2, $limit, PDO::PARAM_INT);
-$statement->bindParam(3, $offset, PDO::PARAM_INT);
+$statement = $pdo->prepare("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id LIMIT ? OFFSET ?;");
+$statement->bindParam(1, $limit, PDO::PARAM_INT);
+$statement->bindParam(2, $offset, PDO::PARAM_INT);
 $statement->execute();
 $images = $statement->fetchAll(PDO::FETCH_ASSOC);
 if (!$images) {
@@ -25,16 +24,16 @@ foreach($images as $image) {
 			<div class="media">
 				<div class="media-left">
 					<figure class="image is-48x48">
-						<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+						<img src="/getimage?name=' . $image['profile_image'] . '" alt="Profile picture">
 					</figure>
 				</div>
 				<div class="media-content">
-					<p class="title is-4">John Smith</p>
+					<p class="title is-4">' . $image['username'] . '</p>
 				</div>
 			</div>
 			<div class="card-image">
 				<figure class="image">
-					<img src="/getimage?name=' . $image['img'] . '" id="'. $image['img'] . '">
+					<img src="/getimage?name=' . $image['image_file'] . '" id="'. $image['image_file'] . '">
 				</figure>
 			</div>
 		</div>

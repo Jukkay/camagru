@@ -11,8 +11,8 @@ session_start();
 	<link rel="icon" type="image/x-icon" href="/assets/favicon.svg">
 	<title>Camagru</title>
 	<script>
-		let uid = <?php if(isset($_SESSION['uid']))
-						echo $_SESSION['uid'];
+		let uid = <?php if(isset($_SESSION['user_id']))
+						echo $_SESSION['user_id'];
 					else
 						echo '0'?>;
 	</script>
@@ -34,7 +34,6 @@ session_start();
 			</div>
 			<div class="navbar-menu">
 				<div class="navbar-start">
-					<a class="navbar-item" href="/gallery">Gallery</a>
 					<a class="navbar-item" href="/camera">Take picture</a>
 					<a class="navbar-item" href="/newpost">New post</
 				</div>
@@ -42,7 +41,7 @@ session_start();
 					<div class="navbar-item">
 						<div class="buttons">
 							<?php
-								if (isset($_SESSION['user'])) {
+								if (isset($_SESSION['user_id'])) {
 									echo '<a class="button" href="logout">Logout</a>';
 								}
 								else {
