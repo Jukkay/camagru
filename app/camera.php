@@ -1,4 +1,4 @@
-<script src="js/camera.js"></script>
+<script src="js/camera.js" defer></script>
 <style type="text/css">
 
 	.overlaywrapper {
