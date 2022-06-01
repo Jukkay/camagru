@@ -36,6 +36,7 @@ session_start();
 				<div class="navbar-start">
 					<a class="navbar-item" href="/gallery">Gallery</a>
 					<a class="navbar-item" href="/camera">Take picture</a>
+					<a class="navbar-item" href="/newpost">New post</
 				</div>
 				<div class="navbar-end">
 					<div class="navbar-item">
