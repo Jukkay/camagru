@@ -58,10 +58,13 @@ switch ($request) {
 	case '/deleteimage':
 		require '../deleteimage.php';
 		break;
-	case '/upload':
+	case '/newpost':
 		require '../header.php';
-		require '../upload.php';
+		require '../newpost.php';
 		require '../footer.php';
+		break;
+	case '/savepost':
+		require '../savepost.php';
 		break;
 	default:
 		http_response_code(404);
