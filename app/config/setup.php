@@ -27,8 +27,8 @@ try {
 		`user_id` INT(10) UNSIGNED NOT NULL,
 		image_file VARCHAR(1024),
 		`description` VARCHAR(4096),
-		likes INT UNSIGNED,
-		comments INT UNSIGNED,
+		likes INT UNSIGNED DEFAULT 0,
+		comments INT UNSIGNED DEFAULT 0,
 		creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 		PRIMARY KEY (post_id)
 	);',
