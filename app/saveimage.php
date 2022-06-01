@@ -31,6 +31,7 @@ try {
 	$statement = $pdo->prepare("INSERT INTO editor (img, `uid`) VALUES ( ?, ?);");
 	$statement->execute([$filename, $_POST['uid']]);
 	imagedestroy($base);
+	echo $filename;
 }
 catch(Exception $e) {
 	echo 'Error: ' .$e->getMessage();
