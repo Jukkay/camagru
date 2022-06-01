@@ -1,6 +1,6 @@
 <?php
-
-$filename = '../img/' . $_GET['name'];
+$filename = trim($_GET['name'], '/');
+$filename = '../img/' . $filename;
 if(file_exists($filename)) {
 	header("Content-type: image/png");
 	readfile($filename);
