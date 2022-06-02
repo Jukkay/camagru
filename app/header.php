@@ -11,7 +11,7 @@ session_start();
 	<link rel="icon" type="image/x-icon" href="/assets/favicon.svg">
 	<title>Camagru</title>
 	<script>
-		let uid = <?php if(isset($_SESSION['user_id']))
+		let user_id = <?php if(isset($_SESSION['user_id']))
 						echo $_SESSION['user_id'];
 					else
 						echo '0'?>;

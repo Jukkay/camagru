@@ -4,7 +4,7 @@ const postsOnPage = 5;
 let pageNumber = 0;
 
 const getPosts = () => {
-    fetch(`/fetchfeed?uid=${uid}&limit=${postsOnPage}&page=${pageNumber}`)
+    fetch(`/fetchfeed?uid=${user_id}&limit=${postsOnPage}&page=${pageNumber}`)
         .then(function (response) {
             return response.text();
         })
@@ -23,15 +23,31 @@ const showLoadingIndicator = () => {
 };
 
 const likePost = (post) => {
-	if (uid == 0) {
+	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    console.log(post);
+    const post_id = post.replace('like', '');
+    let formData = new FormData();
+    formData.append('post_id', post_id);
+    formData.append('user_id', user_id);
+    request = new Request('/likepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch(request)
+        .then(function (response) {
+            const like_icon = document.getElementById(post);
+            like_icon.classList.add('has-background-danger');
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
 };
 const goToComment = (post) => {
-	if (uid == 0) {
+	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
@@ -65,13 +81,12 @@ const refreshComments = (post) => {
 };
 
 const commentPost = (post) => {
-	if (uid == 0) {
+	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
     const post_id = post.id.replace('post', '');
-    const user_id = uid;
     const comment = post.querySelector('input').value;
     let formData = new FormData();
     formData.append('post_id', post_id);

@@ -72,6 +72,9 @@ switch ($request) {
 	case '/getcomments':
 		require '../getcomments.php';
 		break;
+	case '/likepost':
+		require '../likepost.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';

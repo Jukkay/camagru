@@ -2,7 +2,7 @@
 session_start();
 require_once "classes/dbh.class.php";
 
-if (!isset($_GET['uid'])|| !isset($_GET['limit']) || !isset($_GET['page']))
+if (!isset($_GET['user_id'])|| !isset($_GET['limit']) || !isset($_GET['page']))
 	return "Invalid parameters";
 $offset = intval($_GET['limit'] * $_GET['page']);
 $limit = intval($_GET['limit']);

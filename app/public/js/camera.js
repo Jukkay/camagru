@@ -44,18 +44,18 @@ let constraints = {
 };
 let mediaDevices = navigator.mediaDevices;
 
-if (uid == 0) {
+if (user_id == 0) {
     alert('Please, login first.');
     location.href = '/';
     throw new Error('Please, login first.');
 }
 // Fetches users images to drafts
-function getUserImages(uid) {
-    if (uid == 0) {
+function getUserImages(user_id) {
+    if (user_id == 0) {
         gallery.innerHTML = '';
         return;
     }
-    fetch('/fetchdrafts?uid=' + uid)
+    fetch('/fetchdrafts?user_id=' + user_id)
         .then(function (response) {
             return response.text();
         })
@@ -179,7 +179,7 @@ function getStickerLocation() {
 
 // Sends images to backend to be merged and saved
 async function saveImage() {
-    if (uid == 0) {
+    if (user_id == 0) {
         return;
     }
     imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
@@ -191,7 +191,7 @@ async function saveImage() {
             formData.append('stickers[]', element);
         });
     }
-    formData.append('uid', uid);
+    formData.append('user_id', user_id);
     $request = new Request('/savedraft', {
         method: 'POST',
         body: formData,
@@ -199,7 +199,7 @@ async function saveImage() {
     const response = await fetch($request)
         .then((response) => response.text())
         .then((filename) => {
-            getUserImages(uid);
+            getUserImages(user_id);
             return filename;
         })
         .catch(function (error) {
@@ -210,18 +210,18 @@ async function saveImage() {
 
 // Delete image
 function deleteImage(filename) {
-    if (uid == 0 || filename == '') {
+    if (user_id == 0 || filename == '') {
         return;
     }
     var formData = new FormData();
     formData.append('img', filename);
-    formData.append('uid', uid);
+    formData.append('user_id', user_id);
     $request = new Request('/deletedraft', {
         method: 'POST',
         body: formData,
     });
     fetch($request).then(function (response) {
-        getUserImages(uid);
+        getUserImages(user_id);
     });
 }
 // Video frame initialization
@@ -438,4 +438,4 @@ document.addEventListener('pointerup', (event) => {
 });
 
 // Load user images on startup
-getUserImages(uid);
+getUserImages(user_id);

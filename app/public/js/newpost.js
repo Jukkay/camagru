@@ -1,4 +1,4 @@
-if (uid == 0) {
+if (user_id == 0) {
     alert('Please, login first.');
     location.href = '/';
     throw new Error('Please, login first.');
@@ -13,12 +13,12 @@ const parameters = new URLSearchParams(urlParameters);
 let image = parameters.get('image');
 
 // Fetches user's images to drafts
-const getUserImages = (uid) => {
-    if (uid == 0) {
+const getUserImages = (user_id) => {
+    if (user_id == 0) {
         gallery.innerHTML = '';
         return;
     }
-    fetch('/fetchdrafts?uid=' + uid)
+    fetch('/fetchdrafts?user_id=' + user_id)
         .then(function (response) {
             return response.text();
         })
@@ -37,29 +37,29 @@ const editImage = (base) => {
 
 // Delete image
 const deleteImage = (filename) => {
-    if (uid == 0 || filename == '') {
+    if (user_id == 0 || filename == '') {
         return;
     }
     var formData = new FormData();
     formData.append('img', filename);
-    formData.append('uid', uid);
+    formData.append('user_id', user_id);
     $request = new Request('/deletedraft', {
         method: 'POST',
         body: formData,
     });
     fetch($request).then(function (response) {
-        getUserImages(uid);
+        getUserImages(user_id);
     });
 };
 
 // Submits image and description to backend
 const submitPost = () => {
-    if (uid == 0 || image == '' || description.value == '') {
+    if (user_id == 0 || image == '' || description.value == '') {
         console.log('empty input!');
         return;
     }
     var formData = new FormData();
-    formData.append('user_id', uid);
+    formData.append('user_id', user_id);
     formData.append('image', image);
     formData.append('description', description.value);
     request = new Request('/savepost', {
@@ -99,4 +99,4 @@ submit.addEventListener('click', () => {
 if (preview.hasAttribute('src')) preview.classList.remove('is-hidden');
 
 // Load user images on startup
-getUserImages(uid);
+getUserImages(user_id);
