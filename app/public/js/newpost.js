@@ -62,11 +62,11 @@ const submitPost = () => {
     formData.append('user_id', uid);
     formData.append('image', image);
     formData.append('description', description.value);
-    $request = new Request('/savepost', {
+    request = new Request('/savepost', {
         method: 'POST',
         body: formData,
     });
-    fetch($request)
+    fetch(request)
         .then(function (response) {
             location.href = '/';
         })

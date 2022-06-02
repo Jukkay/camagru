@@ -16,6 +16,11 @@ session_start();
 					else
 						echo '0'?>;
 	</script>
+	<style type="text/css">
+		.clickable {
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	<div class="container is-max-desktop">
@@ -35,7 +40,7 @@ session_start();
 			<div class="navbar-menu">
 				<div class="navbar-start">
 					<a class="navbar-item" href="/camera">Take picture</a>
-					<a class="navbar-item" href="/newpost">New post</
+					<a class="navbar-item" href="/newpost">New post</a>
 				</div>
 				<div class="navbar-end">
 					<div class="navbar-item">
@@ -54,11 +59,16 @@ session_start();
 					</div>
 					<div class="navbar-item">
 						<a class="navbar-item" href="/profile" alt="Profile">
-							<span class="icon is-medium">
-								<svg style="width:32px;height:32px" viewBox="0 0 24 24">
-								<path fill="currentColor" d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-								</svg>
-							</span>
+							<figure class="image">
+								<img class="is-rounded" src="/getimage?name=<?php
+								if (isset($_SESSION['user_id'])) {
+									echo $_SESSION['profile_image'];
+								}
+								else {
+									echo 'default.png';
+								}
+								?>" alt="Profile">
+							</figure>
 						</a>
 					</div>
 				</div>

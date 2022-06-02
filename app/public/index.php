@@ -66,6 +66,12 @@ switch ($request) {
 	case '/savepost':
 		require '../savepost.php';
 		break;
+	case '/savecomment':
+		require '../savecomment.php';
+		break;
+	case '/getcomments':
+		require '../getcomments.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';
