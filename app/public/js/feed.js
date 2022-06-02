@@ -4,7 +4,7 @@ const postsOnPage = 5;
 let pageNumber = 0;
 
 const getPosts = () => {
-    fetch(`/fetchfeed?uid=${user_id}&limit=${postsOnPage}&page=${pageNumber}`)
+    fetch(`/fetchfeed?user_id=${user_id}&limit=${postsOnPage}&page=${pageNumber}`)
         .then(function (response) {
             return response.text();
         })
@@ -22,7 +22,7 @@ const showLoadingIndicator = () => {
     loadingIndicator.classList.remove('is-hidden');
 };
 
-const likePost = (post) => {
+const likePost = async (post) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
@@ -36,14 +36,26 @@ const likePost = (post) => {
         method: 'POST',
         body: formData,
     });
-    fetch(request)
-        .then(function (response) {
-            const like_icon = document.getElementById(post);
-            like_icon.classList.add('has-background-danger');
+    const response = await fetch(request)
+        .then((response) => response.text())
+        .then((response) => {
+            return response;
         })
         .catch(function (error) {
             console.log(error);
         });
+    console.log(response);
+    const like_icon = document.getElementById(post);
+    if (response === 'liked') {
+        console.log(like_icon);
+        like_icon.nextElementSibling.classList.remove('is-hidden');
+        like_icon.classList.add('is-hidden');
+    }
+    if (response === 'unliked') {
+        console.log(like_icon);
+        like_icon.previousElementSibling.classList.remove('is-hidden');
+        like_icon.classList.add('is-hidden');
+    }
 
 };
 const goToComment = (post) => {
