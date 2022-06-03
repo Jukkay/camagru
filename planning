@@ -1,0 +1,67 @@
+TO-DO
+	V Database
+	V Signup system
+	V Login system
+	V Logout
+	V Basic frontend for image editing
+	V Webcam integration
+
+	V Image merge in php
+	V Correct image size in image merge
+	V Image preview in Editor
+	V Take picture to preview
+	V Save image from preview
+	V Delete image
+	V Select existing image to preview
+	V Edit existing image
+	V Image processing
+	V Basic frontend
+	V Upload image to preview
+	V Fileupload/webcam switch
+	V Add multiple stickers at the same time
+	V Fix black bar bug in imagecopy
+	V Change to pointer events
+	V Display images in Gallery
+	V Post images
+	V Write comments for images
+	V Show comments in image
+	V Disable commenting and liking for not logged in users
+	V Likes for images
+	V Add default profile picture
+	V Profile page
+	User preferences
+		Email opt out
+		Change
+			Profile picture
+			Password
+			username
+			Email
+			Ask for email confirmation for these
+			Email confirmation for signup
+	Delete posts
+	Add password complexity requirements. Cant be just lower case
+	Email notification for comments and likes
+	UX
+		Works on chrome and firefox
+		Works on mobile (narrow window test)
+	Security
+		Cant add html to text inputs
+		Sql injection [blahblah' OR 1='1]
+	Specific bonuses
+		V Live preview (just css? place the sticker image on top of the video element?)
+		Server exchanges ajaxified
+	Additional bonuses (max 5)
+		V Drag and drop for sticker
+		V Sticker location
+		V Infinite pagination
+		Notifications on page
+		Square aspect ratio
+		Sticker resize
+		Capture video
+		Sticker opacity
+	Bugs
+		Signup wont give error even if db dont exist
+		In some case, I think when saving edit image again, only stickers are sent to server
+		Fix all Cancel bugs
+	Refactor comments to use eventlisteners like likes
+	Refactor function declarations to =>
