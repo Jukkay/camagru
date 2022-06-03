@@ -75,6 +75,12 @@ switch ($request) {
 	case '/togglelike':
 		require '../togglelike.php';
 		break;
+	case '/getuserinfo':
+		require '../getuserinfo.php';
+		break;
+	case '/getuserimages':
+		require '../getuserimages.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';

@@ -15,6 +15,7 @@ try {
 		`name` VARCHAR(255) DEFAULT username,
 		email VARCHAR(320) NOT NULL,
 		profile_image VARCHAR(255) DEFAULT "default.png",
+		biography VARCHAR(4096),
 		validation_date BOOLEAN,
 		`admin` BOOLEAN,
 		email_notification BOOLEAN,
