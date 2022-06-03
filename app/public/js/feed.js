@@ -12,6 +12,12 @@ const getPosts = () => {
             feed.innerHTML = feed.innerHTML + text;
             pageNumber++;
             hideLoadingIndicator();
+            feed.addEventListener('click', (event) => {
+                if (event.target.classList.contains('like-icon')) {
+                    const data_id = event.target.getAttribute("data-id");
+                    toggleLike(data_id);
+                }
+            });
         });
 };
 
@@ -22,42 +28,40 @@ const showLoadingIndicator = () => {
     loadingIndicator.classList.remove('is-hidden');
 };
 
-const likePost = async (post) => {
+const toggleLike = async (data_id) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    const post_id = post.replace('like', '');
+    let post_id;
+    if (data_id.includes('unlike')) {
+        post_id = data_id.replace('unlike', '');
+        const unlike_icon = document.querySelector(`[data-id="${data_id}"]`);
+        const like_icon = unlike_icon.previousElementSibling;
+        unlike_icon.classList.add('is-hidden');
+        like_icon.classList.remove('is-hidden');
+    }
+    else {
+        post_id = data_id.replace('like', '');
+        const like_icon = document.querySelector(`[data-id="${data_id}"]`);
+        const unlike_icon = like_icon.nextElementSibling;
+        unlike_icon.classList.remove('is-hidden');
+        like_icon.classList.add('is-hidden');
+    }
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
-    request = new Request('/likepost', {
+    request = new Request('/togglelike', {
         method: 'POST',
         body: formData,
     });
-    const response = await fetch(request)
-        .then((response) => response.text())
-        .then((response) => {
-            return response;
-        })
+    fetch(request)
         .catch(function (error) {
             console.log(error);
         });
-    console.log(response);
-    const like_icon = document.getElementById(post);
-    if (response === 'liked') {
-        console.log(like_icon);
-        like_icon.nextElementSibling.classList.remove('is-hidden');
-        like_icon.classList.add('is-hidden');
-    }
-    if (response === 'unliked') {
-        console.log(like_icon);
-        like_icon.previousElementSibling.classList.remove('is-hidden');
-        like_icon.classList.add('is-hidden');
-    }
-
 };
+
 const goToComment = (post) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
@@ -119,6 +123,7 @@ const commentPost = (post) => {
             console.log(error);
         });
 };
+getPosts();
 
 window.addEventListener('scroll', () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -127,4 +132,3 @@ window.addEventListener('scroll', () => {
     }
 });
 
-getPosts();

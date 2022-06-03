@@ -72,8 +72,8 @@ switch ($request) {
 	case '/getcomments':
 		require '../getcomments.php';
 		break;
-	case '/likepost':
-		require '../likepost.php';
+	case '/togglelike':
+		require '../togglelike.php';
 		break;
 	default:
 		http_response_code(404);

@@ -20,6 +20,10 @@ session_start();
 		.clickable {
 			cursor: pointer;
 		}
+		svg {
+			pointer-events: none;
+		}
+		
 	</style>
 </head>
 <body>
