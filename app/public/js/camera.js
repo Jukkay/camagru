@@ -25,7 +25,7 @@ let frenchie = document.getElementById('frenchie');
 let removefrenchie = document.getElementById('removefrenchie');
 let mexican = document.getElementById('mexican');
 let removemexican = document.getElementById('removemexican');
-let width = 1920;
+let width = 1440;
 let height = 0;
 let stickerData = [];
 let sticker;
@@ -38,8 +38,9 @@ let streaming = false;
 let constraints = {
     audio: true,
     video: {
-        width: { ideal: 1920 },
-        height: { ideal: 1080 },
+        width: {max: 1440},
+        height: {max: 1440},
+        aspectRatio: {ideal: 1}
     },
 };
 let mediaDevices = navigator.mediaDevices;
