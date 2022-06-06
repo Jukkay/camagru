@@ -29,15 +29,15 @@ TO-DO
 	V Likes for images
 	V Add default profile picture
 	V Profile page
-	User preferences
-		Email opt out
-		Change
-			Profile picture
-			Password
-			username
-			Email
-			Ask for email confirmation for these
+	V User preferences
+		V Email opt out
+		V Change
+			V Profile picture
+			V Password
+			V username
+			V Email
 			Email confirmation for signup
+			Ask for email confirmation for these
 	Delete posts
 	Add password complexity requirements. Cant be just lower case
 	Email notification for comments and likes

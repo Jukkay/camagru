@@ -81,6 +81,28 @@ switch ($request) {
 	case '/getuserimages':
 		require '../getuserimages.php';
 		break;
+	case '/controlpanel':
+		require '../header.php';
+		require '../controlpanel.php';
+		require '../footer.php';
+		break;
+	case '/getuserconfiguration':
+		require '../getuserconfiguration.php';
+		break;
+	case '/saveuserconfiguration':
+		require '../saveuserconfiguration.php';
+		break;
+	case '/saveprofilepicture':
+		require '../saveprofilepicture.php';
+		break;
+	case '/updatepassword':
+		require '../header.php';
+		require '../changepassword.php';
+		require '../footer.php';
+		break;
+	case '/processpassword':
+		require '../processpassword.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';

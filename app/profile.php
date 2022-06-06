@@ -1,5 +1,4 @@
 <?php
-require_once "../classes/dbh.class.php";
 
 if (isset($_GET['user']))
 	$username = $_GET['user'];
