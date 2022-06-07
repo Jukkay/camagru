@@ -59,12 +59,10 @@ try {
 		'X-Mailer' => 'PHP/' . phpversion(),
 		'Content-Type' => 'text/html'
 	);
-	$message = '
-		
-		<h1>Welcome to Camagru</h1>
-		<p>For the last step of registration we ask you to click the link below to validate this email address.</p>
-		<p><a href="http://localhost:8080/confirm?validation_key=' . $validation_key . '">http://localhost:8080/confirm?validation_key=' . $validation_key . '</a></p>
-	';
+	ob_start();
+	include('../components/confirmationemail.php');
+	$message = ob_get_contents();
+	ob_end_clean();
 	mail($recipient, $subject, $message, $headers);
 	$statement = $pdo->prepare("INSERT INTO users (`name`, username, `password`, email, validation_key) VALUES (?, ?, ?, ?, ?);");
 	$statement->execute([
