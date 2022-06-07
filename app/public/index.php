@@ -103,6 +103,11 @@ switch ($request) {
 	case '/processpassword':
 		require '../processpassword.php';
 		break;
+	case '/confirm':
+		require '../header.php';
+		require '../validateuser.php';
+		require '../footer.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';

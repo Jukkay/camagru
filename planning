@@ -36,8 +36,9 @@ TO-DO
 			V Password
 			V username
 			V Email
-			Email confirmation for signup
-			Ask for email confirmation for these
+			V Ask for email confirmation for these
+	V Email confirmation for signup
+	Password reset with email confirmation
 	Delete posts
 	Add password complexity requirements. Cant be just lower case
 	Email notification for comments and likes

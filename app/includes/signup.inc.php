@@ -50,17 +50,38 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	return;
 }
 try {
-	$statement = $pdo->prepare("INSERT INTO users (`name`, username, `password`, email) VALUES (?, ?, ?, ?);");
+	$validation_key = base64_encode(uniqid(rand(), true));
+	$recipient = 'jukkacamagru@outlook.com';
+	$subject = 'Welcome to Camagru. Confirm your email address';
+	$headers = array(
+		'From' => 'jukka.ylimaula@gmail.com',
+		'Reply-To' => 'jukka.ylimaula@gmail.com',
+		'X-Mailer' => 'PHP/' . phpversion(),
+		'Content-Type' => 'text/html'
+	);
+	$message = '
+		
+		<h1>Welcome to Camagru</h1>
+		<p>For the last step of registration we ask you to click the link below to validate this email address.</p>
+		<p><a href="http://localhost:8080/confirm?validation_key=' . $validation_key . '">http://localhost:8080/confirm?validation_key=' . $validation_key . '</a></p>
+	';
+	mail($recipient, $subject, $message, $headers);
+	$statement = $pdo->prepare("INSERT INTO users (`name`, username, `password`, email, validation_key) VALUES (?, ?, ?, ?, ?);");
 	$statement->execute([
 		$name,
 		$username,
 		password_hash($password, PASSWORD_ARGON2ID),
-		$email
+		$email,
+		$validation_key
 	]);
-	header("Location: /login?status=success");
+	header("Location: /confirm");
 	return;
 
 }
 catch (PDOException $pe) {
 	echo $pe->getMessage();
 }
+?>
+<h1>Welcome to Camagru</h1>
+<p>For the last step of registration we'd ask you to click the link below to validate this email address.</p>
+<p><a href="localhost:8080/confirm?validation_key=">localhost:8080/confirm?validation_key=</a></p>

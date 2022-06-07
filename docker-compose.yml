@@ -3,6 +3,12 @@
 ###############################################################################
 version: '3.1'
 services:
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        ports:
+            - "1025:1025"
+            - '2001:8025'
+
     mariadb:
         image: 'mariadb:10.6'
         working_dir: /app

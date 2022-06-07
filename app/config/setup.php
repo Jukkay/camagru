@@ -16,9 +16,10 @@ try {
 		email VARCHAR(320) NOT NULL,
 		profile_image VARCHAR(255) DEFAULT "default.png",
 		biography VARCHAR(4096),
-		validation_date BOOLEAN,
-		`admin` BOOLEAN,
-		email_notification BOOLEAN,
+		validation_key VARCHAR(255) NOT NULL,
+		validated BOOLEAN DEFAULT FALSE,
+		`admin` BOOLEAN DEFAULT FALSE,
+		email_notification BOOLEAN  DEFAULT TRUE,
 		join_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 		PRIMARY KEY (`user_id`)
 	);',

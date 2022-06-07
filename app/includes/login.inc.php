@@ -16,8 +16,12 @@ if (!$userinfo) {
 	return ;
 }
 if (!password_verify($_POST['passwd'], $userinfo['password'])) {
-		header("Location: /login?error=invalidpasswd");
-		return;
+	header("Location: /login?error=invalidpasswd");
+	return;
+}
+if (!$userinfo['validated']) {
+	header("Location: /confirm");
+	return;
 }
 $_SESSION['username'] = $userinfo['username'];
 $_SESSION['name'] = $userinfo['name'];
