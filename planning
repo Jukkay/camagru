@@ -50,7 +50,7 @@ TO-DO
 		Sql injection [blahblah' OR 1='1]
 	Specific bonuses
 		V Live preview (just css? place the sticker image on top of the video element?)
-		Server exchanges ajaxified
+		V Server exchanges ajaxified
 	Additional bonuses (max 5)
 		V Drag and drop for sticker
 		V Sticker location

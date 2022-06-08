@@ -14,7 +14,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/process_signup':
-		require '../process/signup_processing.php';
+		require '../scripts/signup_processing.php';
 		break;
 	case '/checkusername':
 		require '../checkuser.php';
@@ -28,7 +28,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/process_login':
-		require '../process/login_processing.php';
+		require '../scripts/login_processing.php';
 		break;
 	case '/logout':
 		require '../header.php';
@@ -109,6 +109,22 @@ switch ($request) {
 		require '../header.php';
 		require '../validateuser.php';
 		require '../footer.php';
+		break;
+	case '/resetpassword':
+		require '../header.php';
+		require '../resetpassword.php';
+		require '../footer.php';
+		break;
+	case '/resetkey':
+		require '../scripts/send_password_reset_key.php';
+		break;
+	case '/emailpasswordreset':
+		require '../header.php';
+		require '../emailpasswordreset.php';
+		require '../footer.php';
+		break;
+	case '/processpasswordreset':
+		require '../scripts/new_password_with_key.php';
 		break;
 	default:
 		http_response_code(404);

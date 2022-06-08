@@ -34,5 +34,8 @@
 					<button class="button is-primary" id="submit" name="submit" value="OK">Submit</button>
 				</div>
 			</div>
+			<div class="field">
+					<p id="resetpassword" class="">Did you forget your password? <a href="/resetpassword">Reset your password here</a></p>
+			</div>
 		</form>
 
