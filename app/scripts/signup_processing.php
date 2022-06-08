@@ -16,7 +16,7 @@ try {
 	$email = $_POST['email'];
 
 	// Send confirmation email
-	$validation_key = base64_encode(uniqid(rand(), true));
+	$validation_key = md5(uniqid(rand(), true));
 	$recipient = $email;
 	$subject = 'Welcome to Camagru. Confirm your email address';
 	$headers = array(
