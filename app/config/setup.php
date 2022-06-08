@@ -18,6 +18,7 @@ try {
 		biography VARCHAR(4096),
 		validation_key VARCHAR(255) NOT NULL,
 		validated BOOLEAN DEFAULT FALSE,
+		password_reset_key VARCHAR(255),
 		`admin` BOOLEAN DEFAULT FALSE,
 		email_notification BOOLEAN  DEFAULT TRUE,
 		join_date DATETIME DEFAULT CURRENT_TIMESTAMP,

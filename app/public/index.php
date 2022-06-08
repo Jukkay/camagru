@@ -18,6 +18,12 @@ switch ($request) {
 		require '../includes/signup.inc.php';
 		require '../footer.php';
 		break;
+	case '/checkusername':
+		require '../checkuser.php';
+		break;
+	case '/checkemail':
+		require '../checkemail.php';
+		break;
 	case '/login':
 		require '../header.php';
 		require '../login.php';
