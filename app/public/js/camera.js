@@ -48,7 +48,6 @@ let mediaDevices = navigator.mediaDevices;
 if (user_id == 0) {
     alert('Please, login first.');
     location.href = '/';
-    throw new Error('Please, login first.');
 }
 // Fetches users images to drafts
 function getUserImages(user_id) {

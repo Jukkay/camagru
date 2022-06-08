@@ -14,9 +14,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/process_signup':
-		require '../header.php';
-		require '../includes/signup.inc.php';
-		require '../footer.php';
+		require '../process/signup_processing.php';
 		break;
 	case '/checkusername':
 		require '../checkuser.php';
@@ -30,9 +28,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/process_login':
-		require '../header.php';
-		require '../includes/login.inc.php';
-		require '../footer.php';
+		require '../process/login_processing.php';
 		break;
 	case '/logout':
 		require '../header.php';

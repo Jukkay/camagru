@@ -13,10 +13,10 @@ try {
 	$statement->execute([$username]);
 	$userExists = $statement->fetchAll();
 	if ($userExists) {
-		echo 'usernametaken';
+		echo 'username_exists';
 		return;
 	}
-	echo 'ok';
+	echo 'username_available';
 } catch (Exception $e) {
 	echo $e->getMessage();
 }

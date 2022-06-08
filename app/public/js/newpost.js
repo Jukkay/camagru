@@ -1,7 +1,6 @@
 if (user_id == 0) {
     alert('Please, login first.');
     location.href = '/';
-    throw new Error('Please, login first.');
 }
 
 let gallery = document.getElementById('gallery');

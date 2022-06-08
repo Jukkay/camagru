@@ -25,12 +25,12 @@ const check_username = async() => {
 	const request = new Request(`/checkusername?username=${username.value}`);
 	let response = await fetch(request);
     let message = await response.text();
-	if (message == 'usernametaken') {
+	if (message == 'username_exists') {
 		usernametaken.classList.remove('is-hidden');
 		username.classList.add('is-danger');
 		return false;
 	}
-	if (message == 'ok') {
+	if (message == 'username_available') {
 		usernametaken.classList.add('is-hidden');
 		username.classList.remove('is-danger');
 		return true;
@@ -91,7 +91,6 @@ form.addEventListener('submit', async (e) => {
 	formData.append('password', password.value);
 	formData.append('email', email.value);
 	formData.append('tc', tc.value);
-	console.log(tc.value);
     request = new Request('/process_signup', {
         method: 'POST',
         body: formData,
