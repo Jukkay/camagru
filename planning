@@ -39,7 +39,7 @@ TO-DO
 			V Ask for email confirmation for these
 	V Email confirmation for signup
 	V Password reset with email confirmation
-	Delete posts
+	V Delete posts
 	Add password complexity requirements. Cant be just lower case
 	Email notification for comments and likes
 	UX

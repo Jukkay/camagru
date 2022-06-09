@@ -12,6 +12,10 @@ try {
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("DELETE FROM posts WHERE post_id = ? AND `user_id`= ?");
 	$statement->execute([$post_id, $user_id]);
+	$statement = $pdo->prepare("DELETE FROM comments WHERE post_id = ?");
+	$statement->execute([$post_id]);
+	$statement = $pdo->prepare("DELETE FROM likes WHERE post_id = ?");
+	$statement->execute([$post_id]);
 }
 catch(Exception $e) {
 	echo 'Error: ' .$e->getMessage();

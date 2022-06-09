@@ -17,6 +17,18 @@ const getPosts = () => {
                     const data_id = event.target.getAttribute("data-id");
                     toggleLike(data_id);
                 }
+                if (event.target.classList.contains('comment-icon')) {
+                    const post = event.target;
+                    goToComment(post);
+                }
+                if (event.target.classList.contains('comment-button')) {
+                    const post = event.target;
+                    commentPost(post);
+                }
+                if (event.target.classList.contains('show-comments')) {
+                    const post = event.target;
+                    showComments(post);
+                }
                 if (event.target.classList.contains('delete-post')) {
                     const post = event.target;
                     deletePost(post);
@@ -72,30 +84,35 @@ const goToComment = (post) => {
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
+    const post_id = post.getAttribute("data-id");
+    post = post.parentNode;
     let target = post.getElementsByClassName('button')[0];
     target = target.previousElementSibling;
     target.focus();
 };
 
 const showComments = (post) => {
-    const post_id = post.id.replace('show_comments', '');
+    const post_id = post.getAttribute("data-id");
+    post = post.parentNode;
 	fetch(`/getcomments?post_id=${post_id}`)
 	.then(function (response) {
 		return response.text();
 	})
 	.then(function (text) {
+        post.innerHTML = '';
 		post.innerHTML = text;
 	});
 }
 
 const refreshComments = (post) => {
-	const post_id = post.id.replace('post', '');
-	const comment_block = document.getElementById('show_comments' + post_id);
+	const post_id = post.getAttribute("data-id");
+	const comment_block = document.getElementById(`comment-block${post_id}`);
 	fetch(`/getcomments?post_id=${post_id}`)
 	.then(function (response) {
 		return response.text();
 	})
 	.then(function (text) {
+        comment_block.innerHTML = '';
 		comment_block.innerHTML = text;
 	});
 };
@@ -106,8 +123,8 @@ const commentPost = (post) => {
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    const post_id = post.id.replace('post', '');
-    const comment = post.querySelector('input').value;
+    const post_id = post.getAttribute("data-id");
+    const comment = post.previousElementSibling.value;
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
@@ -118,7 +135,7 @@ const commentPost = (post) => {
     });
     fetch(request)
         .then(function (response) {
-            post.querySelector('input').value = '';
+            post.previousElementSibling.value = '';
         })
 		.then(function (response) {
             refreshComments(post);

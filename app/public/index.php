@@ -63,6 +63,14 @@ switch ($request) {
 		require '../newpost.php';
 		require '../footer.php';
 		break;
+	case '/showpost':
+		require '../header.php';
+		require '../showpost.php';
+		require '../footer.php';
+		break;
+	case '/fetchpost':
+		require '../scripts/get_post.php';
+		break;
 	case '/savepost':
 		require '../savepost.php';
 		break;
@@ -73,7 +81,7 @@ switch ($request) {
 		require '../getcomments.php';
 		break;
 	case '/togglelike':
-		require '../togglelike.php';
+		require '../scripts/toggle_like.php';
 		break;
 	case '/getuserinfo':
 		require '../getuserinfo.php';

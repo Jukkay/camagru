@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "classes/dbh.class.php";
+require_once "../classes/dbh.class.php";
 
 try {
 	if (empty($_POST['user_id']) ||
