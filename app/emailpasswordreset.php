@@ -4,7 +4,7 @@ if (!isset($_GET['password_reset_key'])) {
 }
 ?>
 <script> const password_reset_key = '<?php echo $_GET['password_reset_key']; ?>'; </script>
-<script src="js/passwordreset.js" defer></script>
+<script src="js/emailpasswordreset.js" defer></script>
 <form id="emailresetform">
 	<div class="field">
 		<label class="label">New password</label>

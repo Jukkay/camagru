@@ -103,7 +103,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/processpassword':
-		require '../processpassword.php';
+		require '../scripts/reset_password.php';
 		break;
 	case '/confirm':
 		require '../header.php';
@@ -124,7 +124,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/processpasswordreset':
-		require '../scripts/new_password_with_key.php';
+		require '../scripts/reset_password_with_key.php';
 		break;
 	default:
 		http_response_code(404);
