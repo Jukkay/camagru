@@ -75,7 +75,7 @@ switch ($request) {
 		require '../savepost.php';
 		break;
 	case '/savecomment':
-		require '../savecomment.php';
+		require '../scripts/save_comment.php';
 		break;
 	case '/getcomments':
 		require '../getcomments.php';
