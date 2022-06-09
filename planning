@@ -61,6 +61,7 @@ TO-DO
 		Capture video
 		Sticker opacity
 	Bugs
+		Comment gets saved multiple times 
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs

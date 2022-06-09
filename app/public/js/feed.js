@@ -4,6 +4,9 @@ const postsOnPage = 5;
 let pageNumber = 0;
 
 const getPosts = () => {
+    const nomore = document.getElementById('nomore');
+    if (nomore != null)
+        return;
     fetch(`/fetchfeed?user_id=${user_id}&limit=${postsOnPage}&page=${pageNumber}`)
         .then(function (response) {
             return response.text();
@@ -11,7 +14,8 @@ const getPosts = () => {
         .then(function (text) {
             feed.innerHTML = feed.innerHTML + text;
             pageNumber++;
-            hideLoadingIndicator();
+            if (pageNumber > 1)
+                return;
             feed.addEventListener('click', (event) => {
                 if (event.target.classList.contains('like-icon')) {
                     like(event.target);
@@ -39,20 +43,12 @@ const getPosts = () => {
         });
 };
 
-const hideLoadingIndicator = () => {
-    loadingIndicator.classList.add('is-hidden');
-};
-const showLoadingIndicator = () => {
-    loadingIndicator.classList.remove('is-hidden');
-};
-
 const like = async (target) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    console.log(target);
     const post_id = target.getAttribute("data-id");
     const like_icon = target;
     const unlike_icon = like_icon.nextElementSibling;
@@ -191,9 +187,8 @@ const deletePost = (post) => {
 }
 getPosts();
 
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', async () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        showLoadingIndicator();
         getPosts();
     }
 });

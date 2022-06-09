@@ -36,7 +36,7 @@ foreach($posts as $post) {
 }
 if (count($posts) < $limit) { ?>
 		<div class="is-centered">
-			<h3 class="title is-3">No more posts to show</h3>
+			<h3 id="nomore" class="title is-3">No more posts to show</h3>
 		</div>
 <?php
 }

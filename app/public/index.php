@@ -50,7 +50,7 @@ switch ($request) {
 		require '../fetchfeed.php';
 		break;
 	case '/savedraft':
-		require '../savedraft.php';
+		require '../scripts/save_draft.php';
 		break;
 	case '/getimage':
 		require '../getimage.php';
@@ -72,7 +72,7 @@ switch ($request) {
 		require '../scripts/get_post.php';
 		break;
 	case '/savepost':
-		require '../savepost.php';
+		require '../scripts/save_post.php';
 		break;
 	case '/savecomment':
 		require '../scripts/save_comment.php';
