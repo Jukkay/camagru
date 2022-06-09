@@ -46,7 +46,7 @@ form.addEventListener('submit', async (e) => {
 		return;
 	}
 	if (message == 'ok') {
-		location.href = '/login';
+		location.href = '/logout';
 		return;
 	}
 });

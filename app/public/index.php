@@ -31,9 +31,7 @@ switch ($request) {
 		require '../scripts/login_processing.php';
 		break;
 	case '/logout':
-		require '../header.php';
 		require '../logout.php';
-		require '../footer.php';
 		break;
 	case '/profile':
 		require '../header.php';
