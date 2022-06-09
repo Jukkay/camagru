@@ -17,6 +17,10 @@ const getPosts = () => {
                     const data_id = event.target.getAttribute("data-id");
                     toggleLike(data_id);
                 }
+                if (event.target.classList.contains('delete-post')) {
+                    const post = event.target;
+                    deletePost(post);
+                }
             });
         });
 };
@@ -123,6 +127,30 @@ const commentPost = (post) => {
             console.log(error);
         });
 };
+
+const deletePost = (post) => {
+    if (user_id == 0) {
+		alert('Please, login first.');
+		location.href = '/';
+		throw new Error('Please, login first.');
+	}
+    const post_id = post.getAttribute("data-id");
+    const post_element = document.getElementById(`post${post_id}`);
+    let formData = new FormData();
+    formData.append('post_id', post_id);
+    formData.append('user_id', user_id);
+    request = new Request('/deletepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch(request)
+        .then(function (response) {
+            post_element.remove();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 getPosts();
 
 window.addEventListener('scroll', () => {

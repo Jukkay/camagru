@@ -124,6 +124,9 @@ switch ($request) {
 	case '/processpasswordreset':
 		require '../scripts/reset_password_with_key.php';
 		break;
+	case '/deletepost':
+		require '../scripts/delete_post.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';
