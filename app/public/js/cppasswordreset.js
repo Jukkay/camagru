@@ -16,7 +16,6 @@ form.addEventListener('submit', async (e) => {
         password2.classList.add('is-danger');
         return;
     }
-	console.log('passwords match');
 	const formData = new FormData();
 	formData.append('user_id', user_id);
     formData.append('oldpassword', oldpassword.value);
@@ -25,18 +24,14 @@ form.addEventListener('submit', async (e) => {
         method: 'POST',
         body: formData,
     });
-	console.log('request created');
     let response = await fetch(request)
 	.catch(function (error) {
 		console.log(error);
 	});
-	console.log('fetch complete');
     let message = await response.text()
 	.catch(function (error) {
 		console.log(error);
 	});
-	console.log('response text complete');
-	console.log(message);
 	if (message == 'invalid_password') {
 		invalidpassword.classList.remove('is-hidden');
 		oldpassword.classList.add('is-danger');

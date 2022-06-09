@@ -44,7 +44,7 @@ try {
 	}
 
 	// updates
-	
+
 	if (isset($_POST['name'])) {
 		$name = $_POST['name'];
 		$statement = $pdo->prepare("UPDATE users SET `name` = ? WHERE `user_id` = ?;");
@@ -65,7 +65,7 @@ try {
 		$statement->execute([$email, $_POST['user_id']]);
 	}
 	if (isset($_POST['biography'])) {
-		$biography = $_POST['biography'];
+		$biography = htmlspecialchars($_POST['biography']);
 		if (strlen($biography) > 4096)
 			return;
 		$statement = $pdo->prepare("UPDATE users SET `biography` = ? WHERE `user_id` = ?;");

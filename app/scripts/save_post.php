@@ -8,7 +8,7 @@ try {
 
 	$image = $_POST['image'];
 	$user_id = $_POST['user_id'];
-	$description = $_POST['description'];
+	$description = htmlspecialchars($_POST['description']);
 	$path = "../img/";
 	$filename = $path . $image;
 	if (!file_exists($path . $image))

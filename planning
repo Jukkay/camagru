@@ -42,9 +42,12 @@ TO-DO
 	V Delete posts
 	V Email notification for comments and likes
 	V Refactor comments to use eventlisteners like likes
+	Ajaxify control panel submit
 	Fix sticker size information
 	Move non-user-facing files to scripts
 	Add password complexity requirements. Cant be just lower case
+	Check error handling
+	Remove all console.logs and unnecessary echos
 	UX
 		Works on chrome and firefox
 		Works on mobile (narrow window test)
@@ -58,11 +61,11 @@ TO-DO
 		V Drag and drop for sticker
 		V Sticker location
 		V Infinite pagination
-		Notifications on page
 		V Square aspect ratio
-		Sticker resize
-		Capture video
 		Sticker opacity
+		Sticker resize
+		Notifications on page
+		Capture video
 	Bugs
 		V Comment gets saved multiple times
 		Signup wont give error even if db dont exist
