@@ -6,6 +6,9 @@
 	if (!$post) {
 		return;
 	}
+	$email_notification = $post['email_notification'];
+	if (!$email_notification)
+		return;
 	$recipient = $post['email'];
 	$comments = $post['comments'];
 	$subject = 'Somebody commented your post in Camagru!';

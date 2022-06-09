@@ -15,6 +15,7 @@ try {
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
+
 	$statement = $pdo->prepare("SELECT * FROM likes WHERE post_id = ? AND `user_id` = ?;");
 	$statement->bindParam(1, $post_id, PDO::PARAM_INT);
 	$statement->bindParam(2, $user_id, PDO::PARAM_INT);

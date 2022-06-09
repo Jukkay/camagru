@@ -6,6 +6,9 @@
 	if (!$post) {
 		return;
 	}
+	$email_notification = $post['email_notification'];
+	if (!$email_notification)
+		return;
 	$recipient = $post['email'];
 	$likes = $post['likes'];
 	$subject = 'Somebody liked your post in Camagru!';
