@@ -3,10 +3,12 @@ session_start();
 require_once "../classes/dbh.class.php";
 
 try {
-	if (!isset($_POST['post_id']) || !isset($_POST['user_id']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
+	if (!isset($_POST['post_id']) || !isset($_POST['user_id']) || !isset($_POST['image_file']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
 		return;
 	$post_id = $_POST['post_id'];
 	$user_id = $_POST['user_id'];
+	$filename = $_POST['image_file'];
+	unlink('../img/' . $filename);
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();

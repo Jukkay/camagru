@@ -64,5 +64,6 @@ TO-DO
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs
+		Loading indicator in infinite scroll doesnt really ever show
 	Refactor comments to use eventlisteners like likes
 	Refactor function declarations to =>

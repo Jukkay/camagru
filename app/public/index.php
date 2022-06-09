@@ -80,8 +80,11 @@ switch ($request) {
 	case '/getcomments':
 		require '../getcomments.php';
 		break;
-	case '/togglelike':
-		require '../scripts/toggle_like.php';
+	case '/likepost':
+		require '../scripts/like_post.php';
+		break;
+	case '/unlikepost':
+		require '../scripts/unlike_post.php';
 		break;
 	case '/getuserinfo':
 		require '../getuserinfo.php';

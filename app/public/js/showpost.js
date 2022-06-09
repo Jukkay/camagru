@@ -10,8 +10,10 @@ const getPost = () => {
             post.innerHTML = text;
             post.addEventListener('click', (event) => {
                 if (event.target.classList.contains('like-icon')) {
-                    const data_id = event.target.getAttribute("data-id");
-                    toggleLike(data_id);
+                    like(event.target);
+                }
+                if (event.target.classList.contains('unlike-icon')) {
+                    unlike(event.target);
                 }
                 if (event.target.classList.contains('comment-icon')) {
                     const post = event.target;
@@ -32,31 +34,48 @@ const getPost = () => {
             });
         });
 };
-const toggleLike = async (data_id) => {
+const like = async (target) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    let post_id;
-    if (data_id.includes('unlike')) {
-        post_id = data_id.replace('unlike', '');
-        const unlike_icon = document.querySelector(`[data-id="${data_id}"]`);
-        const like_icon = unlike_icon.previousElementSibling;
-        unlike_icon.classList.add('is-hidden');
-        like_icon.classList.remove('is-hidden');
-    }
-    else {
-        post_id = data_id.replace('like', '');
-        const like_icon = document.querySelector(`[data-id="${data_id}"]`);
-        const unlike_icon = like_icon.nextElementSibling;
-        unlike_icon.classList.remove('is-hidden');
-        like_icon.classList.add('is-hidden');
-    }
+    console.log(target);
+    const post_id = target.getAttribute("data-id");
+    const like_icon = target;
+    const unlike_icon = like_icon.nextElementSibling;
+    unlike_icon.classList.remove('is-hidden');
+    like_icon.classList.add('is-hidden');
+
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
-    request = new Request('/togglelike', {
+    request = new Request('/likepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch(request)
+        .catch(function (error) {
+            console.log(error);
+        });
+};
+
+const unlike = async (target) => {
+	if (user_id == 0) {
+		alert('Please, login first.');
+		location.href = '/';
+		throw new Error('Please, login first.');
+	}
+    const post_id = target.getAttribute("data-id");
+    const unlike_icon = target;
+    const like_icon = unlike_icon.previousElementSibling;
+    unlike_icon.classList.add('is-hidden');
+    like_icon.classList.remove('is-hidden');
+
+    let formData = new FormData();
+    formData.append('post_id', post_id);
+    formData.append('user_id', user_id);
+    request = new Request('/unlikepost', {
         method: 'POST',
         body: formData,
     });
@@ -140,10 +159,12 @@ const deletePost = (post) => {
 		throw new Error('Please, login first.');
 	}
     const post_id = post.getAttribute("data-id");
-    const post_element = document.getElementById(`post${post_id}`);
+    const post_element = document.querySelector(`[data-id="post${post_id}"]`);
+    const image_file = post_element.getElementsByTagName('img')[1].id;
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
+    formData.append('image_file', image_file);
     request = new Request('/deletepost', {
         method: 'POST',
         body: formData,
