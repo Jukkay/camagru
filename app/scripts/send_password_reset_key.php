@@ -7,7 +7,7 @@ if (!isset($_POST['username']) || !isset($_POST['email']))
 try {
 	$username = $_POST['username'];
 	$recipient = $_POST['email'];
-	
+
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("SELECT * FROM users WHERE username = ?;");
@@ -27,7 +27,7 @@ try {
 		'Content-Type' => 'text/html'
 	);
 	ob_start();
-	include('../components/passwordresetemail.php');
+	include('../components/password_reset_email.php');
 	$message = ob_get_contents();
 	ob_end_clean();
 	$statement = $pdo->prepare("UPDATE users SET `password_reset_key` = ? WHERE `username` = ? AND `email` = ?;");

@@ -19,7 +19,7 @@
 		'Content-Type' => 'text/html'
 	);
 	ob_start();
-	include('../components/likenotification.php');
+	include('../components/like_notification.php');
 	$message = ob_get_contents();
 	ob_end_clean();
 	mail($recipient, $subject, $message, $headers);

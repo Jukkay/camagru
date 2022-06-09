@@ -26,7 +26,7 @@ try {
 		'Content-Type' => 'text/html'
 	);
 	ob_start();
-	include('../components/confirmationemail.php');
+	include('../components/confirmation_email.php');
 	$message = ob_get_contents();
 	ob_end_clean();
 	mail($recipient, $subject, $message, $headers);

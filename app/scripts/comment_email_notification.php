@@ -19,7 +19,7 @@
 		'Content-Type' => 'text/html'
 	);
 	ob_start();
-	include('../components/commentnotification.php');
+	include('../components/comment_notification.php');
 	$message = ob_get_contents();
 	ob_end_clean();
 	mail($recipient, $subject, $message, $headers);
