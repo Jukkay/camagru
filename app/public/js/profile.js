@@ -1,6 +1,5 @@
 const userinfo = document.getElementById('userinfo');
 const userimages = document.getElementById('userimages');
-const loadingIndicator = document.getElementById('loading');
 const postsOnPage = 5;
 let pageNumber = 0;
 
@@ -15,6 +14,9 @@ const getUserInfo = () => {
 }
 
 const getPosts = () => {
+    const nomore = document.getElementById('nomore');
+    if (nomore != null)
+        return;
     fetch(`/getuserimages?user_id=${user_id}&username=${username}&limit=${postsOnPage}&page=${pageNumber}`)
         .then(function (response) {
             return response.text();
@@ -22,48 +24,51 @@ const getPosts = () => {
         .then(function (text) {
             userimages.innerHTML = userimages.innerHTML + text;
             pageNumber++;
-            hideLoadingIndicator();
-            userimages.addEventListener('click', (event) => {
+            if (pageNumber > 1)
+                return;
+                userimages.addEventListener('click', (event) => {
                 if (event.target.classList.contains('like-icon')) {
-                    const data_id = event.target.getAttribute("data-id");
-                    toggleLike(data_id);
+                    like(event.target);
+                }
+                if (event.target.classList.contains('unlike-icon')) {
+                    unlike(event.target);
+                }
+                if (event.target.classList.contains('comment-icon')) {
+                    const post = event.target;
+                    goToComment(post);
+                }
+                if (event.target.classList.contains('comment-button')) {
+                    const post = event.target;
+                    commentPost(post);
+                }
+                if (event.target.classList.contains('show-comments')) {
+                    const post = event.target;
+                    showComments(post);
+                }
+                if (event.target.classList.contains('delete-post')) {
+                    const post = event.target;
+                    deletePost(post);
                 }
             });
         });
 };
 
-const hideLoadingIndicator = () => {
-    loadingIndicator.classList.add('is-hidden');
-};
-const showLoadingIndicator = () => {
-    loadingIndicator.classList.remove('is-hidden');
-};
-
-const toggleLike = async (data_id) => {
+const like = async (target) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    let post_id;
-    if (data_id.includes('unlike')) {
-        post_id = data_id.replace('unlike', '');
-        const unlike_icon = document.querySelector(`[data-id="${data_id}"]`);
-        const like_icon = unlike_icon.previousElementSibling;
-        unlike_icon.classList.add('is-hidden');
-        like_icon.classList.remove('is-hidden');
-    }
-    else {
-        post_id = data_id.replace('like', '');
-        const like_icon = document.querySelector(`[data-id="${data_id}"]`);
-        const unlike_icon = like_icon.nextElementSibling;
-        unlike_icon.classList.remove('is-hidden');
-        like_icon.classList.add('is-hidden');
-    }
+    const post_id = target.getAttribute("data-id");
+    const like_icon = target;
+    const unlike_icon = like_icon.nextElementSibling;
+    unlike_icon.classList.remove('is-hidden');
+    like_icon.classList.add('is-hidden');
+
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
-    request = new Request('/togglelike', {
+    request = new Request('/likepost', {
         method: 'POST',
         body: formData,
     });
@@ -73,36 +78,65 @@ const toggleLike = async (data_id) => {
         });
 };
 
+const unlike = async (target) => {
+	if (user_id == 0) {
+		alert('Please, login first.');
+		location.href = '/';
+		throw new Error('Please, login first.');
+	}
+    const post_id = target.getAttribute("data-id");
+    const unlike_icon = target;
+    const like_icon = unlike_icon.previousElementSibling;
+    unlike_icon.classList.add('is-hidden');
+    like_icon.classList.remove('is-hidden');
+
+    let formData = new FormData();
+    formData.append('post_id', post_id);
+    formData.append('user_id', user_id);
+    request = new Request('/unlikepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch(request)
+        .catch(function (error) {
+            console.log(error);
+        });
+};
 const goToComment = (post) => {
 	if (user_id == 0) {
 		alert('Please, login first.');
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
+    const post_id = post.getAttribute("data-id");
+    post = post.parentNode;
     let target = post.getElementsByClassName('button')[0];
     target = target.previousElementSibling;
     target.focus();
 };
 
 const showComments = (post) => {
-    const post_id = post.id.replace('show_comments', '');
+    const post_id = post.getAttribute("data-id");
+    post = post.parentNode;
 	fetch(`/getcomments?post_id=${post_id}`)
 	.then(function (response) {
 		return response.text();
 	})
 	.then(function (text) {
+        post.innerHTML = '';
 		post.innerHTML = text;
 	});
 }
 
 const refreshComments = (post) => {
-	const post_id = post.id.replace('post', '');
-	const comment_block = document.getElementById('show_comments' + post_id);
+	const post_id = post.getAttribute("data-id");
+	const comment_block = document.getElementById(`comment-block${post_id}`);
 	fetch(`/getcomments?post_id=${post_id}`)
 	.then(function (response) {
 		return response.text();
 	})
 	.then(function (text) {
+        comment_block.innerHTML = '';
 		comment_block.innerHTML = text;
 	});
 };
@@ -113,8 +147,8 @@ const commentPost = (post) => {
 		location.href = '/';
 		throw new Error('Please, login first.');
 	}
-    const post_id = post.id.replace('post', '');
-    const comment = post.querySelector('input').value;
+    const post_id = post.getAttribute("data-id");
+    const comment = post.previousElementSibling.value;
     let formData = new FormData();
     formData.append('post_id', post_id);
     formData.append('user_id', user_id);
@@ -125,7 +159,7 @@ const commentPost = (post) => {
     });
     fetch(request)
         .then(function (response) {
-            post.querySelector('input').value = '';
+            post.previousElementSibling.value = '';
         })
 		.then(function (response) {
             refreshComments(post);
@@ -135,9 +169,34 @@ const commentPost = (post) => {
         });
 };
 
-window.addEventListener('scroll', () => {
-	if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-		showLoadingIndicator();
+const deletePost = (post) => {
+    if (user_id == 0) {
+		alert('Please, login first.');
+		location.href = '/';
+		throw new Error('Please, login first.');
+	}
+    const post_id = post.getAttribute("data-id");
+    const post_element = document.querySelector(`[data-id="post${post_id}"]`);
+    const image_file = post_element.getElementsByTagName('img')[1].id;
+    let formData = new FormData();
+    formData.append('post_id', post_id);
+    formData.append('user_id', user_id);
+    formData.append('image_file', image_file);
+    request = new Request('/deletepost', {
+        method: 'POST',
+        body: formData,
+    });
+    fetch(request)
+        .then(function (response) {
+            post_element.remove();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+window.addEventListener('scroll', async () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         getPosts();
     }
 });

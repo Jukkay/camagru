@@ -1,19 +1,17 @@
 <?php
 session_start();
-require_once "classes/dbh.class.php";
+require_once "../classes/dbh.class.php";
 
-if (!isset($_GET['user_id']) || !isset($_GET['username']) || !isset($_GET['limit']) || !isset($_GET['page']))
+if (!isset($_GET['user_id']) || !isset($_GET['limit']) || !isset($_GET['page']))
 	return "Invalid parameters";
 $offset = intval($_GET['limit'] * $_GET['page']);
 $limit = intval($_GET['limit']);
 $user_id = intval($_GET['user_id']);
-$username = $_GET['username'];
 $dbh = new Dbh;
 $pdo = $dbh->connect();
-$statement = $pdo->prepare("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id AND users.username = ? LIMIT ? OFFSET ?;");
-$statement->bindParam(1, $username);
-$statement->bindParam(2, $limit, PDO::PARAM_INT);
-$statement->bindParam(3, $offset, PDO::PARAM_INT);
+$statement = $pdo->prepare("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id LIMIT ? OFFSET ?;");
+$statement->bindParam(1, $limit, PDO::PARAM_INT);
+$statement->bindParam(2, $offset, PDO::PARAM_INT);
 $statement->execute();
 $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
 $statement = $pdo->prepare("SELECT posts.post_id FROM posts INNER JOIN likes ON posts.post_id = likes.post_id AND likes.user_id = ?;");
@@ -34,11 +32,11 @@ if (!$posts) {
 }
 
 foreach($posts as $post) {
-	require "components/post.php";
+	require "../components/post.php";
 }
 if (count($posts) < $limit) { ?>
 		<div class="is-centered">
-			<h3 class="title is-3">No more posts to show</h3>
+			<h3 id="nomore" class="title is-3">No more posts to show</h3>
 		</div>
 <?php
 }

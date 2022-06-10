@@ -25,7 +25,6 @@ form.addEventListener('submit', async (e) => {
 	.catch(function (error) {
 		console.log(error);
 	});
-	console.log(message);
 	if (message == 'invalidparameters') {
 		return;
 	}

@@ -82,7 +82,6 @@ gallery.addEventListener('click', (e) => {
     if (action == 'Delete') {
         id = id.replace('delete', '');
         parent = 'parent' + id;
-        console.log(parent);
         document.getElementById(parent).remove();
         deleteImage(id);
     }

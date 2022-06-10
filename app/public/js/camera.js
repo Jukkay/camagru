@@ -398,7 +398,6 @@ post.addEventListener('click', async () => {
 
 opacity.addEventListener('change', (event) => {
     const stickers = document.getElementsByClassName('overlayitem');
-    console.log(opacity.value);
     for (let item of stickers) {
         item.style.opacity = event.target.value / 100;
     }

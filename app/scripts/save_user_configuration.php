@@ -9,7 +9,7 @@ try {
 	$user_id = $_POST['user_id'];
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
-
+	// error_log($_POST['email_notification']);
 	if (isset($_POST['name'])) {
 		$name = $_POST['name'];
 		$statement = $pdo->prepare("UPDATE users SET `name` = ? WHERE `user_id` = ?;");
@@ -34,14 +34,10 @@ try {
 		$statement->execute([$biography, $_POST['user_id']]);
 	}
 	if (isset($_POST['email_notification'])) {
+		$notification = $_POST['email_notification'];
 		$statement = $pdo->prepare("UPDATE users SET `email_notification` = ? WHERE `user_id` = ?;");
-		$statement->execute(['1', $_POST['user_id']]);
+		$statement->execute([$notification, $_POST['user_id']]);
 	}
-	else {
-		$statement = $pdo->prepare("UPDATE users SET `email_notification` = ? WHERE `user_id` = ?;");
-		$statement->execute(['0', $_POST['user_id']]);
-	}
-
 }
 catch (Exception $e) {
 	echo $e->getMessage();

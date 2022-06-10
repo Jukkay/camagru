@@ -55,11 +55,17 @@
 		</div>
 
 		<div class="field">
-			<label class="label">Email preferences</label>
-			<label class="checkbox">
-				<input type="checkbox" id="email_notification" name="email_notification" value="
-			<?php echo $userinfo['email_notification']; ?>" <?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>Receive email notifications
-			</label>
+			<label class="label">Receive email notifications</label>
+			<div class="control">
+				<label class="radio">
+					<input type="radio" name="email_notification" value="1"<?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>
+					Yes
+				</label>
+				<label class="radio">
+					<input type="radio" name="email_notification" value="0"<?php if ($userinfo['email_notification'] == '0') echo ' checked'; ?>>
+					No
+				</label>
+			</div>
 		</div>
 		<div class="field">
 			<label class="label">Password</label>

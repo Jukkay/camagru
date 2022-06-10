@@ -17,13 +17,14 @@ const saveUserConfiguration = async() => {
 	const emailcheck = await check_email();
 	if (emailcheck == false)
 		return;
+	notification = document.querySelector('input[name="email_notification"]:checked').value;
 	const formData = new FormData();
 	formData.append('user_id', user_id);
 	formData.append('name', name.value);
 	formData.append('username', username.value);
 	formData.append('biography', biography.value);
 	formData.append('email', email.value);
-	formData.append('email_notification', email_notification.value);
+	formData.append('email_notification', notification);
 	request = new Request('/saveuserconfiguration', {
 		method: 'POST',
 		body: formData,
