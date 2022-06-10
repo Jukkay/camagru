@@ -1,5 +1,6 @@
 <?php
-require_once "classes/dbh.class.php";
+session_start();
+require_once "../classes/dbh.class.php";
 
 if (!isset($_GET['username']))
 	return;
@@ -11,8 +12,8 @@ try {
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("SELECT username FROM users WHERE username = ?;");
 	$statement->execute([$username]);
-	$userExists = $statement->fetchAll();
-	if ($userExists) {
+	$userExists = $statement->fetch();
+	if ($userExists && $userExists['username'] != $_SESSION['username']) {
 		echo 'username_exists';
 		return;
 	}

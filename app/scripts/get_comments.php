@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "classes/dbh.class.php";
+require_once "../classes/dbh.class.php";
 
 if (!isset($_GET['post_id']))
 	return "Invalid parameters";
@@ -17,17 +17,6 @@ if (!$comments) {
 }
 
 foreach($comments as $comment) {
-	echo '
-	<div class="media">
-		<div class="media-left">
-			<a class="clickable has-text-black" href="/profile?user=' . $comment['username'] . '">
-			<figure class="image is-48x48">
-				<img src="/getimage?name=' . $comment['profile_image'] . '">
-			</figure>
-		</div>
-		<div class="media-content">
-			<strong class="mr-3">' . $comment['username'] . '</strong></a>' . $comment['comment'] .
-		'</div>
-	</div>';
+	include "../components/comment_line.php";
 }
 

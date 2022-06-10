@@ -1,8 +1,40 @@
 const userinfo = document.getElementById('userconfiguration');
+let form;
+let name;
+let username;
+let email;
+let biography;
+let email_notification;
+let emailtaken;
+let usernametaken;
 let image_input;
 let upload;
 
-const getUserConfiguration = () => {
+const saveUserConfiguration = async() => {
+	const usernamecheck = await check_username();
+	if (usernamecheck == false)
+		return;
+	const emailcheck = await check_email();
+	if (emailcheck == false)
+		return;
+	const formData = new FormData();
+	formData.append('user_id', user_id);
+	formData.append('name', name.value);
+	formData.append('username', username.value);
+	formData.append('biography', biography.value);
+	formData.append('email', email.value);
+	formData.append('email_notification', email_notification.value);
+	request = new Request('/saveuserconfiguration', {
+		method: 'POST',
+		body: formData,
+	});
+	fetch(request)
+		.catch(function (error) {
+			console.log(error);
+		});
+}
+
+const getUserConfiguration = async() => {
 	fetch(`/getuserconfiguration?user_id=${user_id}`)
 		.then(function (response) {
 			return response.text();
@@ -15,6 +47,22 @@ const getUserConfiguration = () => {
 				image_input.click();
 			});
 			image_input.addEventListener('change', save_image);
+		})
+		.then(function () {
+			form = document.getElementById('configurationform');
+			name = document.getElementById('name');
+			username = document.getElementById('username');
+			email = document.getElementById('email');
+			biography = document.getElementById('biography');
+			email_notification = document.getElementById('email_notification');
+			emailtaken = document.getElementById('emailtaken');
+			usernametaken = document.getElementById('usernametaken');
+			form.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				saveUserConfiguration();
+			});
+
+
 		})
 }
 
@@ -39,6 +87,38 @@ const save_image = (event) => {
     }
 }
 
+const check_username = async() => {
+	const request = new Request(`/checkusername?username=${username.value}`);
+	let response = await fetch(request);
+    let message = await response.text();
+	if (message == 'username_exists') {
+		usernametaken.classList.remove('is-hidden');
+		username.classList.add('is-danger');
+		return false;
+	}
+	if (message == 'username_available') {
+		usernametaken.classList.add('is-hidden');
+		username.classList.remove('is-danger');
+		return true;
+	}
+	return false;
+}
+
+const check_email = async() => {
+	const request = new Request(`/checkemail?email=${email.value}`);
+	let response = await fetch(request);
+    let message = await response.text();
+	if (message == 'emailtaken') {
+		emailtaken.classList.remove('is-hidden');
+		email.classList.add('is-danger');
+		return false;
+	}
+	if (message == 'ok') {
+		emailtaken.classList.add('is-hidden');
+		email.classList.remove('is-danger');
+		return true;
+	}
+	return false;
+}
+
 getUserConfiguration();
-
-

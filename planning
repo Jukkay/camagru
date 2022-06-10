@@ -42,7 +42,7 @@ TO-DO
 	V Delete posts
 	V Email notification for comments and likes
 	V Refactor comments to use eventlisteners like likes
-	Ajaxify control panel submit
+	V Ajaxify control panel submit
 	Fix sticker size information
 	Move non-user-facing files to scripts
 	Add password complexity requirements. Cant be just lower case

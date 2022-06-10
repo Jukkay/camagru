@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "classes/dbh.class.php";
+require_once "../classes/dbh.class.php";
 
 try {
 	if (empty($_POST['img']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
@@ -14,6 +14,7 @@ try {
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("UPDATE users SET profile_image = ? WHERE `user_id` = ?;");
 	$statement->execute([$filename, $_POST['user_id']]);
+	$_SESSION['profile_image'] = $filename;
 }
 catch(Exception $e) {
 	echo 'Error: ' .$e->getMessage();

@@ -17,10 +17,10 @@ switch ($request) {
 		require '../scripts/signup_processing.php';
 		break;
 	case '/checkusername':
-		require '../checkuser.php';
+		require '../scripts/check_user.php';
 		break;
 	case '/checkemail':
-		require '../checkemail.php';
+		require '../scripts/check_email.php';
 		break;
 	case '/login':
 		require '../header.php';
@@ -78,7 +78,7 @@ switch ($request) {
 		require '../scripts/save_comment.php';
 		break;
 	case '/getcomments':
-		require '../getcomments.php';
+		require '../scripts/get_comments.php';
 		break;
 	case '/likepost':
 		require '../scripts/like_post.php';
@@ -98,13 +98,13 @@ switch ($request) {
 		require '../footer.php';
 		break;
 	case '/getuserconfiguration':
-		require '../getuserconfiguration.php';
+		require '../scripts/get_user_configuration.php';
 		break;
 	case '/saveuserconfiguration':
-		require '../saveuserconfiguration.php';
+		require '../scripts/save_user_configuration.php';
 		break;
 	case '/saveprofilepicture':
-		require '../saveprofilepicture.php';
+		require '../scripts/save_profile_picture.php';
 		break;
 	case '/updatepassword':
 		require '../header.php';
