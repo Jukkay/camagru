@@ -10,17 +10,7 @@ if (!isset($_GET['validation_key'])) {
 	';
 	return;
 }
-try {
-
-	$validation_key = $_GET['validation_key'];
-	$dbh = new Dbh;
-	$pdo = $dbh->connect();
-	$statement = $pdo->prepare("UPDATE users SET validated = ? WHERE validation_key = ?;");
-	$statement->execute(['1', $validation_key]);
-}
-catch(Exception $e) {
-	echo $e->getMessage();
-}
+require_once "scripts/check_validation_key.php";
 ?>
 <section class="section">
 	<h3 class="title is-3">Email address validated</h3>
