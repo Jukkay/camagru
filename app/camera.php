@@ -77,7 +77,10 @@
 				<span>New post</span>
 			</button>
 		</div>
-
+		<div class="block has-text-centered">
+			<p>Sticker opacity:</p>
+			<input type="range" min="1" max="100" value="100" class="slider" id="opacity">
+		</div>
 		<h2 class="subtitle">Select stickers:</h2>
 		<div class="columns" style="width: 100%;
         overflow-x: auto;

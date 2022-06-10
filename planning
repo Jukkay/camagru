@@ -43,7 +43,7 @@ TO-DO
 	V Email notification for comments and likes
 	V Refactor comments to use eventlisteners like likes
 	V Ajaxify control panel submit
-	Fix sticker size information
+	V Fix sticker size information
 	Move non-user-facing files to scripts
 	Add password complexity requirements. Cant be just lower case
 	Check error handling
@@ -62,7 +62,7 @@ TO-DO
 		V Sticker location
 		V Infinite pagination
 		V Square aspect ratio
-		Sticker opacity
+		V Sticker opacity
 		Sticker resize
 		Notifications on page
 		Capture video

@@ -25,6 +25,7 @@ let frenchie = document.getElementById('frenchie');
 let removefrenchie = document.getElementById('removefrenchie');
 let mexican = document.getElementById('mexican');
 let removemexican = document.getElementById('removemexican');
+const opacity = document.getElementById('opacity');
 let width = 1440;
 let height = 0;
 let stickerData = [];
@@ -75,7 +76,6 @@ function addSticker(sticker) {
     stickerImg.style.left = '20px';
     stickerImg.style.top = '20px';
     overlaywrapper.appendChild(stickerImg);
-
     canvasbuttons.classList.remove('is-hidden');
     help1.classList.add('is-hidden');
     if (stickerCount == 0) help2.classList.remove('is-hidden');
@@ -97,14 +97,17 @@ function getStickerData(sticker) {
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
     context.drawImage(img, 0, 0);
+    // const width = (overlaywrapper.clientWidth / img.clientWidth) * img.naturalWidth;
+    // const height = (overlaywrapper.clientHeight / img.clientHeight) * img.naturalHeight;
     imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
     stickerData.push([
         imageData,
         sticker,
         '',
         '',
-        img.naturalWidth,
-        img.naturalHeight,
+        width,
+        height,
+        ''
     ]);
 }
 
@@ -165,6 +168,8 @@ function getStickerLocation() {
         overlaywrapper.getElementsByClassName('overlayitem');
     let i = 0;
     for (sticker of stickersInOverlay) {
+        const sticker_width = (sticker.clientWidth / overlaywrapper.clientWidth) * width;
+        const sticker_height = (sticker.clientHeight / overlaywrapper.clientHeight) * height;
         stickerData[i][2] =
             (sticker.style.left.replace('px', '') /
                 overlaywrapper.clientWidth) *
@@ -173,6 +178,8 @@ function getStickerLocation() {
             (sticker.style.top.replace('px', '') /
                 overlaywrapper.clientHeight) *
             height;
+        stickerData[i][4] = sticker_width;
+        stickerData[i][5] = sticker_height;
         i++;
     }
 }
@@ -188,6 +195,7 @@ async function saveImage() {
     if (stickerData.length > 0) {
         getStickerLocation();
         stickerData.forEach((element) => {
+            element[6] = opacity.value;
             formData.append('stickers[]', element);
         });
     }
@@ -306,7 +314,6 @@ gallery.addEventListener('click', function (e) {
     if (action == 'Delete') {
         id = id.replace('delete', '');
         parent = 'parent' + id;
-        console.log(parent);
         document.getElementById(parent).remove();
         deleteImage(id);
     }
@@ -389,6 +396,14 @@ post.addEventListener('click', async () => {
     location.href = `/newpost?image=${imageName}`;
 });
 
+opacity.addEventListener('change', (event) => {
+    const stickers = document.getElementsByClassName('overlayitem');
+    console.log(opacity.value);
+    for (let item of stickers) {
+        item.style.opacity = event.target.value / 100;
+    }
+
+})
 // Drag and drop stickers
 
 let mouseDown = false;

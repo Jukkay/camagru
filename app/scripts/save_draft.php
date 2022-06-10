@@ -16,12 +16,18 @@ try {
 			$sticker = explode(',', $sticker);
 			$dst_x = (int)$sticker[2];
 			$dst_y = (int)$sticker[3];
+			$src_w = (int)$sticker[4];
+			$src_h = (int)$sticker[5];
+			$opacity = (int)$sticker[6];
 			$sticker = base64_decode($sticker[0]);
 			$sticker = imagecreatefromstring($sticker);
-			$src_w = imagesx($sticker);
-			$src_h = imagesy($sticker);
-			imagecopy($base, $sticker, $dst_x, $dst_y, 0, 0, $src_w, $src_h);
+			$sticker = imagescale($sticker, $src_w, $src_h);
+			$canvas = imagecreatetruecolor($src_w, $src_h);
+			imagecopy($canvas, $base, 0, 0, $dst_x, $dst_y, $src_w, $src_h);
+			imagecopy($canvas, $sticker, 0, 0, 0, 0, $src_w, $src_h);
+			imagecopymerge($base, $canvas, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $opacity);
 			imagedestroy($sticker);
+			imagedestroy($canvas);
 		}
 	}
 	imagepng($base, $path . $filename);
