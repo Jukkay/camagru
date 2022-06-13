@@ -72,9 +72,10 @@ TO-DO
 		V Scroll event fires getPosts too fast
 		V Pagination doesn't work on profile page
 		V File delete when uploading new profile picture?
-		Saving uploaded image gives fatal error
-		Signup wont give error even if db dont exist
-		In some case, I think when saving edit image again, only stickers are sent to server
+		V Saving uploaded image gives fatal error
+		V Wrong sized video frame if close and restart webcam
+		V Signup wont give error even if db dont exist
+		V In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs
 		V Loading indicator in infinite scroll doesnt really ever show
 	Refactor function declarations to =>

@@ -98,8 +98,6 @@ function getStickerData(sticker) {
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
     context.drawImage(img, 0, 0);
-    // const width = (overlaywrapper.clientWidth / img.clientWidth) * img.naturalWidth;
-    // const height = (overlaywrapper.clientHeight / img.clientHeight) * img.naturalHeight;
     imageData = canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
     stickerData.push([
         imageData,
@@ -183,6 +181,7 @@ function getStickerLocation() {
             height;
         stickerData[i][4] = sticker_width;
         stickerData[i][5] = sticker_height;
+        stickerData[i][6] = opacity.value;
         i++;
     }
 }
@@ -198,7 +197,6 @@ async function saveImage() {
     if (stickerData.length > 0) {
         getStickerLocation();
         stickerData.forEach((element) => {
-            element[6] = opacity.value;
             formData.append('stickers[]', element);
         });
     }
@@ -214,7 +212,7 @@ async function saveImage() {
             return filename;
         })
         .catch(function (error) {
-            // console.log(error);
+            console.log(error);
         });
     return response;
 }
@@ -379,11 +377,6 @@ close.addEventListener('click', function () {
         tracks[i].stop();
     }
     video.srcObject = null;
-    // canvasbuttons.classList.remove('is-hidden');
-    canvas.removeAttribute('height');
-    canvas.removeAttribute('width');
-    video.removeAttribute('height');
-    video.removeAttribute('width');
 });
 
 snapshot.addEventListener('click', function () {
