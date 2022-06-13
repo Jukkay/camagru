@@ -72,6 +72,7 @@ TO-DO
 		V Scroll event fires getPosts too fast
 		V Pagination doesn't work on profile page
 		V File delete when uploading new profile picture?
+		Saving uploaded image gives fatal error
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs

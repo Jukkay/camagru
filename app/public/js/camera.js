@@ -135,6 +135,8 @@ function previewUpload(baseImg) {
     let context = canvas.getContext('2d');
     canvas.width = baseImg.width;
     canvas.height = baseImg.height;
+    width = baseImg.width;
+    height = baseImg.height;
     context.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height);
     imageData = canvas.toDataURL();
     preview.classList.remove('is-hidden');
