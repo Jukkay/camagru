@@ -68,6 +68,7 @@ TO-DO
 		Capture video
 	Bugs
 		V Comment gets saved multiple times
+		Comments don't show in some cases
 		File delete when uploading new profile picture?
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
