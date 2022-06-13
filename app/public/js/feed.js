@@ -187,7 +187,10 @@ const deletePost = (post) => {
 }
 getPosts();
 
+// Infinite Scroll
+
 window.addEventListener('scroll', async () => {
+
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         getPosts();
     }
