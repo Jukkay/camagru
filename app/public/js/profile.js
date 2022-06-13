@@ -2,6 +2,7 @@ const userinfo = document.getElementById('userinfo');
 const userimages = document.getElementById('userimages');
 const postsOnPage = 5;
 let pageNumber = 0;
+let scrolling = false;
 
 const getUserInfo = () => {
 	fetch(`/getuserinfo?username=${username}`)
@@ -195,11 +196,20 @@ const deletePost = (post) => {
         });
 }
 
-window.addEventListener('scroll', async () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        getPosts();
-    }
-});
-
 getUserInfo();
 getPosts();
+
+// Infinite Pagination
+
+window.addEventListener('scroll', () => {
+    scrolling = true;
+},{ passive: true });
+
+setInterval(() => {
+    if (scrolling) {
+        scrolling = false;
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 5) {
+            getPosts();
+        }
+    }
+}, 500)

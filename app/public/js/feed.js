@@ -2,8 +2,9 @@ const loadingIndicator = document.getElementById('loading');
 const feed = document.getElementById('feed');
 const postsOnPage = 5;
 let pageNumber = 0;
+let scrolling = false;
 
-const getPosts = () => {
+const getPosts = async() => {
     const nomore = document.getElementById('nomore');
     if (nomore != null)
         return;
@@ -39,8 +40,11 @@ const getPosts = () => {
                     const post = event.target;
                     deletePost(post);
                 }
-            });
-        });
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
 };
 
 const like = async (target) => {
@@ -187,12 +191,18 @@ const deletePost = (post) => {
 }
 getPosts();
 
-// Infinite Scroll
+// Infinite Pagination
 
-window.addEventListener('scroll', async () => {
+window.addEventListener('scroll', () => {
+    scrolling = true;
+},{ passive: true });
 
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        getPosts();
+setInterval(() => {
+    if (scrolling) {
+        scrolling = false;
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            getPosts();
+        }
     }
-});
+}, 500)
 

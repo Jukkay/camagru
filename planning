@@ -68,10 +68,12 @@ TO-DO
 		Capture video
 	Bugs
 		V Comment gets saved multiple times
-		Comments don't show in some cases
-		File delete when uploading new profile picture?
+		V Comments don't show in some cases
+		V Scroll event fires getPosts too fast
+		V Pagination doesn't work on profile page
+		V File delete when uploading new profile picture?
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs
-		Loading indicator in infinite scroll doesnt really ever show
+		V Loading indicator in infinite scroll doesnt really ever show
 	Refactor function declarations to =>
