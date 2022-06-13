@@ -63,11 +63,12 @@ TO-DO
 		V Infinite pagination
 		V Square aspect ratio
 		V Sticker opacity
-		Sticker resize
+		V Sticker resize
 		Notifications on page
 		Capture video
 	Bugs
 		V Comment gets saved multiple times
+		File delete when uploading new profile picture?
 		Signup wont give error even if db dont exist
 		In some case, I think when saving edit image again, only stickers are sent to server
 		Fix all Cancel bugs

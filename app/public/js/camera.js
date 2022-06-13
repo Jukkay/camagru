@@ -75,6 +75,7 @@ function addSticker(sticker) {
     stickerImg.classList.add('overlayitem');
     stickerImg.style.left = '20px';
     stickerImg.style.top = '20px';
+    stickerImg.style.width = '200px';
     overlaywrapper.appendChild(stickerImg);
     canvasbuttons.classList.remove('is-hidden');
     help1.classList.add('is-hidden');
@@ -211,7 +212,7 @@ async function saveImage() {
             return filename;
         })
         .catch(function (error) {
-            console.log(error);
+            // console.log(error);
         });
     return response;
 }
@@ -451,5 +452,41 @@ document.addEventListener('pointerup', (event) => {
     mouseDown = false;
 });
 
+// Sticker resize
+
+let sticker_resize;
+let mouse_over = false;
+
+overlaywrapper.addEventListener('mouseover', (event) => {
+    if (!event.target.classList.contains('overlayitem'))
+        return;
+    sticker_resize = document.getElementById(event.target.id);
+    mouse_over = true;
+    sticker_resize.addEventListener('mouseleave', (event) => {
+        mouse_over = false;
+    }, { once: true })
+    window.addEventListener('keydown', (event) => {
+        if (!mouse_over)
+            return;
+        event.preventDefault();
+        if (event.key == 'ArrowUp') {
+            const new_width = sticker_resize.clientWidth + 5;
+            rightEdge = sticker_resize.offsetLeft + new_width;
+            bottomEdge = sticker_resize.offsetTop + sticker_resize.clientHeight + 5;
+            if (
+                rightEdge > overlaywrapper.offsetWidth ||
+                bottomEdge > overlaywrapper.offsetHeight
+            )
+                return;
+            sticker_resize.style.width = `${new_width}px`;
+        }
+        if (event.key == 'ArrowDown') {
+            const new_width = sticker_resize.clientWidth - 5;
+            if (new_width < 10) return;
+            sticker_resize.style.width = `${new_width}px`;
+        }
+    })
+
+})
 // Load user images on startup
 getUserImages(user_id);
