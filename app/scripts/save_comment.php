@@ -18,8 +18,8 @@ try {
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("INSERT INTO comments (post_id, `user_id`, comment) VALUES ( ?, ?, ?);");
 	$statement->execute([$post_id, $user_id, $comment]);
-	$statement = $pdo->prepare("UPDATE posts SET comments = comments + 1 WHERE post_id = ? AND `user_id` = ?;");
-	$statement->execute([$post_id, $user_id]);
+	$statement = $pdo->prepare("UPDATE posts SET comments = (SELECT COUNT(*) FROM comments WHERE post_id = ?) WHERE post_id = ?;");
+	$statement->execute([$post_id, $post_id]);
 	include 'comment_email_notification.php';
 } catch (Exception $e) {
 	echo 'Error: ' . $e->getMessage();

@@ -29,7 +29,11 @@ function check_likes ($likes, $post_id) {
 	return false;
 }
 
-if (!$posts) {
+if (!$posts) { ?>
+	<div class="has-text-centered">
+		<h3 id="nomore" class="title is-3">No posts to show</h3>
+	</div>
+<?php
 	return;
 }
 
@@ -37,8 +41,8 @@ foreach($posts as $post) {
 	require "../components/post.php";
 }
 if (count($posts) < $limit) { ?>
-		<div class="is-centered">
-			<h3 class="title is-3">No more posts to show</h3>
+		<div class="has-text-centered">
+			<h3 id="nomore" class="title is-3">No more posts to show</h3>
 		</div>
 <?php
 }
