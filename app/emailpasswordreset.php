@@ -7,7 +7,7 @@ if (!isset($_GET['password_reset_key'])) {
 <script src="js/emailpasswordreset.js" defer></script>
 <form id="emailresetform">
 	<div class="field">
-		<label class="label">New password</label>
+		<label class="label">New password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="password" id="password" name="password" placeholder="New password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -19,7 +19,7 @@ if (!isset($_GET['password_reset_key'])) {
 	</div>
 
 	<div class="field">
-		<label class="label">Confirm password</label>
+		<label class="label">Confirm password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="password" id="password2" name="password2" placeholder="Confirm password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -38,6 +38,7 @@ if (!isset($_GET['password_reset_key'])) {
 			<a class="button is-light" href='/'>Cancel</a>
 		</div>
 	</div>
+	<p class="help">All fields marked with asterisks (*) are required.</p>
 	<div class="field">
 		<p id="invalidkey" class="is-danger is-hidden">Invalid key. Try resetting again.</p>
 	</div>

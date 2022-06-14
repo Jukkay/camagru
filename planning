@@ -44,8 +44,8 @@ TO-DO
 	V Refactor comments to use eventlisteners like likes
 	V Ajaxify control panel submit
 	V Fix sticker size information
-	Move non-user-facing files to scripts
-	Add password complexity requirements. Cant be just lower case
+	V Move non-user-facing files to scripts
+	V Add password complexity requirements. Cant be just lower case
 	Check error handling
 	Remove all console.logs and unnecessary echos
 	UX

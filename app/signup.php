@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Email</label>
+		<label class="label">Email *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="email" id="email" name="email" placeholder="Email" maxlength="320" required>
 			<span class="icon is-small is-left">
@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Username</label>
+		<label class="label">Username *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="text" id="username" name="username" placeholder="Username" minlength="3" maxlength="32" required>
 			<span class="icon is-small is-left">
@@ -33,19 +33,19 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Password</label>
+		<label class="label">Password *</label>
 		<div class="control has-icons-left has-icons-right">
-			<input class="input" type="password" id="password" name="password" placeholder="Password" minlength="8" maxlength="255" required>
+			<input class="input" type="password" id="password" name="password" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
 				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
 				<path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" />
 				</svg>
 			</span>
-			<p id="invalidpassword" class="help">Minimum of 8 characters. Must include uppercase and lowercase characters.</p>
+			<p id="invalidpassword" class="help">Minimum of 8 characters. Must include at least one number and one uppercase and lowercase characters.</p>
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Re-enter password</label>
+		<label class="label">Re-enter password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="password" id="password2" name="password2" placeholder="Password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -61,7 +61,7 @@
 			<label class="checkbox">
 				<input type="checkbox" id="tc" name="tc" value="TRUE" required>
 			</label>
-			I agree to the <a class="js-modal-trigger" id="tcopen">terms and conditions</a>
+			I agree to the <a class="js-modal-trigger" id="tcopen">terms and conditions *</a>
 		</div>
 	</div>
 	<div class="field is-grouped">
@@ -72,6 +72,7 @@
 			<a class="button is-light" href='/'>Cancel</a>
 		</div>
 	</div>
+	<p class="help">All fields marked with asterisks (*) are required.</p>
 	</form>
 </section>
 <div class="modal" id="tcmodal">

@@ -2,7 +2,7 @@
 <script src="js/cppasswordreset.js" defer></script>
 <form id="resetform">
 	<div class="field">
-		<label class="label">Old password</label>
+		<label class="label">Old password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" id="oldpassword" type="password" name="oldpassword" placeholder="Old password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">New password</label>
+		<label class="label">New password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" id="password" type="password" name="password" placeholder="Password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Confirm password</label>
+		<label class="label">Confirm password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" id="password2" type="password" name="password2" placeholder="Password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">
@@ -45,4 +45,5 @@
 			<a class="button is-light" href='/'>Cancel</a>
 		</div>
 	</div>
+	<p class="help">All fields marked with asterisks (*) are required.</p>
 </form>
