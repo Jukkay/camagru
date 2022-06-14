@@ -78,6 +78,7 @@ function addSticker(sticker) {
     stickerImg.style.width = '200px';
     overlaywrapper.appendChild(stickerImg);
     canvasbuttons.classList.remove('is-hidden');
+    gallery.classList.remove('is-hidden');
     help1.classList.add('is-hidden');
     if (stickerCount == 0) help2.classList.remove('is-hidden');
     else help2.classList.add('is-hidden');
@@ -146,10 +147,11 @@ function previewUpload(baseImg) {
 // Renders selected image from drafts to preview
 function editImage(base) {
     let context = canvas.getContext('2d');
-    let baseImg = document.getElementById(base);
-    canvas.width = baseImg.naturalWidth;
-    canvas.height = baseImg.naturalHeight;
-    context.drawImage(baseImg, 0, 0);
+    canvas.width = base.naturalWidth;
+    canvas.height = base.naturalHeight;
+    width = base.naturalWidth;
+    height = base.naturalHeight;
+    context.drawImage(base, 0, 0, width, height);
     imageData = canvas.toDataURL();
     preview.setAttribute('src', imageData);
     video.classList.add('is-hidden');
@@ -233,10 +235,11 @@ function deleteImage(filename) {
         getUserImages(user_id);
     });
 }
+
 // Video frame initialization
 video.addEventListener(
     'canplay',
-    function (ev) {
+    (ev) => {
         if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width);
 
@@ -320,7 +323,8 @@ gallery.addEventListener('click', function (e) {
     }
     if (action == 'Edit') {
         id = id.replace('edit', '');
-        editImage(id);
+        let base = document.getElementById(id)
+        editImage(base);
     }
 });
 
@@ -418,7 +422,7 @@ overlaywrapper.addEventListener('pointerdown', (event) => {
 });
 
 overlaywrapper.addEventListener('pointermove', (event) => {
-    if (!mouseDown || event.offsetX < 1 || event.offsetY < 1) return;
+    if (!mouseDown || event.offsetX < 1 || event.offsetY < 1 || pointer == undefined) return;
     rightEdge =
         event.clientX -
         overlaywrapper.offsetParent.offsetLeft -

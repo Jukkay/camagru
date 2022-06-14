@@ -21,8 +21,8 @@ try {
 	$password_reset_key = base64_encode(uniqid(rand(), true));
 	$subject = 'Confirm password reset for your Camagru account';
 	$headers = array(
-		'From' => 'jukka.ylimaula@gmail.com',
-		'Reply-To' => 'jukka.ylimaula@gmail.com',
+		'From' => 'jukkacamagru@outlook.com',
+		'Reply-To' => 'jukkacamagru@outlook.com',
 		'X-Mailer' => 'PHP/' . phpversion(),
 		'Content-Type' => 'text/html'
 	);

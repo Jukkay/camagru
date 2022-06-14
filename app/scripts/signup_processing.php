@@ -20,8 +20,8 @@ try {
 	$recipient = $email;
 	$subject = 'Welcome to Camagru. Confirm your email address';
 	$headers = array(
-		'From' => 'jukkacamagru@gmail.com',
-		'Reply-To' => 'jukkacamagru@gmail.com',
+		'From' => 'jukkacamagru@outlook.com',
+		'Reply-To' => 'jukkacamagru@outlook.com',
 		'X-Mailer' => 'PHP/' . phpversion(),
 		'Content-Type' => 'text/html'
 	);

@@ -133,6 +133,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="column" id="gallery">
+	<div class="column is-hidden" id="gallery">
 	</div>
 </div>
