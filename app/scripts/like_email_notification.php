@@ -13,8 +13,8 @@
 	$likes = $post['likes'];
 	$subject = 'Somebody liked your post in Camagru!';
 	$headers = array(
-		'From' => 'jukkacamagru@gmail.com',
-		'Reply-To' => 'jukkacamagru@gmail.com',
+		'From' => 'jukkacamagru@outlook.com',
+		'Reply-To' => 'jukkacamagru@outlook.com',
 		'X-Mailer' => 'PHP/' . phpversion(),
 		'Content-Type' => 'text/html'
 	);
