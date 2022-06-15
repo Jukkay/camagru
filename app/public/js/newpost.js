@@ -54,7 +54,6 @@ const deleteImage = (filename) => {
 // Submits image and description to backend
 const submitPost = async () => {
   if (user_id == 0 || image === "" || description.value === "") {
-    console.log("empty input!");
     return;
   }
   var formData = new FormData();
