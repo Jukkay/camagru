@@ -76,6 +76,22 @@ TO-DO
 		V Wrong sized video frame if close and restart webcam
 		V Signup wont give error even if db dont exist
 		V In some case, I think when saving edit image again, only stickers are sent to server
-		Fix all Cancel bugs
+		V Fix all Cancel bugs
 		V Loading indicator in infinite scroll doesnt really ever show
+		File upload is missing base image on home system
+		Navbar items missing from hamburger
+		Profile pic change script deletes default.png
+		Add sticker resize instructions to editor
+		Add ? checks for variables and replace ifs if necessary
+		Signup form  're-enter' to confirm
+		Aspect ratio gets skewed with non square images. Check height
+	Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	Refactor function declarations to =>
+
+Notes
+
+Email requires ssmtp and outlook's smtp server.
+https://www.unixmen.com/install-ssmtp-to-send-emails-to-gmail-and-office3655/
+Outlook's stmp requires TLS certificate
+https://www.linode.com/docs/guides/create-a-self-signed-tls-certificate/
+

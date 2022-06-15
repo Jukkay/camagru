@@ -15,8 +15,10 @@ try {
 	$statement = $pdo->prepare("SELECT profile_image FROM users WHERE `user_id` = ?;");
 	$statement->execute([$_POST['user_id']]);
 	$oldimage = $statement->fetch(PDO::FETCH_ASSOC);
-	$oldimage = "../img/" . $oldimage['profile_image'];
-	unlink($oldimage);
+	$oldimage = $oldimage['profile_image'];
+	if ($oldimage != "default.png") {
+		unlink("../img/" . $oldimage);
+	}
 	$statement = $pdo->prepare("UPDATE users SET profile_image = ? WHERE `user_id` = ?;");
 	$statement->execute([$filename, $_POST['user_id']]);
 	$_SESSION['profile_image'] = $filename;
