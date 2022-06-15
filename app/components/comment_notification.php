@@ -10,12 +10,12 @@
 <section class="section">
 <h1 class="title is-1">You received a new comment!</h1>
 <p class="block"><strong><?php echo $username; ?></strong> and <?php echo $comments; ?> others commented your post.</p>
-<p class="block"><a href="http://localhost:8080/showpost?post_id=<?php echo $post_id; ?>">http://localhost:8080/showpost?post_id=<?php echo $post_id; ?></a></p>
+<p class="block"><a href="http://localhost/showpost?post_id=<?php echo $post_id; ?>">http://localhost/showpost?post_id=<?php echo $post_id; ?></a></p>
 <p class="block">Good job, keep on creating that quality content!</p>
 <p class="block has-text-weight-bold">Best regards,</p>
 <p class="block has-text-weight-bold">Camagru Team</p>
 <figure class="image is-128x128">
-	<img src="http://localhost:8080/assets/camagru_logo.svg" alt="Camagru logo">
+	<img src="http://localhost/assets/camagru_logo.svg" alt="Camagru logo">
 </figure>
 </section>
 </body>
