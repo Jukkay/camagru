@@ -12,11 +12,8 @@
 		<div class="dropdown-content">
 			<?php
 				if ($post['user_id'] == $_SESSION['user_id']) {
-					echo '<a data-id="' . $post['post_id'] . '" class="dropdown-item edit-post">Edit post</a>';
+
 					echo '<a data-id="' . $post['post_id'] . '" class="dropdown-item delete-post">Delete post</a>';
-				}
-				if (isset($_SESSION['user_id'])) {
-					echo '<a data-id="' . $post['post_id'] . '" class="dropdown-item delete-post">Report post</a>';
 				}
 			?>
 		</div>

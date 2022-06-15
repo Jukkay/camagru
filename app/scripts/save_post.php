@@ -5,7 +5,6 @@ require_once "../classes/dbh.class.php";
 try {
 	if (empty($_POST['image']) || empty($_POST['description']) || empty($_POST['user_id']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
 		return;
-
 	$image = $_POST['image'];
 	$user_id = $_POST['user_id'];
 	$description = htmlspecialchars($_POST['description']);

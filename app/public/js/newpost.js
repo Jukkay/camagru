@@ -52,8 +52,8 @@ const deleteImage = (filename) => {
 };
 
 // Submits image and description to backend
-const submitPost = () => {
-  if (user_id == 0 || image == "" || description.value == "") {
+const submitPost = async () => {
+  if (user_id == 0 || image === "" || description.value === "") {
     console.log("empty input!");
     return;
   }
@@ -91,7 +91,8 @@ gallery.addEventListener("click", (e) => {
   }
 });
 
-submit.addEventListener("click", () => {
+submit.addEventListener("click", (event) => {
+  event.preventDefault();
   submitPost();
 });
 if (preview.hasAttribute("src")) preview.classList.remove("is-hidden");

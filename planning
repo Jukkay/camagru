@@ -85,6 +85,7 @@ TO-DO
 		Add ? checks for variables and replace ifs if necessary
 		V Signup form  're-enter' to confirm
 		V Aspect ratio gets skewed with non square images. Check height
+		V Saving new post doesn't work on Firefox
 	Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	Refactor function declarations to =>
 
