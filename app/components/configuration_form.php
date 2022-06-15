@@ -58,11 +58,11 @@
 			<label class="label">Receive email notifications</label>
 			<div class="control">
 				<label class="radio">
-					<input type="radio" name="email_notification" value="1"<?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>
+					<input type="radio" name="email_notification" value="1" <?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>
 					Yes
 				</label>
 				<label class="radio">
-					<input type="radio" name="email_notification" value="0"<?php if ($userinfo['email_notification'] == '0') echo ' checked'; ?>>
+					<input type="radio" name="email_notification" value="0" <?php if ($userinfo['email_notification'] == '0') echo ' checked'; ?>>
 					No
 				</label>
 			</div>

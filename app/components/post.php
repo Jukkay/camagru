@@ -3,7 +3,7 @@
 		<div class="media">
 			<div class="media-left">
 				<figure class="image is-48x48"><a href="/profile?user=<?= $post['username']; ?>">
-					<img class="is-rounded" src="/getimage?name=<?php echo $post['profile_image']; ?>" alt="Profile picture">
+						<img class="is-rounded" src="/getimage?name=<?php echo $post['profile_image']; ?>" alt="Profile picture">
 					</a>
 				</figure>
 			</div>
@@ -62,10 +62,10 @@
 				<div class="media-left">
 					<figure class="image is-48x48">
 						<img class="is-rounded" src="/getimage?name=<?php
-							if (isset($_SESSION['profile_image']))
-								echo $_SESSION['profile_image'];
-							else
-								echo 'default.png'; ?>" alt="Profile picture">
+																	if (isset($_SESSION['profile_image']))
+																		echo $_SESSION['profile_image'];
+																	else
+																		echo 'default.png'; ?>" alt="Profile picture">
 					</figure>
 				</div>
 				<div class="media-content">

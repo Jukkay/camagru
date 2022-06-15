@@ -3,7 +3,7 @@
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 switch ($request) {
 
-	// Pages
+		// Pages
 
 	case '':
 	case '/':
@@ -67,7 +67,7 @@ switch ($request) {
 		require '../footer.php';
 		break;
 
-	// Scripts
+		// Scripts
 
 	case '/process_signup':
 		require '../scripts/signup_processing.php';
@@ -150,5 +150,4 @@ switch ($request) {
 	default:
 		http_response_code(404);
 		require '404.php';
-
 }

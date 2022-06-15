@@ -19,16 +19,15 @@
 
     <div class="content">
       <div class="title is-5">Biography</div>
-        <div>
+      <div>
 
-          <?php
-          if (isset($userinfo['biography']))
+        <?php
+        if (isset($userinfo['biography']))
           echo $userinfo['biography'];
-          else
+        else
           echo 'No biography information';
-          ?>
-        </div>
+        ?>
+      </div>
     </div>
   </div>
 </div>
-

@@ -1,5 +1,6 @@
 
 <script src="js/cppasswordreset.js" defer></script>
+<section class="section">
 <form id="resetform">
 	<div class="field">
 		<label class="label">Old password *</label>
@@ -47,3 +48,4 @@
 	</div>
 	<p class="help">All fields marked with asterisks (*) are required.</p>
 </form>
+</section>

@@ -14,6 +14,7 @@
 	}
 
 </style>
+<section class="section">
 <div class="columns">
 	<div class="column is-three-quarters">
 		<div id="overlay">
@@ -178,3 +179,4 @@
 	<div class="column is-hidden" id="gallery">
 	</div>
 </div>
+</section>
