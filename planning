@@ -80,7 +80,7 @@ TO-DO
 		V Loading indicator in infinite scroll doesnt really ever show
 		File upload is missing base image on home system
 		Navbar items missing from hamburger
-		Profile pic change script deletes default.png
+		V Profile pic change script deletes default.png
 		Add sticker resize instructions to editor
 		Add ? checks for variables and replace ifs if necessary
 		Signup form  're-enter' to confirm
