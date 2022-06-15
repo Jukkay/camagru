@@ -23,9 +23,18 @@
 			</div>
 		</div>
 		<canvas id="canvas" class="is-hidden"></canvas>
-		<p id="help1" class="title has-text-centered mb-6">1.  Select one or more stickers below</p>
-		<p id="help2" class="title has-text-centered mb-6 is-hidden">2.  Start webcam, upload a file, or select one of your drafts</p>
-		<div class="pb-6 has-text-centered is-hidden" id="canvasbuttons">
+		<section class="section" id="help1">
+			<p class="title has-text-centered mb-6">1.  Select one or more stickers below</p>
+		</section>
+		<section class="section is-hidden" id="help2">
+			<p class="title has-text-centered mb-6">2.  Start webcam, upload a file, or select one of your drafts</p>
+		</section>
+		<div class="notification is-primary is-hidden" id="notification">
+ 			<button class="delete" id="deletebutton"></button>
+			 <strong>Usage</strong></br>
+			 Drag to move stickers.</br>Resize stickers by hovering your mouse on a sticker and using arrow up/down keys.
+		</div>
+		<div class="pb-3 has-text-centered is-hidden" id="canvasbuttons">
 
 			<button class="button" id="start">
 				<span class="icon is-small">
@@ -76,8 +85,16 @@
 				</span>
 				<span>New post</span>
 			</button>
+			<button class="button" id="helpbutton">
+				<span class="icon is-small">
+					<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+						<path fill="currentColor" d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,6A4,4 0 0,0 8,10H10A2,2 0 0,1 12,8A2,2 0 0,1 14,10C14,12 11,11.75 11,15H13C13,12.75 16,12.5 16,10A4,4 0 0,0 12,6Z" />
+					</svg>
+				</span>
+				<span>Help</span>
+			</button>
 		</div>
-		<div class="block has-text-centered">
+		<div class="block has-text-centered is-hidden">
 			<p>Sticker opacity:</p>
 			<input type="range" min="1" max="100" value="100" class="slider" id="opacity">
 		</div>
@@ -133,6 +150,31 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal" id="help">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title">Help</p>
+			<button class="delete" aria-label="close" id="deletehelp"></button>
+		</header>
+		<section class="modal-card-body">
+			<p>
+				This app lets you take and edit pictures with your webcam. You can snap a new picture with your webcam or edit existing image by uploading it. If you have drafts saved in Camagru, you can edit them by clicking edit button below the image you want to edit.
+			</p>
+			</br>
+			<p>
+				Stickers can be added to picture by selecting them from the sticker menu. Clicking remove on the sticker in the sticker menu removes the sticker from the picture.
+			</p>
+			</br>
+			<p>
+				You can save your image by clicking the Save button, or submit it directly by clicking the New post button. Saved images will appear in the drafts gallery and posted images in your image feed.
+			</p>
+		</section>
+		<footer class="modal-card-foot">
+			<button class="button" id="closehelp">Close</button>
+		</footer>
+	</div>
+</div>
 	<div class="column is-hidden" id="gallery">
 	</div>
 </div>

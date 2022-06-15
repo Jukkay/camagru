@@ -9,7 +9,7 @@
 			</div>
 			<div class="media-content">
 				<a href="/profile?user=<?= $post['username']; ?>">
-					<p class="title is-4"><?php echo $post['username']; ?></p>
+					<p class="card-header-title"><?php echo $post['username']; ?></p>
 				</a>
 			</div>
 			<?php

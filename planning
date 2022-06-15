@@ -81,10 +81,10 @@ TO-DO
 		V File upload is missing base image on home system
 		V Navbar items missing from hamburger
 		V Profile pic change script deletes default.png
-		Add sticker resize instructions to editor
+		V Add sticker resize instructions to editor
 		Add ? checks for variables and replace ifs if necessary
-		Signup form  're-enter' to confirm
-		Aspect ratio gets skewed with non square images. Check height
+		V Signup form  're-enter' to confirm
+		V Aspect ratio gets skewed with non square images. Check height
 	Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	Refactor function declarations to =>
 

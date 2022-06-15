@@ -45,7 +45,7 @@
 		</div>
 	</div>
 	<div class="field">
-		<label class="label">Re-enter password *</label>
+		<label class="label">Confirm password *</label>
 		<div class="control has-icons-left has-icons-right">
 			<input class="input" type="password" id="password2" name="password2" placeholder="Password" minlength="8" maxlength="255" required>
 			<span class="icon is-small is-left">

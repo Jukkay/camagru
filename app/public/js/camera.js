@@ -26,6 +26,13 @@ let removefrenchie = document.getElementById('removefrenchie');
 let mexican = document.getElementById('mexican');
 let removemexican = document.getElementById('removemexican');
 const opacity = document.getElementById('opacity');
+const notification = document.getElementById('notification');
+const deletebutton = document.getElementById('deletebutton');
+const help = document.getElementById('help');
+const helpbutton = document.getElementById('helpbutton');
+const deletehelp = document.getElementById('deletehelp');
+const closehelp = document.getElementById('closehelp');
+let notification_closed = false;
 let width = 1440;
 let height = 0;
 let stickerData = [];
@@ -142,6 +149,8 @@ function previewUpload(baseImg) {
     video.classList.add('is-hidden');
     preview.setAttribute('src', imageData);
     post.classList.remove('is-hidden');
+    if (!notification_closed)
+        notification.classList.remove('is-hidden');
 }
 
 // Renders selected image from drafts to preview
@@ -163,6 +172,8 @@ function editImage(base) {
     save.removeAttribute('disabled');
     close.classList.remove('is-hidden');
     help2.classList.add('is-hidden');
+    if (!notification_closed)
+        notification.classList.remove('is-hidden');
 }
 
 // Stores sticker location information to stickerdata array
@@ -343,6 +354,8 @@ start.addEventListener('click', function () {
             close.classList.remove('is-hidden');
             snapshot.classList.remove('is-hidden');
             save.classList.remove('is-hidden');
+            if (!notification_closed)
+                notification.classList.remove('is-hidden');
         })
         .catch(function (error) {
             console.log(error);
@@ -403,6 +416,30 @@ opacity.addEventListener('change', (event) => {
     }
 
 })
+
+deletebutton.addEventListener('click', () => {
+    notification.classList.add('is-hidden');
+    notification_closed = true;
+})
+
+helpbutton.addEventListener('click', () => {
+    help.classList.remove('is-hidden');
+})
+
+// Help modal
+
+helpbutton.addEventListener('click', () => {
+	help.classList.add('is-active');
+})
+
+closehelp.addEventListener('click', () => {
+	help.classList.remove('is-active');
+})
+
+deletehelp.addEventListener('click', () => {
+	help.classList.remove('is-active');
+})
+
 // Drag and drop stickers
 
 let mouseDown = false;
