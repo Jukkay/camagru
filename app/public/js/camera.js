@@ -210,7 +210,6 @@ async function saveImage() {
     const response = await fetch($request)
         .then((response) => response.text())
         .then((filename) => {
-            getUserImages(user_id);
             return filename;
         })
         .catch(function (error) {
@@ -387,8 +386,9 @@ snapshot.addEventListener('click', function () {
     previewImage();
 });
 
-save.addEventListener('click', function () {
-    saveImage();
+save.addEventListener('click', async function () {
+    await saveImage();
+    getUserImages(user_id);
 });
 
 post.addEventListener('click', async () => {

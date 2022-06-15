@@ -78,8 +78,8 @@ TO-DO
 		V In some case, I think when saving edit image again, only stickers are sent to server
 		V Fix all Cancel bugs
 		V Loading indicator in infinite scroll doesnt really ever show
-		File upload is missing base image on home system
-		Navbar items missing from hamburger
+		V File upload is missing base image on home system
+		V Navbar items missing from hamburger
 		V Profile pic change script deletes default.png
 		Add sticker resize instructions to editor
 		Add ? checks for variables and replace ifs if necessary

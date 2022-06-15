@@ -144,6 +144,9 @@ switch ($request) {
 	case '/deletepost':
 		require '../scripts/delete_post.php';
 		break;
+	case '/phpinfo':
+		require '../scripts/phpinfo.php';
+		break;
 	default:
 		http_response_code(404);
 		require '404.php';

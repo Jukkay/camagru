@@ -10,12 +10,21 @@
 <section class="section">
 <h1 class="title is-1">You received a like</h1>
 <p class="block"><strong><?php echo $username; ?></strong> and <?php echo $likes; ?> others liked your post.</p>
-<p class="block"><a href="http://localhost/showpost?post_id=<?php echo $post_id; ?>">http://localhost/showpost?post_id=<?php echo $post_id; ?></a></p>
+<p class="block"><a href="http://<?php
+	echo $domain;
+	if (!empty($port))
+		echo ':' . $port;?>/showpost?post_id=<?php echo $post_id; ?>">http://<?php
+		echo $domain;
+		if (!empty($port))
+			echo ':' . $port;?>/showpost?post_id=<?php echo $post_id; ?></a></p>
 <p class="block">Good job, keep on creating that quality content!</p>
 <p class="block has-text-weight-bold">Best regards,</p>
 <p class="block has-text-weight-bold">Camagru Team</p>
 <figure class="image is-128x128">
-	<img src="http://localhost/assets/camagru_logo.svg" alt="Camagru logo">
+	<img src="http://<?php
+	echo $domain;
+	if (!empty($port))
+		echo ':' . $port;?>/assets/camagru_logo.svg" alt="Camagru logo">
 </figure>
 </section>
 </body>

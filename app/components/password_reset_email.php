@@ -10,11 +10,20 @@
 <section class="section">
 <h1 class="title is-1">Password reset</h1>
 <p class="block">We've received a request to reset your password. Click the link below to set a new password. If it wasn't you, you can just ignore this message.</p>
-<p class="block"><a href="http://localhost/emailpasswordreset?password_reset_key=<?php echo $password_reset_key; ?>">http://localhost/emailpasswordreset?password_reset_key=<?php echo $password_reset_key; ?></a></p>
+<p class="block"><a href="http://<?php
+	echo $domain;
+	if (!empty($port))
+		echo ':' . $port;?>/emailpasswordreset?password_reset_key=<?php echo $password_reset_key; ?>">http://<?php
+		echo $domain;
+		if (!empty($port))
+			echo ':' . $port;?>/emailpasswordreset?password_reset_key=<?php echo $password_reset_key; ?></a></p>
 <p class="block has-text-weight-bold">Best regards,</p>
 <p class="block has-text-weight-bold">Camagru Team</p>
 <figure class="image is-128x128">
-	<img src="http://localhost/assets/camagru_logo.svg" alt="Camagru logo">
+	<img src="http://<?php
+	echo $domain;
+	if (!empty($port))
+		echo ':' . $port;?>/assets/camagru_logo.svg" alt="Camagru logo">
 </figure>
 </section>
 </body>

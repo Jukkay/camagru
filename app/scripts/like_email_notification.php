@@ -18,6 +18,15 @@
 		'X-Mailer' => 'PHP/' . phpversion(),
 		'Content-Type' => 'text/html'
 	);
+	if (isset($_SERVER['HTTP_HOST']))
+		$domain = $_SERVER['HTTP_HOST'];
+	else
+		$domain = 'localhost';
+
+	if (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80')
+		$port = $_SERVER['SERVER_PORT'];
+	else
+		$port = '';
 	ob_start();
 	include('../components/like_notification.php');
 	$message = ob_get_contents();

@@ -24,6 +24,11 @@ session_start();
 		svg {
 			pointer-events: none;
 		}
+		@media only screen and (min-width: 768px) {
+			.mobile-menu {
+				display: none;
+			}
+		}
 
 	</style>
 </head>
@@ -42,7 +47,7 @@ session_start();
 					<span aria-hidden="true"></span>
 				</a>
 			</div>
-			<div class="navbar-menu is-hidden" id="navbar-mobile">
+			<div class="navbar-menu is-hidden mobile-menu" id="navbar-mobile">
 				<div class="navbar-end">
 
 					<a class="navbar-item" href="/camera" alt="Take picture">Take picture</a>
@@ -67,8 +72,7 @@ session_start();
 								}
 								else {
 									echo '<a class="button is-primary" href="signup">Sign up</a>
-									<a class="button" href="login">Login</a>
-									<a class="button" href="logout">Logout</a>';
+									<a class="button" href="login">Login</a>';
 								}
 							?>
 						</div>
