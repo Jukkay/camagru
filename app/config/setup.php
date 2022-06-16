@@ -22,6 +22,7 @@ try {
 		`admin` BOOLEAN DEFAULT FALSE,
 		email_notification BOOLEAN  DEFAULT TRUE,
 		join_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		UNIQUE (email, username),
 		PRIMARY KEY (`user_id`)
 	);',
 		'DROP TABLE IF EXISTS posts;',
