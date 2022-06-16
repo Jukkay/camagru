@@ -7,6 +7,7 @@ const gallery = document.getElementById("gallery");
 const preview = document.getElementById("preview");
 const description = document.getElementById("description");
 const submit = document.getElementById("submit");
+const invalid = document.getElementById("invalid");
 const urlParameters = window.location.search;
 const parameters = new URLSearchParams(urlParameters);
 let image = parameters.get("image");
@@ -53,7 +54,11 @@ const deleteImage = (filename) => {
 
 // Submits image and description to backend
 const submitPost = async () => {
-  if (user_id == 0 || image === "" || description.value === "") return;
+  if (user_id == 0 || image === "") return;
+  if (description.value.length < 1 || description.value.length > 4096) {
+    invalid.classList.remove("is-hidden");
+    return;
+  }
   var formData = new FormData();
   formData.append("user_id", user_id);
   formData.append("image", image);

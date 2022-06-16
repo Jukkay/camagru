@@ -53,13 +53,18 @@ session_start();
 				</div>
 				<div class="navbar-menu is-hidden mobile-menu" id="navbar-mobile">
 					<div class="navbar-end">
-
 						<a class="navbar-item" href="/camera" alt="Take picture">Take picture</a>
 						<a class="navbar-item" href="/newpost" alt="New post">New post</a>
+					<?php if (isset($_SESSION['user_id'])) { ?>
 						<a class="navbar-item" href="/profile" alt="Profile">Profile</a>
 						<a class="navbar-item" href="/controlpanel" alt="Control panel">Control panel</a>
 						<hr class="navbar-divider">
 						<a class="navbar-item" href="/logout" alt="Logout">Logout</a>
+					<?php } else { ?>
+						<a class="navbar-item" href="/signup" alt="Sign up">Sign up</a>
+						<a class="navbar-item" href="/login" alt="Login">Login</a>
+					<?php } ?>
+
 					</div>
 				</div>
 				<div class="navbar-menu">

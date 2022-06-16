@@ -8,6 +8,11 @@ else
 <script>
 	let username = '<?php echo $username; ?>'
 </script>
+<style>
+	.comment {
+		word-break: break-word;
+	}
+</style>
 <script src="js/profile.js" defer></script>
 <section class="section">
 	<div class="title is-3 mt-6 block">Profile</div>

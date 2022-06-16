@@ -5,7 +5,8 @@
 				<img class="is-rounded" src="/getimage?name=<?= $comment['profile_image'] ?>">
 			</figure>
 	</div>
-	<div class="media-content">
-		<strong class="mr-3"><?= $comment['username'] ?></strong></a><?= $comment['comment'] ?>
+	<div class="media-content comment">
+		<strong class="mr-3"><?= $comment['username'] ?></strong></a>
+		<?= $comment['comment'] ?>
 	</div>
 </div>

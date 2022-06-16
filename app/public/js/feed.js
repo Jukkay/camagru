@@ -140,6 +140,10 @@ const commentPost = (post) => {
   }
   const post_id = post.getAttribute("data-id");
   const comment = post.previousElementSibling.value;
+  if (comment.length < 1 || comment.length > 4096) {
+    alert("Description must be between 1 and 4096 characters long.")
+    return;
+  }
   let formData = new FormData();
   formData.append("post_id", post_id);
   formData.append("user_id", user_id);

@@ -42,7 +42,7 @@
 			<span>
 				<strong><?php echo $post['likes']; ?> likes</strong>
 			</span>
-			<p class="block">
+			<p class="block comment">
 				<a class="has-text-black clickable" href="/profile?user=<?php echo $post['username']; ?>">
 					<strong class="mr-3"><?php echo $post['username']; ?></strong></a><?php echo $post['description']; ?>
 			</p>

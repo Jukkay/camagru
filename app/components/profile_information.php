@@ -19,7 +19,7 @@
 
     <div class="content">
       <div class="title is-5">Biography</div>
-      <div>
+      <div class="comment">
 
         <?php
         if (isset($userinfo['biography']))
