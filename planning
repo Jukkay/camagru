@@ -46,10 +46,10 @@ TO-DO
 	V Fix sticker size information
 	V Move non-user-facing files to scripts
 	V Add password complexity requirements. Cant be just lower case
-	Check error handling
-	Remove all console.logs and unnecessary echos
+	V Check error handling
+	V Remove all console.logs and unnecessary echos
 	UX
-		Works on chrome and firefox
+		V Works on chrome and firefox
 		Works on mobile (narrow window test)
 	Security
 		Cant add html to text inputs
@@ -65,8 +65,6 @@ TO-DO
 		V Sticker opacity
 		V Sticker resize
 		V Deployed/Ready to deploy
-		Notifications on page
-		Capture video
 	Bugs
 		V Comment gets saved multiple times
 		V Comments don't show in some cases

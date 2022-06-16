@@ -10,6 +10,11 @@ let usernametaken;
 let image_input;
 let upload;
 
+if (user_id == 0) {
+  alert("Please, login first.");
+  location.href = "/";
+}
+
 const saveUserConfiguration = async () => {
   const usernamecheck = await check_username();
   if (usernamecheck == false) return;

@@ -12,11 +12,17 @@ try {
 	$statement = $pdo->prepare("SELECT * FROM users WHERE email = ?;");
 	$statement->execute([$email]);
 	$emailExists = $statement->fetch();
-	if ($emailExists && $emailExists['user_id'] != $_SESSION['user_id']) {
-		echo 'emailtaken';
+	if (!$emailExists) {
+		echo 'ok';
 		return;
 	}
-	echo 'ok';
+	if (isset($_SESSION['user_id'])) {
+		if ($emailExists['user_id'] == $_SESSION['user_id']) {
+			echo 'ok';
+			return;
+		}
+	}
+	echo 'emailtaken';
 } catch (Exception $e) {
 	echo $e->getMessage();
 }
