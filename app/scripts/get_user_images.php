@@ -8,18 +8,24 @@ $offset = intval($_GET['limit'] * $_GET['page']);
 $limit = intval($_GET['limit']);
 $user_id = intval($_GET['user_id']);
 $username = $_GET['username'];
-$dbh = new Dbh;
-$pdo = $dbh->connect();
-$statement = $pdo->prepare("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id AND users.username = ? LIMIT ? OFFSET ?;");
-$statement->bindParam(1, $username);
-$statement->bindParam(2, $limit, PDO::PARAM_INT);
-$statement->bindParam(3, $offset, PDO::PARAM_INT);
-$statement->execute();
-$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
-$statement = $pdo->prepare("SELECT posts.post_id FROM posts INNER JOIN likes ON posts.post_id = likes.post_id AND likes.user_id = ?;");
-$statement->bindParam(1, $user_id, PDO::PARAM_INT);
-$statement->execute();
-$likes = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+try {
+	$dbh = new Dbh;
+	$pdo = $dbh->connect();
+	$statement = $pdo->prepare("SELECT * FROM posts INNER JOIN users ON posts.user_id = users.user_id AND users.username = ? LIMIT ? OFFSET ?;");
+	$statement->bindParam(1, $username);
+	$statement->bindParam(2, $limit, PDO::PARAM_INT);
+	$statement->bindParam(3, $offset, PDO::PARAM_INT);
+	$statement->execute();
+	$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement = $pdo->prepare("SELECT posts.post_id FROM posts INNER JOIN likes ON posts.post_id = likes.post_id AND likes.user_id = ?;");
+	$statement->bindParam(1, $user_id, PDO::PARAM_INT);
+	$statement->execute();
+	$likes = $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+catch (PDOException $e) {
+	echo "Error: " . $e->getMessage();
+}
 
 function check_likes ($likes, $post_id) {
 	foreach($likes as $key => $value) {

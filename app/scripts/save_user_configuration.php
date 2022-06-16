@@ -9,7 +9,7 @@ try {
 	$user_id = $_POST['user_id'];
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
-	// error_log($_POST['email_notification']);
+
 	if (isset($_POST['name'])) {
 		$name = $_POST['name'];
 		$statement = $pdo->prepare("UPDATE users SET `name` = ? WHERE `user_id` = ?;");
