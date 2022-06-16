@@ -12,10 +12,10 @@ form.addEventListener("submit", async (e) => {
     body: formData,
   });
   fetch(request)
-    .then(function (response) {
+    .then(() => {
       location.href = "/";
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
 });

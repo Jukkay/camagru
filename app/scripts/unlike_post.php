@@ -2,16 +2,19 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
-try {
-	if (!isset($_POST['user_id']) ||
-		!isset($_POST['post_id']) ||
-		!isset($_SESSION['username']) ||
-		$_POST['user_id'] == '0' ||
-		$_POST['user_id'] != $_SESSION['user_id'])
-		return;
-	$post_id = $_POST['post_id'];
-	$user_id = $_POST['user_id'];
+if (
+	!isset($_POST['user_id']) ||
+	!isset($_POST['post_id']) ||
+	!isset($_SESSION['username']) ||
+	$_POST['user_id'] == '0' ||
+	$_POST['user_id'] != $_SESSION['user_id']
+)
+	return;
 
+$post_id = $_POST['post_id'];
+$user_id = $_POST['user_id'];
+
+try {
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
 
@@ -22,7 +25,6 @@ try {
 	$statement = $pdo->prepare("UPDATE posts SET likes = likes - 1 WHERE post_id = ?;");
 	$statement->bindParam(1, $post_id, PDO::PARAM_INT);
 	$statement->execute();
-
 } catch (Exception $e) {
 	echo 'Error: ' . $e->getMessage();
 }

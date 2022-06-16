@@ -1,5 +1,5 @@
-let hamburger = document.getElementsByClassName("navbar-burger")[0];
-let mobile = document.getElementById("navbar-mobile");
+const hamburger = document.getElementsByClassName("navbar-burger")[0];
+const mobile = document.getElementById("navbar-mobile");
 
 hamburger.addEventListener("click", () => {
   if (hamburger.classList.contains("is-active")) {

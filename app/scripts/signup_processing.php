@@ -14,6 +14,7 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $email = $_POST['email'];
 $validation_key = md5(uniqid(rand(), true));
+
 try {
 	// write to database
 	$dbh = new Dbh;
@@ -53,5 +54,3 @@ include('../components/confirmation_email.php');
 $message = ob_get_contents();
 ob_end_clean();
 mail($recipient, $subject, $message, $headers);
-
-?>

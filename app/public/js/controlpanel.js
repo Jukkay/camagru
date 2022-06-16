@@ -29,17 +29,17 @@ const saveUserConfiguration = async () => {
     method: "POST",
     body: formData,
   });
-  fetch(request).catch(function (error) {
+  fetch(request).catch((error) => {
     console.log(error);
   });
 };
 
 const getUserConfiguration = async () => {
   fetch(`/getuserconfiguration?user_id=${user_id}`)
-    .then(function (response) {
+    .then((response) => {
       return response.text();
     })
-    .then(function (text) {
+    .then((text) => {
       userinfo.innerHTML = text;
       image_input = document.getElementById("image-input");
       upload = document.getElementById("upload");
@@ -69,7 +69,7 @@ const save_image = (event) => {
     let inputImg = event.target.files[0];
     let fileReader = new FileReader();
     fileReader.readAsDataURL(inputImg);
-    fileReader.addEventListener("load", function (event) {
+    fileReader.addEventListener("load", (event) => {
       let formData = new FormData();
       formData.append("user_id", user_id);
       formData.append("img", event.target.result);
@@ -77,7 +77,7 @@ const save_image = (event) => {
         method: "POST",
         body: formData,
       });
-      fetch(request).then(function (response) {
+      fetch(request).then(() => {
         getUserConfiguration();
       });
     });

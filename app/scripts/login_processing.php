@@ -16,7 +16,7 @@ try {
 	$userinfo = $statement->fetch(PDO::FETCH_ASSOC);
 	if (!$userinfo) {
 		echo 'invaliduser';
-		return ;
+		return;
 	}
 	if (!password_verify($_POST['password'], $userinfo['password'])) {
 		echo 'invalidpassword';
@@ -26,8 +26,7 @@ try {
 		echo 'notvalidated';
 		return;
 	}
-}
-catch (PDOException $e) {
+} catch (PDOException $e) {
 	echo $e->getMessage();
 }
 

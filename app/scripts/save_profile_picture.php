@@ -2,9 +2,14 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
+if (
+	empty($_POST['img']) ||
+	$_POST['user_id'] == '0' ||
+	$_POST['user_id'] != $_SESSION['user_id']
+)
+	return;
+
 try {
-	if (empty($_POST['img']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
-		return;
 	$imagedata = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $_POST['img']));
 	$filename = uniqid(rand(), true) . '.png';
 	$path = "../img/";
@@ -22,7 +27,6 @@ try {
 	$statement = $pdo->prepare("UPDATE users SET profile_image = ? WHERE `user_id` = ?;");
 	$statement->execute([$filename, $_POST['user_id']]);
 	$_SESSION['profile_image'] = $filename;
-}
-catch(Exception $e) {
-	echo 'Error: ' .$e->getMessage();
+} catch (Exception $e) {
+	echo 'Error: ' . $e->getMessage();
 }

@@ -5,8 +5,8 @@ require_once "../classes/dbh.class.php";
 if (!isset($_GET['username']))
 	return;
 
+$username = $_GET['username'];
 try {
-	$username = $_GET['username'];
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
@@ -21,4 +21,3 @@ try {
 } catch (Exception $e) {
 	echo $e->getMessage();
 }
-?>

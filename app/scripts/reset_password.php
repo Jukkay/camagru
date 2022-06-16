@@ -1,18 +1,19 @@
 <?php
 require_once "../classes/dbh.class.php";
 
-if (!isset($_POST['user_id']) ||
+if (
+	!isset($_POST['user_id']) ||
 	!isset($_POST['oldpassword']) ||
-	!isset($_POST['password'])) {
-		echo 'invalid paremeters';
-		return;
+	!isset($_POST['password'])
+) {
+	return;
 }
 
-try {
-	$user_id = $_POST['user_id'];
-	$oldpassword = $_POST['oldpassword'];
-	$password = $_POST['password'];
+$user_id = $_POST['user_id'];
+$oldpassword = $_POST['oldpassword'];
+$password = $_POST['password'];
 
+try {
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
 	$statement = $pdo->prepare("SELECT * FROM users WHERE `user_id` = ?;");
@@ -30,7 +31,6 @@ try {
 	$statement = $pdo->prepare("UPDATE users SET `password` = ? WHERE `user_id` = ?;");
 	$statement->execute([$password, $user_id]);
 	echo 'ok';
-}
-catch (Exception $e) {
+} catch (Exception $e) {
 	echo $e->getMessage();
 }

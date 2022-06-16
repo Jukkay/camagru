@@ -2,8 +2,13 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
-if (!isset($_GET['user_id']) || !isset($_GET['username']) || !isset($_GET['limit']) || !isset($_GET['page']))
-	return "Invalid parameters";
+if (
+	!isset($_GET['user_id']) ||
+	!isset($_GET['username']) ||
+	!isset($_GET['limit']) ||
+	!isset($_GET['page'])
+)
+	return;
 $offset = intval($_GET['limit'] * $_GET['page']);
 $limit = intval($_GET['limit']);
 $user_id = intval($_GET['user_id']);
@@ -22,13 +27,13 @@ try {
 	$statement->bindParam(1, $user_id, PDO::PARAM_INT);
 	$statement->execute();
 	$likes = $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-catch (PDOException $e) {
+} catch (PDOException $e) {
 	echo "Error: " . $e->getMessage();
 }
 
-function check_likes ($likes, $post_id) {
-	foreach($likes as $key => $value) {
+function check_likes($likes, $post_id)
+{
+	foreach ($likes as $key => $value) {
 		if ($value['post_id'] == $post_id)
 			return true;
 	}
@@ -43,13 +48,13 @@ if (!$posts) { ?>
 	return;
 }
 
-foreach($posts as $post) {
+foreach ($posts as $post) {
 	require "../components/post.php";
 }
 if (count($posts) < $limit) { ?>
-		<div class="has-text-centered">
-			<h3 id="nomore" class="title is-3">No more posts to show</h3>
-		</div>
+	<div class="has-text-centered">
+		<h3 id="nomore" class="title is-3">No more posts to show</h3>
+	</div>
 <?php
 }
 ?>

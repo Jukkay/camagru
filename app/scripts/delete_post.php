@@ -2,9 +2,16 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
+if (
+	!isset($_POST['post_id']) ||
+	!isset($_POST['user_id']) ||
+	!isset($_POST['image_file']) ||
+	$_POST['user_id'] == '0' ||
+	$_POST['user_id'] != $_SESSION['user_id']
+)
+	return;
+
 try {
-	if (!isset($_POST['post_id']) || !isset($_POST['user_id']) || !isset($_POST['image_file']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
-		return;
 	$post_id = $_POST['post_id'];
 	$user_id = $_POST['user_id'];
 	$filename = $_POST['image_file'];
@@ -18,7 +25,6 @@ try {
 	$statement->execute([$post_id]);
 	$statement = $pdo->prepare("DELETE FROM likes WHERE post_id = ?");
 	$statement->execute([$post_id]);
-}
-catch(Exception $e) {
-	echo 'Error: ' .$e->getMessage();
+} catch (Exception $e) {
+	echo 'Error: ' . $e->getMessage();
 }

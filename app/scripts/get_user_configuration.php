@@ -2,8 +2,10 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
-if (!isset($_GET['user_id']) || $_GET['user_id'] == 0 || $_GET['user_id'] != $_SESSION['user_id'])
-	return "Invalid input";
+if (!isset($_GET['user_id']) ||
+	$_GET['user_id'] == 0 ||
+	$_GET['user_id'] != $_SESSION['user_id'])
+	return;
 
 try {
 	$user_id = $_GET['user_id'];
@@ -22,4 +24,3 @@ if (!$userinfo) {
 	return ;
 }
 include "../components/configuration_form.php";
-?>

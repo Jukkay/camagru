@@ -4,9 +4,8 @@ require_once "../classes/dbh.class.php";
 
 if (!isset($_GET['email']))
 	return;
-
+$email = $_GET['email'];
 try {
-	$email = $_GET['email'];
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();

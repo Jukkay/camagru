@@ -2,16 +2,21 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
+if (
+	empty($_POST['img']) ||
+	$_POST['user_id'] == '0' ||
+	$_POST['user_id'] != $_SESSION['user_id']
+)
+	return;
+
 try {
-	if (empty($_POST['img']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
-		return;
 	$base = base64_decode($_POST['img']);
 	$filename = uniqid(rand(), true) . '.png';
 	$path = "../img/";
 	$base = imagecreatefromstring($base);
 	if (isset($_POST['stickers'])) {
 		$stickers = $_POST['stickers'];
-		foreach($stickers as $sticker) {
+		foreach ($stickers as $sticker) {
 
 			$sticker = explode(',', $sticker);
 			$dst_x = (int)$sticker[2];
@@ -38,7 +43,6 @@ try {
 	$statement->execute([$filename, $_POST['user_id']]);
 	imagedestroy($base);
 	echo $filename;
-}
-catch(Exception $e) {
-	echo 'Error: ' .$e->getMessage();
+} catch (Exception $e) {
+	echo 'Error: ' . $e->getMessage();
 }

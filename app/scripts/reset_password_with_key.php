@@ -6,6 +6,7 @@ if (!isset($_POST['password'])) {
 	return;
 }
 require_once "../classes/dbh.class.php";
+
 try {
 	$password_reset_key = $_POST['password_reset_key'];
 	$password = password_hash($_POST['password'], PASSWORD_ARGON2ID);
@@ -26,5 +27,3 @@ try {
 catch (Exception $e) {
 	echo $e->getMessage();
 }
-
-?>

@@ -3,10 +3,10 @@ if (user_id == 0) {
   location.href = "/";
 }
 
-let gallery = document.getElementById("gallery");
-let preview = document.getElementById("preview");
-let description = document.getElementById("description");
-let submit = document.getElementById("submit");
+const gallery = document.getElementById("gallery");
+const preview = document.getElementById("preview");
+const description = document.getElementById("description");
+const submit = document.getElementById("submit");
 const urlParameters = window.location.search;
 const parameters = new URLSearchParams(urlParameters);
 let image = parameters.get("image");
@@ -18,10 +18,10 @@ const getUserImages = (user_id) => {
     return;
   }
   fetch("/fetchdrafts?user_id=" + user_id)
-    .then(function (response) {
+    .then((response) => {
       return response.text();
     })
-    .then(function (text) {
+    .then((text) => {
       gallery.innerHTML = text;
     });
 };
@@ -29,7 +29,7 @@ const getUserImages = (user_id) => {
 // Renders selected image from drafts to preview
 const editImage = (base) => {
   image = base;
-  let baseImg = document.getElementById(base).src;
+  const baseImg = document.getElementById(base).src;
   preview.setAttribute("src", baseImg);
   preview.classList.remove("is-hidden");
 };
@@ -46,16 +46,14 @@ const deleteImage = (filename) => {
     method: "POST",
     body: formData,
   });
-  fetch($request).then(function (response) {
+  fetch($request).then(() => {
     getUserImages(user_id);
   });
 };
 
 // Submits image and description to backend
 const submitPost = async () => {
-  if (user_id == 0 || image === "" || description.value === "") {
-    return;
-  }
+  if (user_id == 0 || image === "" || description.value === "") return;
   var formData = new FormData();
   formData.append("user_id", user_id);
   formData.append("image", image);
@@ -65,10 +63,10 @@ const submitPost = async () => {
     body: formData,
   });
   fetch(request)
-    .then(function (response) {
+    .then(() => {
       location.href = "/";
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
 };
@@ -94,6 +92,7 @@ submit.addEventListener("click", (event) => {
   event.preventDefault();
   submitPost();
 });
+
 if (preview.hasAttribute("src")) preview.classList.remove("is-hidden");
 
 // Load user images on startup

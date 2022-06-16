@@ -2,9 +2,14 @@
 session_start();
 require_once "../classes/dbh.class.php";
 
+if (
+	empty($_POST['user_id']) ||
+	$_POST['user_id'] == '0' ||
+	$_POST['user_id'] != $_SESSION['user_id']
+)
+	return;
+
 try {
-	if (empty($_POST['user_id']) || $_POST['user_id'] == '0' || $_POST['user_id'] != $_SESSION['user_id'])
-		return;
 
 	$user_id = $_POST['user_id'];
 	$dbh = new Dbh;
@@ -38,7 +43,6 @@ try {
 		$statement = $pdo->prepare("UPDATE users SET `email_notification` = ? WHERE `user_id` = ?;");
 		$statement->execute([$notification, $_POST['user_id']]);
 	}
-}
-catch (Exception $e) {
+} catch (Exception $e) {
 	echo $e->getMessage();
 }

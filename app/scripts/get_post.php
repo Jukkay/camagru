@@ -4,6 +4,7 @@ require_once "../classes/dbh.class.php";
 
 if (!isset($_GET['post_id']))
 	return "Invalid parameters";
+
 $post_id = $_GET['post_id'];
 if (isset($_SESSION['user_id']))
 	$user_id = $_SESSION['user_id'];
@@ -37,4 +38,3 @@ try {
 catch(Exception $e) {
 	echo 'Error: ' .$e->getMessage();
 }
-?>

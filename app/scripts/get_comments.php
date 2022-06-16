@@ -4,8 +4,8 @@ require_once "../classes/dbh.class.php";
 
 if (!isset($_GET['post_id']))
 	return "Invalid parameters";
-$post_id = $_GET['post_id'];
 
+$post_id = $_GET['post_id'];
 try {
 
 	$dbh = new Dbh;
@@ -14,8 +14,7 @@ try {
 	$statement->bindParam(1, $post_id, PDO::PARAM_INT);
 	$statement->execute();
 	$comments = $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-catch (PDOException $e) {
+} catch (PDOException $e) {
 	echo "Error: " . $e->getMessage();
 }
 
@@ -23,7 +22,6 @@ if (!$comments) {
 	return;
 }
 
-foreach($comments as $comment) {
+foreach ($comments as $comment) {
 	include "../components/comment_line.php";
 }
-

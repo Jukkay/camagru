@@ -8,10 +8,10 @@ const getPosts = async () => {
   const nomore = document.getElementById("nomore");
   if (nomore != null) return;
   fetch(`/fetchfeed?user_id=${user_id}&limit=${postsOnPage}&page=${pageNumber}`)
-    .then(function (response) {
+    .then((response) => {
       return response.text();
     })
-    .then(function (text) {
+    .then((text) => {
       feed.innerHTML = feed.innerHTML + text;
       pageNumber++;
       if (pageNumber > 1) return;
@@ -64,7 +64,7 @@ const like = async (target) => {
     method: "POST",
     body: formData,
   });
-  fetch(request).catch(function (error) {
+  fetch(request).catch((error) => {
     console.log(error);
   });
 };
@@ -73,7 +73,7 @@ const unlike = async (target) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
-    throw new Error("Please, login first.");
+    return;
   }
   const post_id = target.getAttribute("data-id");
   const unlike_icon = target;
@@ -88,7 +88,7 @@ const unlike = async (target) => {
     method: "POST",
     body: formData,
   });
-  fetch(request).catch(function (error) {
+  fetch(request).catch((error) => {
     console.log(error);
   });
 };
@@ -110,10 +110,10 @@ const showComments = (post) => {
   const post_id = post.getAttribute("data-id");
   post = post.parentNode;
   fetch(`/getcomments?post_id=${post_id}`)
-    .then(function (response) {
+    .then((response) => {
       return response.text();
     })
-    .then(function (text) {
+    .then((text) => {
       post.innerHTML = "";
       post.innerHTML = text;
     });
@@ -123,10 +123,10 @@ const refreshComments = (post) => {
   const post_id = post.getAttribute("data-id");
   const comment_block = document.getElementById(`comment-block${post_id}`);
   fetch(`/getcomments?post_id=${post_id}`)
-    .then(function (response) {
+    .then((response) => {
       return response.text();
     })
-    .then(function (text) {
+    .then((text) => {
       comment_block.innerHTML = "";
       comment_block.innerHTML = text;
     });
@@ -136,7 +136,7 @@ const commentPost = (post) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
-    throw new Error("Please, login first.");
+    return;
   }
   const post_id = post.getAttribute("data-id");
   const comment = post.previousElementSibling.value;
@@ -149,13 +149,13 @@ const commentPost = (post) => {
     body: formData,
   });
   fetch(request)
-    .then(function (response) {
+    .then(() => {
       post.previousElementSibling.value = "";
     })
-    .then(function (response) {
+    .then(() => {
       refreshComments(post);
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
 };
@@ -164,7 +164,7 @@ const deletePost = (post) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
-    throw new Error("Please, login first.");
+    return;
   }
   const post_id = post.getAttribute("data-id");
   const post_element = document.querySelector(`[data-id="post${post_id}"]`);
@@ -178,10 +178,10 @@ const deletePost = (post) => {
     body: formData,
   });
   fetch(request)
-    .then(function (response) {
+    .then(() => {
       post_element.remove();
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
 };

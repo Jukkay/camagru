@@ -4,9 +4,10 @@ require_once "../classes/dbh.class.php";
 if (!isset($_POST['username']) || !isset($_POST['email']))
 	return "Invalid parameters";
 
+$username = $_POST['username'];
+$recipient = $_POST['email'];
+
 try {
-	$username = $_POST['username'];
-	$recipient = $_POST['email'];
 
 	$dbh = new Dbh;
 	$pdo = $dbh->connect();
@@ -14,7 +15,7 @@ try {
 	$statement->execute([$username]);
 	$userinfo = $statement->fetch(PDO::FETCH_ASSOC);
 	if (!$userinfo) {
-		return ;
+		return;
 	}
 	if ($userinfo['email'] != $recipient)
 		return;
@@ -42,7 +43,6 @@ try {
 	$statement = $pdo->prepare("UPDATE users SET `password_reset_key` = ? WHERE `username` = ? AND `email` = ?;");
 	$statement->execute([$password_reset_key, $username, $recipient]);
 	mail($recipient, $subject, $message, $headers);
-}
-catch (Exception $e) {
+} catch (Exception $e) {
 	echo $e->getMessage();
 }
