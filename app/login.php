@@ -24,7 +24,7 @@
 						</svg>
 					</span>
 					<p id="invalidpassword" class="help is-danger is-hidden">Invalid password</p>
-					<p id="notvalidated" class="help is-danger is-hidden">Your account hasn't been validated yet. Check your email for confirmation email or click here to send it again.</p>
+					<p id="notvalidated" class="help is-danger is-hidden">Your account hasn't been validated yet. Check your email for the confirmation email.</p>
 				</div>
 			</div>
 

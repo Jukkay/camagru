@@ -10,17 +10,17 @@
 <section class="section">
 <h1 class="title is-1">Welcome to Camagru</h1>
 <p class="block">For the last step of registration we ask you to click the link below to validate this email address.</p>
-<p class="block"><a href="http://<?php
+<p class="block"><a href="https://<?php
 	echo $domain;
 	if (!empty($port))
-		echo ':' . $port;?>/confirm?validation_key=<?php echo $validation_key; ?>">http://<?php
+		echo ':' . $port;?>/confirm?validation_key=<?php echo $validation_key; ?>">https://<?php
 		echo $domain;
 		if (!empty($port))
 			echo ':' . $port;?>/confirm?validation_key=<?php echo $validation_key; ?></a></p>
 <p class="block has-text-weight-bold">Best regards,</p>
 <p class="block has-text-weight-bold">Camagru Team</p>
 <figure class="image is-128x128">
-	<img src="http://<?php
+	<img src="https://<?php
 	echo $domain;
 	if (!empty($port))
 		echo ':' . $port;?>/assets/camagru_logo.svg" alt="Camagru logo">

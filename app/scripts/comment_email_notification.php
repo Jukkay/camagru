@@ -23,7 +23,7 @@ if (isset($_SERVER['HTTP_HOST']))
 else
 	$domain = 'localhost';
 
-if (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80')
+if (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] != '80' && $_SERVER['SERVER_PORT'] != '443')
 	$port = $_SERVER['SERVER_PORT'];
 else
 	$port = '';
