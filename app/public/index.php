@@ -71,6 +71,11 @@ switch ($request) {
 		require '../emailpasswordreset.php';
 		require '../footer.php';
 		break;
+	case '/resetconfirm':
+		require '../header.php';
+		require '../resetkeyconfirm.php';
+		require '../footer.php';
+		break;
 
 		// Scripts
 

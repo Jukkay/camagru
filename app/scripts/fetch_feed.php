@@ -41,7 +41,7 @@ function check_likes($likes, $post_id)
 
 if (!$posts) { ?>
 	<div class="has-text-centered">
-		<h3 id="nomore" class="title is-3">No more posts to show</h3>
+		<h3 id="nomore" class="title is-5">No more posts to show</h3>
 	</div>
 <?php
 	return;
@@ -52,7 +52,7 @@ foreach ($posts as $post) {
 }
 if (count($posts) < $limit) { ?>
 	<div class="has-text-centered">
-		<h3 id="nomore" class="title is-3">No more posts to show</h3>
+		<h3 id="nomore" class="title is-5">No more posts to show</h3>
 	</div>
 <?php
 }

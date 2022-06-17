@@ -13,7 +13,7 @@ form.addEventListener("submit", async (e) => {
   });
   fetch(request)
     .then(() => {
-      location.href = "/";
+      location.href = "/resetconfirm";
     })
     .catch((error) => {
       console.log(error);
