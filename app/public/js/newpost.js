@@ -8,6 +8,7 @@ const preview = document.getElementById("preview");
 const description = document.getElementById("description");
 const submit = document.getElementById("submit");
 const invalid = document.getElementById("invalid");
+const no_image = document.getElementById("noimage");
 const urlParameters = window.location.search;
 const parameters = new URLSearchParams(urlParameters);
 let image = parameters.get("image");
@@ -54,8 +55,14 @@ const deleteImage = (filename) => {
 
 // Submits image and description to backend
 const submitPost = async () => {
-  if (user_id == 0 || image === "") return;
+  if (user_id == 0) return;
+  if (!preview.hasAttribute('src')) {
+    invalid.classList.add('is-hidden');
+    no_image.classList.remove("is-hidden");
+    return;
+  }
   if (description.value.length < 1 || description.value.length > 4096) {
+    no_image.classList.add('is-hidden');
     invalid.classList.remove("is-hidden");
     return;
   }
