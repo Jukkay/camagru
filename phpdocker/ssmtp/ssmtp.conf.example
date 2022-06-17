@@ -1,0 +1,10 @@
+hostname=localhost.localdomain
+root=email@example.com
+mailhub=smtp.office365.com:587
+AuthUser=email@example.com
+AuthPass=password
+UseSTARTTLS=YES
+TLS_CA_File=/run/secrets/site.crt
+RewriteDomain=localhost
+Hostname=localhost
+FromLineOverride=YES
