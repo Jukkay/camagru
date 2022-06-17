@@ -138,6 +138,7 @@ const commentPost = (post) => {
     location.href = "/";
     return;
   }
+  post.setAttribute('disabled', '');
   const post_id = post.getAttribute("data-id");
   const comment = post.previousElementSibling.value;
   if (comment.length < 1 || comment.length > 4096) {
@@ -158,6 +159,9 @@ const commentPost = (post) => {
     })
     .then(() => {
       refreshComments(post);
+    })
+    .then(() => {
+      post.removeAttribute("disabled");
     })
     .catch((error) => {
       console.log(error);

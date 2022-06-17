@@ -91,7 +91,7 @@ TO-DO
 	V Refactor function declarations to =>
 	Add ? checks for variables and replace ifs if necessary
 	V clickable indicator on top of stickers in overlay
-	Disable comment button while waiting for response
+	V Disable comment button while waiting for response
 	Alert for posting without picture
 	V Feedback for saving settings
 	V Send to confirmation page from signup
