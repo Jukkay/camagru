@@ -69,4 +69,4 @@ catch (PDOException $pe) {
 	echo $pe->getMessage();
 }
 
-// docker exec camagru_php php -f config/setup.php
+// docker exec camagru_php php config/setup.php

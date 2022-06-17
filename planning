@@ -50,10 +50,10 @@ TO-DO
 	V Remove all console.logs and unnecessary echos
 	UX
 		V Works on chrome and firefox
-		Works on mobile (narrow window test)
+		V Works on mobile (narrow window test)
 	Security
-		Cant add html to text inputs
-		Sql injection [blahblah' OR 1='1]
+		V Cant add html to text inputs
+		V Sql injection [blahblah' OR 1='1]
 	Specific bonuses
 		V Live preview (just css? place the sticker image on top of the video element?)
 		V Server exchanges ajaxified
@@ -89,10 +89,10 @@ TO-DO
 		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
-	Add ? checks for variables and replace ifs if necessary
+	V Add ? checks for variables and replace ifs if necessary
 	V clickable indicator on top of stickers in overlay
 	V Disable comment button while waiting for response
-	Alert for posting without picture
+	V Alert for posting without picture
 	V Feedback for saving settings
 	V Send to confirmation page from signup
 	V Send to confirmation page from password reset
@@ -104,3 +104,5 @@ https://www.unixmen.com/install-ssmtp-to-send-emails-to-gmail-and-office3655/
 Outlook's stmp requires TLS certificate
 https://www.linode.com/docs/guides/create-a-self-signed-tls-certificate/
 
+Configuration is done with fake docker secrets from files and private configuration files
+Database initialization is done with an sql file. Setup.php resets the database.

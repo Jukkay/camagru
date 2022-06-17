@@ -69,8 +69,10 @@
 					</figure>
 				</div>
 				<div class="media-content">
-					<input class="input" type="text" id="input<?php echo $post['post_id']; ?>" placeholder="Write a comment">
-					<button class="button comment-button" data-id="<?php echo $post['post_id']; ?>">Comment</button>
+					<form>
+						<input class="input" type="text" id="input<?php echo $post['post_id']; ?>" placeholder="Write a comment">
+						<button class="button comment-button" data-id="<?php echo $post['post_id']; ?>">Comment</button>
+					</form>
 				</div>
 			</div>
 		</div>
