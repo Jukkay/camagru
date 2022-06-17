@@ -12,7 +12,7 @@ if (!isset($_GET['validation_key'])) {
 }
 require_once "scripts/check_validation_key.php";
 ?>
-<section class="section">
+<section class="section has-text-centered">
 	<h3 class="title is-3">Email address validated</h3>
 	<h3 class="title is-3">Welcome to Camagru</h3>
 	<p><a href="/login">Please login here.</a></p>

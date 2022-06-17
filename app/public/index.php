@@ -16,6 +16,11 @@ switch ($request) {
 		require '../signup.php';
 		require '../footer.php';
 		break;
+	case '/signupconfirm':
+		require '../header.php';
+		require '../signupinfo.php';
+		require '../footer.php';
+		break;
 	case '/login':
 		require '../header.php';
 		require '../login.php';

@@ -89,6 +89,12 @@ TO-DO
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
 	Add ? checks for variables and replace ifs if necessary
+	clickable indicator on top of stickers in overlay
+	Alert for posting without picture
+	Feedback for saving settings
+	Disable comment button while waiting for response
+	Send to confirmation page from signup
+	Send to confirmation page from password reset
 
 Notes
 

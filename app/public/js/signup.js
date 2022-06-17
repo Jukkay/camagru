@@ -95,7 +95,7 @@ form.addEventListener("submit", async (e) => {
   });
   fetch(request)
     .then(() => {
-      location.href = "/";
+      location.href = "/signupconfirm";
     })
     .catch((error) => {
       console.log(error);

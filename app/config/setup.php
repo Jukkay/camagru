@@ -63,10 +63,10 @@ try {
 	foreach ($tables as $table) {
 		$dbh->exec($table);
 	}
-	echo 'Database created successfully' . PHP_EOL;
+	echo 'Database reset successful' . PHP_EOL;
 }
 catch (PDOException $pe) {
 	echo $pe->getMessage();
 }
 
-// docker exec camagru-php-fpm-1 php -f /app/config/setup.php
+// docker exec camagru_php php -f config/setup.php

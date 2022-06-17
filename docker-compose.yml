@@ -6,8 +6,10 @@ services:
         image: 'mariadb:10.6'
         container_name: 'camagru_db'
         working_dir: /app
+        command: --init-file /data/application/init.sql
         volumes:
             - mariadb-data:/var/lib/mysql
+            - ./phpdocker/mariadb/init.sql:/data/application/init.sql
         secrets:
             - mysql_password
             - mysql_root_password
