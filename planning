@@ -85,7 +85,7 @@ TO-DO
 		V Aspect ratio gets skewed with non square images. Check height
 		V Saving new post doesn't work on Firefox
 		V Empty comments are allowed
-		Comment lines don't wrap
+		V Comment lines don't wrap
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
 	Add ? checks for variables and replace ifs if necessary
