@@ -1,14 +1,27 @@
 const userinfo = document.getElementById("userconfiguration");
 let form;
-let name;
+let nameinput;
+let current_name;
 let username;
+let current_username;
 let email;
+let current_email;
 let biography;
+let current_biography;
 let email_notification;
+let current_notification;
+let notification_value;
 let emailtaken;
 let usernametaken;
 let image_input;
 let upload;
+let saved;
+let profile_saved;
+let name_saved;
+let email_saved;
+let username_saved;
+let biography_saved;
+let notification_saved;
 
 if (user_id == 0) {
   alert("Please, login first.");
@@ -16,27 +29,53 @@ if (user_id == 0) {
 }
 
 const saveUserConfiguration = async () => {
+  // check email and username duplicates
   const usernamecheck = await check_username();
   if (usernamecheck == false) return;
   const emailcheck = await check_email();
   if (emailcheck == false) return;
-  notification = document.querySelector(
-    'input[name="email_notification"]:checked'
-  ).value;
+
+  // Add fields to formdata if changed
   const formData = new FormData();
   formData.append("user_id", user_id);
-  formData.append("name", name.value);
-  formData.append("username", username.value);
-  formData.append("biography", biography.value);
-  formData.append("email", email.value);
-  formData.append("email_notification", notification);
+  if (current_name !== nameinput.value)
+    formData.append("name", nameinput.value);
+  if (current_username !== username.value)
+    formData.append("username", username.value);
+  if (current_biography !== biography.value)
+    formData.append("biography", biography.value);
+  if (current_email !== email.value)
+    formData.append("email", email.value);
+  notification_value = document.querySelector(
+      'input[name="email_notification"]:checked'
+    ).value;
+  if (current_notification !== notification_value)
+    formData.append("email_notification", notification_value);
+
   request = new Request("/saveuserconfiguration", {
     method: "POST",
     body: formData,
   });
   fetch(request).catch((error) => {
     console.log(error);
-  });
+  })
+  .then((response) => {
+    return response.text();
+  })
+  // Highlight saved fields
+  .then((text) => {
+    const array = text.split(",");
+    if (array.includes("biography"))
+      biography_saved.classList.remove("is-hidden");
+    if (array.includes('name'))
+      name_saved.classList.remove("is-hidden");
+    if (array.includes('username'))
+      username_saved.classList.remove("is-hidden");
+    if (array.includes('email'))
+      email_saved.classList.remove("is-hidden");
+    if (array.includes('email_notification'))
+      notification_saved.classList.remove("is-hidden");
+  })
 };
 
 const getUserConfiguration = async () => {
@@ -53,20 +92,36 @@ const getUserConfiguration = async () => {
       });
       image_input.addEventListener("change", save_image);
     })
-    .then(function () {
+    .then(() => {
       form = document.getElementById("configurationform");
-      name = document.getElementById("name");
+      nameinput = document.getElementById("name");
       username = document.getElementById("username");
       email = document.getElementById("email");
       biography = document.getElementById("biography");
       email_notification = document.getElementById("email_notification");
       emailtaken = document.getElementById("emailtaken");
       usernametaken = document.getElementById("usernametaken");
+      saved = document.getElementById("saved");
+      profile_saved = document.getElementById("profilesaved");
+      name_saved = document.getElementById("name_saved");
+      username_saved = document.getElementById("username_saved");
+      email_saved = document.getElementById("email_saved");
+      biography_saved = document.getElementById("biography_saved");
+      notification_saved = document.getElementById("notification_saved");
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        saveUserConfiguration();
-      });
-    });
+        await saveUserConfiguration();
+      })
+    })
+    .then(() => {
+      current_name = nameinput.value;
+      current_username = username.value;
+      current_biography = biography.value;
+      current_email = email.value;
+      current_notification = document.querySelector(
+        'input[name="email_notification"]:checked'
+      ).value;
+    })
 };
 
 const save_image = (event) => {
@@ -82,9 +137,10 @@ const save_image = (event) => {
         method: "POST",
         body: formData,
       });
-      fetch(request).then(() => {
-        getUserConfiguration();
-      });
+      fetch(request)
+      .then(() => {
+        profile_saved.classList.remove("is-hidden");
+      })
     });
   }
 };

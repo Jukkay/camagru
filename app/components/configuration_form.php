@@ -16,6 +16,9 @@
 			<span>Upload picture</span>
 		</button>
 	</div>
+	<div>
+		<p id="profilesaved" class="help is-primary is-hidden">Profile picture has been saved</p>
+	</div>
 	<form id="configurationform">
 		<div class="field">
 			<label class="label">Name</label>
@@ -23,11 +26,17 @@
 				<input class="input" id="name" type="text" name="name" value="<?php echo $userinfo['name']; ?>" maxlength="255">
 			</div>
 		</div>
+		<div>
+			<p id="name_saved" class="help is-primary is-hidden">Name has been saved</p>
+		</div>
 		<div class="field">
 			<label class="label">Biography</label>
 			<div class="control">
 				<textarea class="textarea block" id="biography" name="biography" maxlength="4096"><?php echo $userinfo['biography']; ?></textarea>
 			</div>
+		</div>
+		<div>
+			<p id="biography_saved" class="help is-primary is-hidden">Biography has been saved</p>
 		</div>
 		<div class="field">
 			<label class="label">Username</label>
@@ -41,6 +50,9 @@
 				<p id="usernametaken" class="help is-danger is-hidden">This username is not available. Try another one.</p>
 			</div>
 		</div>
+		<div>
+			<p id="username_saved" class="help is-primary is-hidden">Username has been saved</p>
+		</div>
 		<div class="field">
 			<label class="label">Email</label>
 			<div class="control has-icons-left has-icons-right">
@@ -53,19 +65,24 @@
 				<p id="emailtaken" class="help is-danger is-hidden">This email address is associated with an existing account.</p>
 			</div>
 		</div>
-
+		<div>
+			<p id="email_saved" class="help is-primary is-hidden">Email has been saved</p>
+		</div>
 		<div class="field">
 			<label class="label">Receive email notifications</label>
 			<div class="control">
 				<label class="radio">
-					<input type="radio" name="email_notification" value="1" <?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>
+					<input type="radio" class="radio" id="email_notification" name="email_notification" value="1" <?php if ($userinfo['email_notification'] == '1') echo ' checked'; ?>>
 					Yes
 				</label>
 				<label class="radio">
-					<input type="radio" name="email_notification" value="0" <?php if ($userinfo['email_notification'] == '0') echo ' checked'; ?>>
+					<input type="radio" class="radio" id="email_notification" name="email_notification" value="0" <?php if ($userinfo['email_notification'] == '0') echo ' checked'; ?>>
 					No
 				</label>
 			</div>
+		</div>
+		<div>
+			<p id="notification_saved" class="help is-primary is-hidden">Email preference has been updated</p>
 		</div>
 		<div class="field">
 			<label class="label">Password</label>
