@@ -86,13 +86,14 @@ TO-DO
 		V Saving new post doesn't work on Firefox
 		V Empty comments are allowed
 		V Comment lines don't wrap
+		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
 	Add ? checks for variables and replace ifs if necessary
-	clickable indicator on top of stickers in overlay
-	Alert for posting without picture
-	Feedback for saving settings
+	V clickable indicator on top of stickers in overlay
 	Disable comment button while waiting for response
+	Alert for posting without picture
+	V Feedback for saving settings
 	V Send to confirmation page from signup
 	V Send to confirmation page from password reset
 

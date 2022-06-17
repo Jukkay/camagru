@@ -80,6 +80,7 @@ const addSticker = (sticker) => {
   stickerImg.setAttribute("id", "overlay" + sticker);
   stickerImg.setAttribute("draggable", "true");
   stickerImg.classList.add("overlayitem");
+  stickerImg.classList.add("is-clickable");
   stickerImg.style.left = "20px";
   stickerImg.style.top = "20px";
   stickerImg.style.width = "200px";
