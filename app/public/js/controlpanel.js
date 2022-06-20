@@ -38,19 +38,29 @@ const saveUserConfiguration = async () => {
   // Add fields to formdata if changed
   const formData = new FormData();
   formData.append("user_id", user_id);
-  if (current_name !== nameinput.value)
+  if (current_name !== nameinput.value) {
     formData.append("name", nameinput.value);
-  if (current_username !== username.value)
+    current_name = nameinput.value;
+  }
+  if (current_username !== username.value) {
     formData.append("username", username.value);
-  if (current_biography !== biography.value)
+    current_username = username.value;
+  }
+  if (current_biography !== biography.value) {
     formData.append("biography", biography.value);
-  if (current_email !== email.value)
+    current_biography = biography.value;
+  }
+  if (current_email !== email.value) {
     formData.append("email", email.value);
+    current_email = email.value;
+  }
   notification_value = document.querySelector(
       'input[name="email_notification"]:checked'
     ).value;
-  if (current_notification !== notification_value)
+  if (current_notification !== notification_value) {
     formData.append("email_notification", notification_value);
+    current_notification = notification_value;
+  }
 
   request = new Request("/saveuserconfiguration", {
     method: "POST",
@@ -64,6 +74,12 @@ const saveUserConfiguration = async () => {
   })
   // Highlight saved fields
   .then((text) => {
+    profile_saved.classList.add("is-hidden");
+    biography_saved.classList.add("is-hidden");
+    name_saved.classList.add("is-hidden");
+    username_saved.classList.add("is-hidden");
+    email_saved.classList.add("is-hidden");
+    notification_saved.classList.add("is-hidden");
     const array = text.split(",");
     if (array.includes("biography"))
       biography_saved.classList.remove("is-hidden");

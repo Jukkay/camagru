@@ -64,7 +64,7 @@ TO-DO
 		V Square aspect ratio
 		V Sticker opacity
 		V Sticker resize
-		V Deployed/Ready to deploy
+		V Deployed to live server
 	Bugs
 		V Comment gets saved multiple times
 		V Comments don't show in some cases
@@ -87,6 +87,7 @@ TO-DO
 		V Empty comments are allowed
 		V Comment lines don't wrap
 		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
+
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
 	V Add ? checks for variables and replace ifs if necessary
@@ -96,6 +97,9 @@ TO-DO
 	V Feedback for saving settings
 	V Send to confirmation page from signup
 	V Send to confirmation page from password reset
+	Trim all user information inputs
+	Return updated comment field after saving comment
+	Hide old saved notifications on submit in control panel
 
 Notes
 
