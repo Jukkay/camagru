@@ -38,21 +38,21 @@ const saveUserConfiguration = async () => {
   // Add fields to formdata if changed
   const formData = new FormData();
   formData.append("user_id", user_id);
-  if (current_name !== nameinput.value) {
-    formData.append("name", nameinput.value);
-    current_name = nameinput.value;
+  if (current_name !== nameinput.value.trim()) {
+    formData.append("name", nameinput.value.trim());
+    current_name = nameinput.value.trim();
   }
-  if (current_username !== username.value) {
-    formData.append("username", username.value);
-    current_username = username.value;
+  if (current_username !== username.value.trim()) {
+    formData.append("username", username.value.trim());
+    current_username = username.value.trim();
   }
-  if (current_biography !== biography.value) {
-    formData.append("biography", biography.value);
-    current_biography = biography.value;
+  if (current_biography !== biography.value.trim()) {
+    formData.append("biography", biography.value.trim());
+    current_biography = biography.value.trim();
   }
-  if (current_email !== email.value) {
-    formData.append("email", email.value);
-    current_email = email.value;
+  if (current_email !== email.value.trim()) {
+    formData.append("email", email.value.trim());
+    current_email = email.value.trim();
   }
   notification_value = document.querySelector(
       'input[name="email_notification"]:checked'
@@ -162,7 +162,7 @@ const save_image = (event) => {
 };
 
 const check_username = async () => {
-  const request = new Request(`/checkusername?username=${username.value}`);
+  const request = new Request(`/checkusername?username=${username.value.trim()}`);
   let response = await fetch(request);
   let message = await response.text();
   if (message == "username_exists") {
@@ -179,7 +179,7 @@ const check_username = async () => {
 };
 
 const check_email = async () => {
-  const request = new Request(`/checkemail?email=${email.value}`);
+  const request = new Request(`/checkemail?email=${email.value.trim()}`);
   let response = await fetch(request);
   let message = await response.text();
   if (message == "emailtaken") {

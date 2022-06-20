@@ -140,9 +140,10 @@ const commentPost = (post) => {
   }
   post.setAttribute('disabled', '');
   const post_id = post.getAttribute("data-id");
-  const comment = post.previousElementSibling.value;
+  const comment = post.previousElementSibling.value.trim();
   if (comment.length < 1 || comment.length > 4096) {
-    alert("Description must be between 1 and 4096 characters long.")
+    alert("Description must be between 1 and 4096 characters long.");
+    post.removeAttribute("disabled");
     return;
   }
   let formData = new FormData();

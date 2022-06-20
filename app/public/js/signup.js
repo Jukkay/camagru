@@ -84,10 +84,10 @@ form.addEventListener("submit", async (e) => {
   const emailcheck = await check_email();
   if (emailcheck == false) return;
   const formData = new FormData();
-  formData.append("name", name.value);
-  formData.append("username", username.value);
+  formData.append("name", name.value.trim());
+  formData.append("username", username.value.trim());
   formData.append("password", password.value);
-  formData.append("email", email.value);
+  formData.append("email", email.value.trim());
   formData.append("tc", tc.value);
   request = new Request("/process_signup", {
     method: "POST",
