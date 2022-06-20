@@ -119,19 +119,6 @@ const showComments = (post) => {
     });
 };
 
-const refreshComments = (post) => {
-  const post_id = post.getAttribute("data-id");
-  const comment_block = document.getElementById(`comment-block${post_id}`);
-  fetch(`/getcomments?post_id=${post_id}`)
-    .then((response) => {
-      return response.text();
-    })
-    .then((text) => {
-      comment_block.innerHTML = "";
-      comment_block.innerHTML = text;
-    });
-};
-
 const commentPost = (post) => {
   if (user_id == 0) {
     alert("Please, login first.");
@@ -155,11 +142,14 @@ const commentPost = (post) => {
     body: formData,
   });
   fetch(request)
-    .then(() => {
-      post.previousElementSibling.value = "";
+    .then((response) => response.text())
+    .then((text) => {
+    const comment_block = document.getElementById(`comment-block${post_id}`);
+    comment_block.innerHTML = "";
+    comment_block.innerHTML = text;
     })
     .then(() => {
-      refreshComments(post);
+    post.previousElementSibling.value = "";
     })
     .then(() => {
       post.removeAttribute("disabled");

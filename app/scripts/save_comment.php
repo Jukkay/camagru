@@ -24,6 +24,18 @@ try {
 	$statement = $pdo->prepare("UPDATE posts SET comments = (SELECT COUNT(*) FROM comments WHERE post_id = ?) WHERE post_id = ?;");
 	$statement->execute([$post_id, $post_id]);
 	include 'comment_email_notification.php';
+	$statement = $pdo->prepare("SELECT * FROM comments INNER JOIN users ON users.user_id = comments.user_id WHERE post_id = ? ORDER BY comment_date;");
+	$statement->execute([$post_id]);
+	$comments = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+	if (!$comments) {
+		return;
+	}
+
+	foreach ($comments as $comment) {
+		include "../components/comment_line.php";
+	}
 } catch (Exception $e) {
 	echo 'Error: ' . $e->getMessage();
 }
+

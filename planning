@@ -98,7 +98,7 @@ TO-DO
 	V Feedback for saving settings
 	V Send to confirmation page from signup
 	V Send to confirmation page from password reset
-	Trim all user information inputs
+	V Trim all user information inputs
 	Return updated comment field after saving comment
 	Hide old saved notifications on submit in control panel
 
