@@ -86,8 +86,8 @@ TO-DO
 		V Saving new post doesn't work on Firefox
 		V Empty comments are allowed
 		V Comment lines don't wrap
-		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
 		V Comment button stays disabled after invalid length alert
+		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
 
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>
@@ -99,8 +99,8 @@ TO-DO
 	V Send to confirmation page from signup
 	V Send to confirmation page from password reset
 	V Trim all user information inputs
-	Return updated comment field after saving comment
-	Hide old saved notifications on submit in control panel
+	V Return updated comment field after saving comment
+	V Hide old saved notifications on submit in control panel
 
 Notes
 

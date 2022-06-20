@@ -449,19 +449,19 @@ overlaywrapper.addEventListener("pointermove", (event) => {
     return;
   rightEdge =
     event.clientX -
-    overlaywrapper.offsetParent.offsetLeft -
+    overlaywrapper.getBoundingClientRect().left -
     boundX +
     pointer.offsetWidth;
   bottomEdge =
-    event.clientY - overlaywrapper.offsetTop - boundY + pointer.offsetHeight;
+    event.clientY - overlaywrapper.getBoundingClientRect().top - boundY + pointer.offsetHeight;
   if (
     rightEdge > overlaywrapper.offsetWidth ||
     bottomEdge > overlaywrapper.offsetHeight
   )
     return;
   pointerPositionLeft =
-    event.clientX - overlaywrapper.offsetParent.offsetLeft - boundX;
-  pointerPositionTop = event.clientY - overlaywrapper.offsetTop - boundY;
+    event.clientX - overlaywrapper.getBoundingClientRect().left - boundX;
+  pointerPositionTop = event.clientY - overlaywrapper.getBoundingClientRect().top - boundY;
   pointer.style.left =
     pointerPositionLeft < 0 ? `0px` : `${pointerPositionLeft}px`;
   pointer.style.top =
