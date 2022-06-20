@@ -50,7 +50,6 @@ const like = async (target) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
-    throw new Error("Please, login first.");
   }
   const post_id = target.getAttribute("data-id");
   const like_icon = target;
@@ -98,7 +97,6 @@ const goToComment = (post) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
-    throw new Error("Please, login first.");
   }
   const post_id = post.getAttribute("data-id");
   post = post.parentNode;
