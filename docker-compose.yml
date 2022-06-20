@@ -28,11 +28,15 @@ services:
         image: 'nginx:alpine'
         container_name: 'camagru_web'
         working_dir: /app
+        secrets:
+            - site.crt
+            - site.key
         volumes:
             - './app:/app'
             - './phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
         ports:
             - '80:80'
+            - '443:443'
         restart: always
 
     php-fpm:
@@ -67,6 +71,8 @@ secrets:
         file: ./secrets/mysql_root_password.secret
     site.crt:
         file: ./secrets/MyCertificate.crt
+    site.key:
+        file: ./secrets/MyKey.key
 volumes:
     mariadb-data:
         name: camagru-data
