@@ -88,6 +88,7 @@ TO-DO
 		V Comment lines don't wrap
 		V Comment button stays disabled after invalid length alert
 		V Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
+		Profile links don't work
 
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>

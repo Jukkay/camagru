@@ -28,7 +28,11 @@ const getPosts = () => {
       pageNumber++;
       if (pageNumber > 1) return;
       userimages.addEventListener("click", (event) => {
-        event.preventDefault();
+        if (event.target.classList.contains("comment-button")) {
+          event.preventDefault();
+          const post = event.target;
+          commentPost(post);
+        }
         if (event.target.classList.contains("like-icon")) {
           like(event.target);
         }
@@ -38,10 +42,6 @@ const getPosts = () => {
         if (event.target.classList.contains("comment-icon")) {
           const post = event.target;
           goToComment(post);
-        }
-        if (event.target.classList.contains("comment-button")) {
-          const post = event.target;
-          commentPost(post);
         }
         if (event.target.classList.contains("show-comments")) {
           const post = event.target;

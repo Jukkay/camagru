@@ -2,10 +2,10 @@
 
 if (isset($_GET['user']))
 	$username = $_GET['user'];
-if (!isset($_GET['user']) && isset($_SESSION['username']))
+else if (!isset($_GET['user']) && isset($_SESSION['username']))
 	$username = $_SESSION['username'];
 else
-	return;
+	$username = '';
 ?>
 <script>
 	let username = '<?php echo $username; ?>'
