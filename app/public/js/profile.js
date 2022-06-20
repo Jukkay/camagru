@@ -28,6 +28,7 @@ const getPosts = () => {
       pageNumber++;
       if (pageNumber > 1) return;
       userimages.addEventListener("click", (event) => {
+        event.preventDefault();
         if (event.target.classList.contains("like-icon")) {
           like(event.target);
         }
@@ -51,6 +52,9 @@ const getPosts = () => {
           deletePost(post);
         }
       });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
 };
 
@@ -127,27 +131,20 @@ const showComments = (post) => {
     });
 };
 
-const refreshComments = (post) => {
-  const post_id = post.getAttribute("data-id");
-  const comment_block = document.getElementById(`comment-block${post_id}`);
-  fetch(`/getcomments?post_id=${post_id}`)
-    .then((response) => {
-      return response.text();
-    })
-    .then((text) => {
-      comment_block.innerHTML = "";
-      comment_block.innerHTML = text;
-    });
-};
-
 const commentPost = (post) => {
   if (user_id == 0) {
     alert("Please, login first.");
     location.href = "/";
     return;
   }
+  post.setAttribute('disabled', '');
   const post_id = post.getAttribute("data-id");
-  const comment = post.previousElementSibling.value;
+  const comment = post.previousElementSibling.value.trim();
+  if (comment.length < 1 || comment.length > 4096) {
+    alert("Description must be between 1 and 4096 characters long.");
+    post.removeAttribute("disabled");
+    return;
+  }
   let formData = new FormData();
   formData.append("post_id", post_id);
   formData.append("user_id", user_id);
@@ -157,11 +154,17 @@ const commentPost = (post) => {
     body: formData,
   });
   fetch(request)
-    .then(() => {
-      post.previousElementSibling.value = "";
+    .then((response) => response.text())
+    .then((text) => {
+    const comment_block = document.getElementById(`comment-block${post_id}`);
+    comment_block.innerHTML = "";
+    comment_block.innerHTML = text;
     })
     .then(() => {
-      refreshComments(post);
+    post.previousElementSibling.value = "";
+    })
+    .then(() => {
+      post.removeAttribute("disabled");
     })
     .catch((error) => {
       console.log(error);

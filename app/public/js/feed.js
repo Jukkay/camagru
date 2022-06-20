@@ -16,6 +16,7 @@ const getPosts = async () => {
       pageNumber++;
       if (pageNumber > 1) return;
       feed.addEventListener("click", (event) => {
+        event.preventDefault();
         if (event.target.classList.contains("like-icon")) {
           like(event.target);
         }
