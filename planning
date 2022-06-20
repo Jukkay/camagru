@@ -87,6 +87,7 @@ TO-DO
 		V Empty comments are allowed
 		V Comment lines don't wrap
 		Clicking stickers on overlay doesn't center correctly. Gets worse is scrolled down.
+		V Comment button stays disabled after invalid length alert
 
 	V Throttle mouse and scroll events? https://www.youtube.com/watch?v=cjIswDCKgu0
 	V Refactor function declarations to =>

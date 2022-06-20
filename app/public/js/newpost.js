@@ -69,7 +69,7 @@ const submitPost = async () => {
   var formData = new FormData();
   formData.append("user_id", user_id);
   formData.append("image", image);
-  formData.append("description", description.value);
+  formData.append("description", description.value.trim());
   request = new Request("/savepost", {
     method: "POST",
     body: formData,

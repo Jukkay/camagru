@@ -11,7 +11,7 @@ const notvalidated = document.getElementById("notvalidated");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const formData = new FormData();
-  formData.append("username", username.value);
+  formData.append("username", username.value.trim());
   formData.append("password", password.value);
   const request = new Request("/process_login", {
     method: "POST",
