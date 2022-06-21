@@ -139,6 +139,7 @@ const previewUpload = (baseImg) => {
     video.classList.add('is-hidden')
     preview.setAttribute('src', imageData)
     post.classList.remove('is-hidden')
+    opacity.classList.remove('is-hidden')
     if (!notification_closed) notification.classList.remove('is-hidden')
 }
 
@@ -160,6 +161,7 @@ const editImage = (base) => {
     post.classList.remove('is-hidden')
     save.removeAttribute('disabled')
     close.classList.remove('is-hidden')
+    opacity.classList.remove('is-hidden')
     help2.classList.add('is-hidden')
     if (!notification_closed) notification.classList.remove('is-hidden')
 }
@@ -339,6 +341,7 @@ start.addEventListener('click', () => {
             close.classList.remove('is-hidden')
             snapshot.classList.remove('is-hidden')
             save.classList.remove('is-hidden')
+            opacity.classList.remove('is-hidden')
             if (!notification_closed) notification.classList.remove('is-hidden')
         })
         .catch(function (error) {
