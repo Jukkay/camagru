@@ -94,7 +94,7 @@
 					<span>Help</span>
 				</button>
 			</div>
-			<div class="block has-text-centered is-hidden" id="opacity">
+			<div class="block has-text-centered is-hidden" id="opacityblock">
 				<p>Sticker opacity:</p>
 				<input type="range" min="1" max="100" value="100" class="slider" id="opacity">
 			</div>
