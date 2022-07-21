@@ -12,6 +12,7 @@ https://jukkay.dev/
 - Vanilla JavaScript
 - HTML
 - CSS
+- Bulma CSS
 - MariaDB(MySQL)
 - Fetch API
 - Docker
