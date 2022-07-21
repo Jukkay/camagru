@@ -21,4 +21,4 @@ https://jukkay.dev/
 
 ## Disclaimer
 
-Camagru is one of the projects at 42 school's web development branch. That means the idea isn't mine, but as a solo project the work was done 100% by myself. 
+Camagru is one of the projects at 42 school's web development branch, so the idea isn't mine. But it was a solo project, so 100% of the work was done by me. If you're interested you can find the project assignment here.
