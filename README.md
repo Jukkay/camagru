@@ -5,7 +5,7 @@ Camagru is an instagram-like web app that has webcam integration and basic image
 
 The feed features infinite pagination and the posts have like and comment capabilities. User settings can be modified in Control panel.
 
-### Technologies
+## Technologies
 - PHP
 - Vanilla JavaScript
 - HTML
