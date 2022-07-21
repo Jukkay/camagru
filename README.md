@@ -18,3 +18,7 @@ https://jukkay.dev/
 - Docker
 - NGINX
 - Linux
+
+## Disclaimer
+
+Camagru is one of the projects at 42 school's web development branch. That means the idea isn't mine, but as a solo project the work was done 100% by myself. 
