@@ -21,4 +21,10 @@ https://jukkay.dev/
 
 ## Disclaimer
 
-Camagru is one of the projects at 42 school's web development branch, so the idea isn't mine. But it was a solo project, so 100% of the work was done by me. If you're interested you can find the project assignment [here](./camagru.en.pdf):
+Camagru is one of the projects at 42 school's web development branch, so the idea isn't mine. But it was a solo project, so 100% of the work was done by me. If you're interested you can find the project assignment [here](./camagru.en.pdf)
+
+## Usage
+
+You have to options:
+1. Just check out the deployed version at https://jukkay.dev/
+2. Or use the provided docker-compose file to whip up the containers. 
