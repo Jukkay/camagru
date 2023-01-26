@@ -5,7 +5,7 @@ Camagru is an instagram-like web app that has webcam integration and basic image
 
 The app has been containerized with Docker and deployed on a basic Linux/NGINX server with traffic routed through Cloudflare. The app is available for testing at (most functionality requires registration with email confirmation):
 
-https://jukkay.dev/
+https://camagru.jukkay.dev/
 
 ## Technologies
 - PHP
@@ -27,5 +27,5 @@ Camagru is one of the projects at 42 school's web development branch, so the ide
 
 You have two options:
 
-1. Just check out the deployed version at https://jukkay.dev/
+1. Just check out the deployed version at https://camagru.jukkay.dev/
 2. Or clone the repository and use the docker-compose file to whip up the containers. 
